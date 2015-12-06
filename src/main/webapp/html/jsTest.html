@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<title>js练习</title>
+		<style type="text/css">
+			div{width: 200px;height:200px;background: blue;position: absolute;left:500px;top:200px;z-index: -1}
+		
+		</style>
+	</head>
+	<body>
+		<form id="frm1" name="frm1">
+			<img/>
+			<img/>
+			<a href=""></a>
+			<a href=""></a>
+			<div></div>
+			<span id="sp"></span>
+		</form>
+		<form id="frm2" name="frm2"></form>
+	</body>
+	<script type="text/javascript">
+		var forms = document.forms;
+	//	alert(forms.length);
+		
+		var imgs = document.images;
+	//	alert(imgs.length);
+		
+		var links = document.links;
+		//alert(links.length);
+		
+		
+		//alert(location.port);
+		//alert(location.protocol);
+		
+		//alert(location.host);
+		//alert(location.href);
+		
+		//alert(window.location.href);
+		//alert(location.search);
+		
+		
+	//	setTimeout(function(){location.replace("http://www.baidu.com")},2000);
+		
+	//	location.reload(false);
+		
+		document.write(navigator.userAgent+"<br/>");
+		document.write(navigator.platform+"<br/>");
+		
+		
+		//window.moveTo(0,0);
+		//window.resizeTo(screen.availWidth,screen.availHeight);
+		
+		if(document.all){
+			alert(1);
+		}
+		//获取当前鼠标的位置
+		function handlerMM(e){
+			var x = document.body.scrollLeft+e.clientX;
+			var y = document.body.scrollTop+e.clientY;
+			var sp = document.getElementById("sp");
+			sp.innerHTML = "x="+x+"   y=="+y;
+			
+		}
+		document.onmousemove = handlerMM(event);
+	</script>
+</html>

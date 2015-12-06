@@ -1,0 +1,194 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<style>
+			*{margin:0;padding:0;}
+			#container{margin:0 auto;width:900px;}
+			#container table{margin:0 auto;width:100%;border-collapse:0;border-spacing:0;text-align: center;}
+			.input{
+				transition:all 0.30s ease-in-out;
+				-webkit-transition: all 0.30s ease-in-out;
+				-moz-transition: all 0.30s ease-in-out;
+				border:#35a5e5 1px solid;
+				border-radius:3px;
+				outline:none;
+				width:60%;
+			}
+			.input:focus{
+				box-shadow:0 0 5px rgba(81, 203, 238, 1);
+				-webkit-box-shadow:0 0 5px rgba(81, 203, 238, 1);
+				-moz-box-shadow:0 0 5px rgba(81, 203, 238, 1);
+			}
+			.button {
+				border-radius: 0.5em;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+				cursor: pointer;
+				display: inline-block;
+				margin: 0 2px;
+				outline: medium none;
+				padding: 0.5em 2em 0.55em;
+				text-align: center;
+				text-decoration: none;
+				text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+				vertical-align: baseline;
+				float:right;
+			}
+			.green {
+				background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top , #7db72f, #4e7d0e) repeat scroll 0 0;
+				color: #e8f0de;
+			}
+			.min_font {font: 11px/100% Arial,Helvetica,sans-serif;}
+			.max_font {font: 14px/100% Arial,Helvetica,sans-serif;}
+		</style>
+		<script type="text/javascript" src="file:///E:/util/jquery/jquery-2.1.1.min.js"></script>
+	</head>
+	<body>
+				<div id="container">
+					<div>
+						<button class="button green max_font">添加</button>
+					</div>
+					<table id="zy">
+						<colgroup  style="width:10%"></colgroup>
+						<colgroup  style="width:20%"></colgroup>
+						<colgroup  style="width:15%"></colgroup>
+						<colgroup  style="width:15%"></colgroup>
+						<colgroup  style="width:15%"></colgroup>
+						<colgroup  style="width:15%"></colgroup>
+						<colgroup  style="width:10%"></colgroup>
+						<thead>
+								<tr>
+									<th>序号</th>
+									<th>人员资质</th>
+									<th>人数</th>
+									<th>工作量</th>
+									<th>合同单价</th>
+									<th>小计</th>
+									<th>操作</th>
+								</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
+						<tfoot>
+							 <tr>
+								<td>合计</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+	</body>
+	
+	<script>
+			$(function (){
+				$(".button").click(function (){
+					addButton();
+				});
+			});
+			
+			//添加
+			function addButton(){
+				var index = $("#zy tbody tr").length + 1;
+				var tmp = '<tr>';
+					   tmp += '<td>' + index + '</td>';
+					   tmp += '<td><select><option>---请选择---</option></select></td>';
+					   tmp += '<td><input type="text" name="a" class="input"  onblur="validateZS(this);count(this);" /></td>';		
+					   tmp += '<td><input type="text" name="b"  class="input" onblur="validateZS(this);count(this);"></td>';
+					   tmp += '<td><input type="text"  class="input" onblur="validateXS(this);countSubTotal(this);"/></td>';
+					   tmp += '<td></td>';
+					   tmp += '<td><button  class=\"button green min_font\" onclick=\"delTr(this);\" >删除</button></td>';
+					   tmp += '</tr>';
+			  	$("#zy tbody").append(tmp);	   
+			}
+			
+			//删除
+			function delTr(obj){
+				$(obj).parent().parent().remove();
+				$.each($("#zy tbody tr"),function(i,o){
+					$(o).children(':first').text(i + 1);
+				});
+			}
+			
+			//计算
+			function count(obj){
+				var num = $(obj).parent().parent().find('td').index($(obj).parent());//获取当前td是第几个
+				var tmp = parseInt(0); //数字相加如果加个null underfinde 就会NAN
+				$.each($("#zy tbody tr td:nth-child("+(num+1)+")"),function(i,o){//计算
+					var n1 = parseInt($(o).children().val());
+					if(!isNaN(n1)){
+						tmp += parseInt(n1);
+					}
+				});
+				$("#zy tfoot tr td:nth-child("+(num+1)+")").text(tmp);
+				
+				if((num+1) == 3){
+					countSubTotal(obj);
+				}
+			}
+			//计算小计
+			function countSubTotal(obj){
+					var thisTr =  $(obj).parent().parent();
+					var n1 = thisTr.find('td:nth-child(3)').children().val();
+					var n2 = thisTr.find('td:nth-child(5)').children().val(); 
+					n1 = parseInt(n1);
+					n2 = parseFloat(n2);
+					if(isNaN(n1)){
+						n1 = 0;
+					}
+					if(isNaN(n2)){
+						n2 = 0;
+					}
+					var res = accMul(n1,n2);//计算
+					thisTr.find('td:nth-child(6)').text(res);
+					
+					countTotal();
+			}
+			
+			//计算总计
+			function  countTotal(){
+				var tmp = 0;
+				$.each($("#zy tbody tr td:nth-child(6)"),function(i,o){//计算
+						var num = parseFloat($(o).text());
+						if(!isNaN(num)){
+							tmp += num;
+						}
+				});
+				$("#zy tfoot tr td:nth-child(6)").text(tmp);
+			}
+			
+			//js精确乘法
+			function accMul(arg1,arg2){
+				var m=0,s1=arg1.toString(),s2=arg2.toString();
+				try{m+=s1.split(".")[1].length}catch(e){}
+				try{m+=s2.split(".")[1].length}catch(e){}
+				return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
+			}
+			//验证小数或整数
+			function validateXS(obj){
+					var o = $(obj).val();
+					var reg = /^\d+(\.\d+)?$/;
+					if(reg.test(o)){
+						 return true;	
+					}
+					alert('请输入小数或整数');
+					$(obj).val('');
+					return false;
+			}
+			//验证整数
+			function validateZS(obj){
+					var o = $(obj).val();
+					var reg =  /^\d+$/;
+					if(reg.test(o)){
+						 return true;	
+					}
+					alert('请输入整数');
+					$(obj).val('');
+					return false;
+			}
+	</script>
+</html>

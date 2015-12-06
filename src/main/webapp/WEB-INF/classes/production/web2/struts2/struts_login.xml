@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- struts2开发者模式 -->
+	<!-- 动态方法调用 -->
+	<package name="login" namespace="/" extends="struts-default"  >
+		<!-- 验证码 -->
+		<action name="yzm1" class="LoginAction" method="yzm1"  >
+			<!-- <result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="outputName">out</param>
+				<param name="bufferSize">2048</param>
+			</result> -->
+		</action>
+	
+	</package>
+</struts>    
