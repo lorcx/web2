@@ -168,7 +168,6 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.2.2</version>
         </dependency>
-
     </dependencies>
     <build>
         <finalName>web2</finalName>

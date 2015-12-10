@@ -93,19 +93,20 @@ public class TreeAction extends BaseAction {
 	public String editBaseData(){
 		String level = request.getParameter("level");
 		String tid = request.getParameter("tid");
-		try {
-			location = treeService.getEditBase(tid);
+	//	try {
+			//location = treeService.getEditBase(tid);
 
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			log.error("获取表单失败",e.getCause());
-		}
+	//	} catch (ServiceException e) {
+	//		e.printStackTrace();
+	//		log.error("获取表单失败",e.getCause());
+	//	}
 		request.setAttribute("level", level);
 		request.setAttribute("tid", tid);
-		request.setAttribute("locLevel",location.getLocLevel().toString());
+		//request.setAttribute("locLevel",location.getLocLevel().toString());
 		return "edit";
 	}
 
+	@SuppressWarnings("all")
 	public String addBaseDate() throws Exception{
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter pw =  response.getWriter();
