@@ -3,10 +3,10 @@
 	<head>
 		<style>
 			*{margin:0;padding:0;}
-			/*html body{overflow: hidden;}*/
-			#container{margin:0 auto;width:900px;}
+			html,body{width:100%;height: 100%;overflow: hidden;}
+			#container{margin:0 auto;width: 900px;}
 			#container table{margin:0 auto;width:100%;border-collapse:collapse;border-spacing:0;text-align: center;}
-			#buttons{width: 100%;clear: both;}
+			#buttons{position: absolute;float: none;}
 			/*按钮样式begin*/
 			.input{
 				transition:all 0.30s ease-in-out;
@@ -34,7 +34,6 @@
 				text-decoration: none;
 				text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 				vertical-align: baseline;
-				float:right;
 			}
 			.green {
 				background: rgba(0, 0, 0, 0) -moz-linear-gradient(to top , #7db72f, #4e7d0e) repeat scroll 0 0;
@@ -43,9 +42,10 @@
 			.max_font {font: 14px/100% Arial,Helvetica,sans-serif;}
 			.min_font {font: 12px/100% Arial,Helvetica,sans-serif;}
 			/*按钮样式end*/
+
 			/*顶部栏begin*/
-			#topBar{position: absolute;}
-			#topBar ul {list-style: none;width: 100%; }
+			#topBar{position: absolute;z-index: 2;overflow: hidden;width: 900px}
+			#topBar ul {list-style: none;}
 			#topBar ul li {
 				float: left;
 				color: #fff;
@@ -62,44 +62,46 @@
 				background: -moz-linear-gradient(top,#0099CC,#000055);
 			}
 			/*顶部栏end*/
+			#list{position:absolute;overflow:auto;z-index:1;width:900px;height: 100%;top: 30px;}
 		</style>
 	</head>
 	<body>
 			<div id="container">
 				<div id="topBar">
 					<ul>
-						<li onclick="jump('i1');">任务单1</li>
-						<li onclick="jump('i2');">任务单2</li>
-						<li onclick="jump('i3');">任务单3</li>
+						<li onclick="jump('i1');">任务单a1</li>
+						<li onclick="jump('i2');">任务单b</li>
+						<li onclick="jump('i3');">任务单c</li>
 					</ul>
 				</div>
 				<div id="buttons">
 					<button class="button green max_font">添加</button>
 				</div>
-				<table id="zy">
-					<colgroup style="width:10%"></colgroup>
-					<colgroup style="width:20%"></colgroup>
-					<colgroup style="width:15%"></colgroup>
-					<colgroup style="width:15%"></colgroup>
-					<colgroup style="width:15%"></colgroup>
-					<colgroup style="width:15%"></colgroup>
-					<colgroup style="width:10%"></colgroup>
-					<thead>
-							<tr>
-								<th>序号</th>
-								<th>人员资质</th>
-								<th>人数</th>
-								<th>工作量</th>
-								<th>合同单价</th>
-								<th>小计</th>
-								<th>操作</th>
-							</tr>
-					</thead>
-					<tbody>
+				<div id="list">
+					<table id="zy">
+						<colgroup style="width:10%"></colgroup>
+						<colgroup style="width:20%"></colgroup>
+						<colgroup style="width:15%"></colgroup>
+						<colgroup style="width:15%"></colgroup>
+						<colgroup style="width:15%"></colgroup>
+						<colgroup style="width:15%"></colgroup>
+						<colgroup style="width:10%"></colgroup>
+						<thead>
+						<tr>
+							<th>序号</th>
+							<th>人员资质</th>
+							<th>人数</th>
+							<th>工作量</th>
+							<th>合同单价</th>
+							<th>小计</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
 
-					</tbody>
-					<tfoot>
-						 <tr>
+						</tbody>
+						<tfoot>
+						<tr>
 							<td>合计</td>
 							<td></td>
 							<td></td>
@@ -108,8 +110,9 @@
 							<td></td>
 							<td></td>
 						</tr>
-					</tfoot>
-				</table>
+						</tfoot>
+					</table>
+				</div>
 			</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
@@ -119,11 +122,11 @@
 					addButton();
 				});
 
-				$(window).scroll(function (){
-					var top = $(window).scrollTop();
-					var left = $(window).scrollLeft() + 168;
-					$('#topBar').css({left : left + 'px',top : top + 'px'});
-				});
+//				$(window).scroll(function (){
+//					var top = $(window).scrollTop();
+//					var left = $(window).scrollLeft() + 168;
+//					$('#topBar').css({left : left + 'px',top : top + 'px'});
+//				});
 
 				//test数据
 				var tmp = '';
