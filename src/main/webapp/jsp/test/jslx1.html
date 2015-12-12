@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>js练习</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    //js2中表达if then else的形式
+
+    //1
+    var x;
+    var y = -1;
+    if(y >= 0){
+        x = y;
+    }else{
+        x = -y;
+    }
+
+    //2
+    var x = y >= 0 ? y : -y;
+
+    //你可以将后者作为函数参数（但前者不行）：
+    myFunction(y >= 0 ? y : -y);
+
+    function myFunction(y){
+//        alert(y);
+    }
+    //最后，每当JavaScript期待一个语句，你也可以用一个表达式代替。例如：
+    //foo(bar(7, 1));
+
+    //表达式作为语句的结尾，后面是分号
+    var f = function (){ };
+
+    //点操作符也可以用来给属性赋值
+    var obj = {};//空对象
+    obj.name = 'abc';
+    console.log(obj);
+    console.log(obj.name);
+
+    console.log('hello'.toUpperCase());
+   // 原始值包括：boolean，number，string，null和undefined
+   // 所有其他的值都是对象。实际上对象被定义为——所有不为原始值的值。
+
+    var o1 = {};//一个空对象
+    var o2 = {};//另一个空对象
+    console.log(o1 == o1);
+    console.log(o1 == o2);
+
+    //相反，所有原始值只要编码值相同就被认为是相同的：
+    var p1 = 123;
+    var p2 = 123;
+    console.log(p1 == p2);
+
+    /*
+
+     布尔类型：true，false
+     数字类型：1736，1.351
+     字符串类型: ‘abc’，”abc”
+     两个“无值（non-values）”：undefined，null
+
+     值做比较时：“内容”做比较。
+     > 3 === 3
+     true
+     > 'abc' === 'abc'
+     true
+
+     无法更改：值的属性无法更改，无法添加和移除属性。
+     > var str = 'abc';
+     > str.foo = 3; // try to create property `foo` ⇒ no effect
+     > str.foo  // unknown property
+     undefined
+
+
+     */
+
+    //对象 所有非原始值（non-primitive）的值都是对象。
+    //1.简单对象
+    var oo1 = {firstName : 'jane',lastName : 'doe'};
+    console.log(oo1);
+    //2.数组
+    var a1 = ['a','b','c'];
+    console.log(a1);
+    //3.正则表达式对象（类型是 RegExp）能通过正则表达式字面量创建。
+    var r1 = /^a+b+$/;
+    console.log(r1);
+
+    console.log({} == {});
+    var v1 = {};
+    var v2 = v1;
+    console.log(v1 == v2);
+    //所有的数据结构（如数组）都是对象，但并不是所有的对象都是数据结构。例如：正则表达式是对象，但不是数据结构。
+
+    //undefined的意思是“没有值（no value）”。未初始化的变量是undefined：
+    var f1 = {};
+    console.log(f1.oo);
+    //缺省的参数也是undefined：
+    function write(x){return x;}
+    console.log(write());
+    // null的意思是“没有对象（no object）”。它被用来表示对象的无值（参数，链上的对象等）。
+    //在实际中使用的方法是认为undefined 和 null 都是false：
+    //警告：false，0，NaN 和 “” 都被当作false。
+    if (!x) {
+    //...
+    }
+
+    /*
+        ==比的是值
+        ===比的是类型
+     */
+    //包装类型（Wrapper types）
+    //对象类型的实例Foo（包括内建类型，例如Array和其他自定义类型）从对象Foo.prototype上获取方法。你可以通过读取这个方法的方式（不是调用）验证这点：
+    console.log([].push() === Array.prototype.push());
+    console.log([] == []);//array也是对象，对象只跟自己相等，或赋值相等。
+
+    console.log(true.toString() === Boolean.prototype.toString());
+    /*
+     布尔值的包装类型是 Boolean。
+     数字值的包装类型是Number。
+     字符串值的包装类型是String。
+     */
+    //包装类型也有实例（他们的实例是对象），但不常用。相反，包装类型有其他用处：如果你将他们作为函数调用，他们可以将值转换为原始类型。
+    console.log(Number(1));
+    console.log(String(true));
+
+    //通过typeof 和 instanceof 将值分类（Categorizing values via typeof and instanceof）
+    //typeof 主要用于原始值，instanceof 主要用于对象。
+    /*
+     typeof 使用方法如下：
+     typeof «value»
+
+     */
+    console.log(typeof true);
+    console.log(typeof {});
+    console.log(typeof []);
+    console.log(typeof /^\d$/);
+    console.log(typeof Function);
+    console.log(typeof null);
+    console.log(typeof undefined);
+
+    /*
+     操作数 	结果
+     undefined 	        'undefined'
+     null 	            'object'
+     Boolean value 	    'boolean'
+     Number value 	    'number'
+     String value 	    'string'
+     Function 	        'function'
+     All other values 	'object'
+     */
+
+    /*
+        有两个结果和我们上面说的的原始值与对象是矛盾的：
+        1.函数的类型是“function”而不是“object”。鉴于函数（类型为“function”）是对象（类型是对象）的子类型，这不是一个错误。
+        2.null的类型是“object”。这是一个bug，但从没被修复，因为修复后会破坏现有的代码。
+
+     */
+
+    /*
+     instanceof使用方法如下：
+
+     «value» instanceof «Constr»
+
+     */
+
+    function B() {
+
+    }
+    var b1 = new B();//通过构造函数创建对象
+    console.log(b1 instanceof  B);
+    console.log({} instanceof Object);
+    console.log([] instanceof Object);
+
+
+    //
+    console.log(Boolean(0));
+    console.log(Boolean(3));
+    console.log(Boolean(false));
+    console.log(Boolean(''));
+    //JavaScript中的二元逻辑运算符是短路运算——如果第一个操作数可以确定结果，第二个操作数将不被验证（运算）。例如，在下面的代码中，函数foo()永远不会被调用。
+
+//    false && foo();
+//    true  || foo();
+
+
+    /*
+     与：如果第一个操作数是假值，返回第一个。否则返回第二个操作数。(java 只返回true false)
+
+     > NaN && 'abc'
+     NaN
+     > 123 && 'abc'
+     'abc'
+
+     或：如果第一个操作数是真值，返回第一个。否则，返回第二个操作数。
+
+     > 'abc' || 123
+     'abc'
+     > '' || 123
+     123
+
+
+     */
+
+
+    /*
+
+     在JavaScript中检测相等，你可以使用严格相等（===）和严格不等（!==）。
+     或者你也可以使用非严格相等（==）和非严格不等（!=）。经验规则：总是用严格运算符，假装非严格运算符不存在。严格相等更安全。
+
+     */
+
+
+    //JavaScript中的所有数字都是浮点型（虽然大部分的JavaScript引擎内部也使用整数）。
+    console.log(1 === 1.0);
+
+    /*
+     NaN (“不是一个数字 not a number”): 错误值。
+     Infinity：也是最大错误值（溢出）.
+     */
+
+    console.log(3 / 0);
+    console.log(Math.pow(2,1024));
+
+    //Infinity 有时很有用，因为它比任何其他数字都大。同样，-Infinity 比其他任何数字都小。
+
+    /*
+     JavaScript有两个零，+0 和 -0。它（js引擎）通常不让你看到，并简单将两个零都显示为0：
+
+     > +0
+     0
+     > -0
+     0
+
+     */
+    //全局对象Math通过函数提供更多算数运算操作
+
+    //字符串
+    console.log('aaa\nbbb\\');
+
+
+    //可以通过方括号访问单个字符：
+    var s1 = 'abc';
+    console.log(s1[0]);
+    //字符串是不可变的，如果你想改变现有字符串，你需要创建一个新的字符串
+
+    //字符串方法（String methods）
+
+    //slice复制
+    console.log('abc'.slice(1));
+    console.log('abc'.slice(0,1));
+
+    //trim去空格
+    console.log('\naaaaa'.trim());
+    //index
+    console.log('xxxx'.indexOf('x'));
+    console.log('xxxx'.big());
+    console.log('xxxx'.blink());
+    console.log('xxxx'.anchor('name'));//html 锚点
+    console.log('xxxx'.charAt(3));//跟下面效果一样
+    console.log('xxxx'[3]);
+    console.log('abxx'.charCodeAt(1));
+    console.log('abxx'.fixed());
+    console.log('abxx'.fontcolor('blue'));
+    document.write('abxx'.fontcolor('blue'));
+    document.write('abxx'.italics());
+    document.write('abxx'.sup());
+    document.write('@'.sup());
+    document.write('@'.strike());
+    document.write('@'.italics());
+
+
+    //另一种定义add()函数的方法是通过函数表达式
+    var add = function (param1, param2) {
+        return param1 + param2;
+    };
+
+    /*
+     函数声明提升（Function declarations are hoisted）
+
+     函数声明会被提升，他们全被移动到当前作用域开始之处。这允许你在函数声明之前调用它们：
+     */
+
+    function c1 (){
+        b1();
+        function b1(){
+
+        }
+    }
+
+    //虽然变量声明也会被提升，但赋值的过程不会被提升：
+
+    function b2 (){
+       var bb =  function b2(){
+
+        };
+    }
+
+    //特殊变量arguments（The special variable arguments）
+    function f (){
+        return arguments;
+    }
+
+    var x = f('a','b','c');
+//    console.log(x.length);
+
+    //多或太少参数（Too many or too few arguments）
+
+    function f1 (x,y){
+        console.log(x,y);
+        console.log(toArray(arguments));
+    }
+
+//    f1('a','b','c');
+    //给参数设置默认值：  java自带默认值
+    function dd(x,y){
+        var x = x || 0;//0 就是false
+        var y = y || 0;
+        return [x,y];
+    }
+
+    console.log(dd());
+
+    /*
+     强制数量（Enforcing an arity）
+
+     如果你想强制参数的数量，你可以检测arguments.length：
+
+     */
+
+    function t1 (x,y){
+        if(arguments.length != 2){
+            throw new Error("need exactly 2 arguments");
+        }
+    }
+
+//    t1('a');
+
+    /*
+     arguments 不是一个数组，它仅仅是类数组（array-like）：它有一个length属性，
+     并且你可以通过方括号索引方式访问它的元素。然而，你不能移除元素，
+     或在它上面调用任何数组方法。因此，有时你需要将其转换为数组。这就是下面函数的作用。
+
+     */
+
+    function ta(xx){
+        return [].slice().call(xx);//slice复制
+    }
+
+    /*
+     * 异常处理（Exception handling）
+     */
+
+    function throwException(){
+        throw new Error("这是一个异常");
+    }
+    try{
+        throwException();
+    }catch (e){
+        console.log(e);
+    }
+
+    /*
+     严格模式（Strict mode）
+     */
+    /*
+         严格模式开启检测和一些其他措施，使JavaScript变成更整洁的语言。推荐使用严格模式。为了开启严格模式，只需在JavaScript文件或script标签第一行添加如下语句：
+     */
+
+    function functionInStrictMode(){
+        'use strict';
+    }
+
+    /*
+     明确错误（Explicit errors）
+
+     让我们看一个例子，严格模式给我们明确的错误，否则JavaScript总是静默失败：下面的函数 f() 执行一些非法操作，它试图更改所有字符串都有的只读属性——length：
+
+     */
+    function functionInStrictMode1(){
+        'use strict';
+        'aaa'.length = 5;
+    }
+
+//    functionInStrictMode1();
+
+    /*
+     不是方法的函数中的this（this in non-method functions）
+
+     在严格模式下，不作为方法的函数中的this值是undefined：
+     */
+    function f_strict() {
+        'use strict';
+        return this;
+    }
+    console.log(f_strict() === undefined);  // true
+
+    /*
+     在非严格模式下，this的值是被称作全局对象（global object）（在浏览器里是window）：
+     */
+    function xd(){
+        return this;
+    }
+    console.log(xd() === window);
+
+    /*
+     变量作用域和闭包（Variable scoping and closures）
+     */
+
+    /*
+     变量提升（Variables are hoisted）
+
+     变量声明会被提升：声明会被移到函数的顶部，但赋值过程不会。举个例子，在下面的函数中（*）行位置声明了一个变量。
+
+     function foo() {
+     console.log(tmp); // undefined
+     if (false) {
+     var tmp = 3;  // (*)
+     }
+     }
+
+     在内部，上面的函数被执行像下面这样：
+
+     function foo() {
+     var tmp;  // declaration is hoisted
+     console.log(tmp);
+     if (false) {
+     tmp = 3;  // assignment stays put
+     }
+     }
+
+
+     */
+    /*
+     闭包（Closures）
+     闭包是一个函数加上和其作用域链的链接。因此，createIncrementor() 返回的是一个闭包。
+     */
+
+     function pp (s){
+         return function(){
+             return s++;
+         }
+     }
+
+    var aa = pp(5);
+    /*
+        aa = function (){
+            return s++;
+        };
+     */
+    console.log(aa());
+    console.log(aa());
+    console.log(aa());
+
+    /*
+     IIFE :立即执行函数表达式
+     上面你会看到函数表达式被立即执行。**外面的括号用来阻止它被解析成函数声明**；只有函数表达式能被立即调用。函数体产生一个新的作用域并使 tmp 变为局部变量
+     */
+    (function () {  // 块开始
+       // var tmp = 11;  // 非全局变量
+//        alert(1);
+    }());  // 块结束
+
+    /*
+        对上面的分解
+        1.();立刻执行
+        2.aa = function (){}
+        3. (
+             aa()
+          )
+
+     */
+
+    /*
+
+
+    //相当于  (aa();) aa= function (){var tmp = 11;}
+
+    //闭包实现变量共享（Inadvertent sharing via closures）
+
+    /*
+      闭包实现变量共享（Inadvertent sharing via closures）
+      下面是个经典问题，如果你不知道，会让你费尽思量。因此，先浏览下，对问题有个大概的了解。
+      闭包保持和外部变量的连接，有时可能和你想像的行为不一致：
+     */
+    var result = [];
+    for(var i = 0; i <5 ;i++){
+        result.push(function (){return i});
+    }
+    console.log(result[3]());
+    console.log(result[4]());  //()相当于执行  相当于function (){return i}执行这句
+    console.log(result); //output :  [function(), function(), function(), function(), function()]
+                         //在esult[3]() function...才执行 返回i此时 i等于5
+
+    //如果你想捕获当前变量的快照，你可以使用 IIFE：
+
+    for(var i = 0;i < 5;i++){
+        (function (i2){
+            result.push(function (){return i2});
+        }(i));// 复制当前的i
+    }
+    /*
+        分解
+        (aa(i));
+        (aa = function (i2){
+               result.push(function (){return i2});
+              }(i);
+         );
+
+       *************************  ();相当于立刻执行 ******************************************************
+     */
+
+    console.log(result);
+    console.log(result[3]());
+    /*
+        result[3]();分解
+
+        1. resutl[3] = function (){}.....; == aa
+        2. aa();
+        3.  function(){}();
+     */
+
+    /*
+     对象和继承（Objects and inheritance）
+     */
+
+       var jane = {
+           name : 'abc',
+           describe : function (){
+               'use strict';
+               return 'person name :' + this.name;
+           }
+       };
+
+       console.log(jane.describe());
+
+       jane.newProperty = 'abc';//自动创建
+       jane.run = function (){ //创建属性
+           console.log("run");
+       };
+       console.log(jane);
+       jane.run();
+
+    /*
+        in 操作符用来检测一个属性是否存在
+     */
+      console.log('run' in jane);
+      console.log('newProperty' in jane);
+    /*
+     若读取一个不存在的属性，将会得到undefined值。因此上面的两个检查也可以像下面这样：
+     */
+     console.log(jane.newProperty !== undefined);
+     console.log(jane.foo !== undefined);
+
+    /*
+     任意键属性（Arbitrary property keys）
+     属性的键可以是任意字符串。到目前为止，我们看到的对象字面量中的和点操作符后的属性关键字。
+     按这种方法你只能使用标识符。如果你想用其他任意字符串作为键名，你必须在对象字面量里加上引号，并使用方括号获取和设置属性。
+     */
+    var oa = {'hello world' : 3};  //对象
+    oa['hello world'] = 4;         //获取对象中的属性  不是数组
+    console.log(oa['hello world']);
+
+    //方括号允许你动态计算属性关键字：
+
+    var name = 'hello world';
+    console.log(oa[name]);
+    console.log(oa['hello '+'world']);
+
+    /*
+     引用方法（Extracting methods）
+
+     如果你引用一个方法，它将失去和对象的连接。就其本身而言，函数不是方法，其中的this值为undefined（严格模式下）。
+
+     function xx(){}这是函数 var xx = {xx:function (){}} xx为对象的方法
+     */
+    var func = jane.describe();
+//    func();
+
+    /*
+     解决办法是使用函数内置的bind()方法。它创建一个新函数，其this值固定为给定的值。
+     */
+
+    var func1 = jane.describe.bind(jane);
+    func1();
+
+    /*
+     方法内部的函数（Functions inside a method）
+     */
+
+    /*
+     每个函数都有一个特殊变量this。如果你在方法内部嵌入函数是很不方便的，因为你不能从函数中访问方法的this。下面是一个例子，我们调用forEach循环一个数组：
+     */
+
+    var objs = {
+        name : 'hellow',
+        friends : ['a','b','c'],
+        logHiFriends : function (){
+            'use strict';
+            this.friends.forEach(function (friend){
+                console.log(that.name + 'sya hi to ' + friend);
+            });
+        }
+    };
+
+//    objs.logHiFriends();
+
+    /*
+     有两种方法修复这问题。
+
+     #1：将this存储在不同的变量。
+     */
+    var objs1 = {
+        name : 'hellow',
+        friends : ['a','b','c'],
+        logHiFriends : function (){
+            'use strict';
+            var that = this;
+            this.friends.forEach(function (friend){
+                console.log(that.name + 'sya hi to ' + friend);
+            });
+        }
+
+    };
+    objs1.logHiFriends();
+
+    /*
+     #2：forEach的第二个参数允许提供this值。
+     */
+
+    var objs2 = {
+        name : 'hellow',
+        friends : ['a','b','c'],
+        logHiFriends : function (){
+            'use strict';
+            var that = this;
+            this.friends.forEach(function (friend){
+                console.log(that.name + 'sya hi to ' + friend);
+            },this);
+        }
+
+    };
+    objs2.logHiFriends();
+    /*
+     在JavaScript中函数表达式经常被用作函数参数。时刻小心函数表达式中的this。
+     */
+
+    /*
+     构造函数：对象工厂（Constructors: factories for objects）
+     */
+
+    /*
+     目前为止，你可能认为JavaScript的对象仅是键值的映射，通过JavaScript对象字面量可以得出这个观点，
+     看起来很像其他语言中的地图/字典（map/dictionary）。然而，JavaScript对象也支持真正意义上的面向对象特性：
+     继承（inheritance）。本节不会完全讲解JavaScript中继承的工作原理，但会给你以此为开始的简单模式。
+     如果你想得到更多知识，请查阅这篇文章“JavaScript inheritance by example”。
+
+     除了作为“真正”的函数和方法，函数还在JavaScript中扮演第三种角色：
+     如果通过new操作符调用，他们会变为构造函数，对象的工厂。
+     构造函数是对其他语言中的类的粗略模拟。约定俗成，
+     构造函数的第一个字母大写。例如：
+     */
+
+    //构造函数约定俗成首字母大写
+    function Point(x,y){
+        this.x = x;
+        this.y = y;
+    }
+
+    Point.prototype.dist = function (){
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    };
+
+
+    var p = new Point(3,5); //构造函数初始化赋值
+    console.log(p.dist());
+    console.log(p instanceof Point);
+    console.log(typeof p);
+
+    /*
+     数组字面量（Array literals）
+     */
+    var ar = [1,2,3];
+    ar.length = 2; // 可以用来移除元素
+    console.log(ar);
+
+    //in操作符也可以在数组上工作。
+    console.log(5 in ar);
+    console.log(2 in ar);
+    console.log(1 in ar);
+
+    //值得注意的是数组是对象，因此可以有对象属性：
+    ar.foo = 3;
+    console.log(ar.foo);
+
+    //数组方法（Array methods）
+    var ar1 = [1,2,3];
+    ar1.slice(1);//复制
+    ar1.shift();//移除第一个
+    ar1.pop();
+    ar1.unshift();//在第一个前加元素
+    ar1.join('-');//拼接
+    console.log(ar1);
+    /*
+     遍历数组（Iterating over arrays）
+     */
+    //1
+    ['a','b','c'].forEach(function (o,i){
+        console.log(i + ':' + o);
+    });
+
+    //2
+    [1,2,3].map(function(o){console.log(o*o)});
+    //3 for循环  for in..
+
+
+   // 正则表达式（Regular expressions）
+    console.log(/^a+b+$/.test('aab')); // +:1到多 * 0到多 ？ 0-1
+
+    //方法 exec()：匹配和捕获组（Method exec(): match and capture groups）
+
+    console.log(/a(b+)a/.exec('_abbba_aba_')); // /**/没有^$  ,组1 a(b+)a ,组2 b+
+
+    //方法 replace()：搜索并替换（Method replace(): search and replace）
+    console.log('<a> <bbb>'.replace(/<(.*?)>/g,'[$1]'));
+
+
+</script>
+</html>
