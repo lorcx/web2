@@ -1,4 +1,3 @@
-<%@page import="org.apache.log4j.Logger"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/common.jsp" %>
 <!DOCTYPE HTML>
@@ -15,4 +14,8 @@
   	%>
   	<s:property value="#attr.user"/>
   </body>
+  <script type="text/javascript">
+		var t = new Date();
+	    console.log(t);
+  </script>
 </html>
