@@ -1,6 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/jsp/common/common.jsp" %>
+<%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE HTML>
 <html lang="en" class="no-js">
+	 <title>登陆</title>
   	 <head>
   			<meta charset="utf-8">
   			<title>登录界面</title>
@@ -14,21 +17,22 @@
 			<link rel="stylesheet" href="css/login/bootstrap.min.css" type="text/css"/>
  	 </head>
  	 <body>
-  			<div class="page-container">
+		<div class="page-container">
 			<div class="main_box">
 				<div class="login_box">
 					<div class="login_logo">
-						<img src="img/login/logo.png" >
+						<!--<img src="img/login/logo.png" >-->
+						<h1>欢迎登陆</h1>
 					</div>
 					<div class="login_form">
-						<form  action="" id="login_form" method="post">
+						<form action="" id="login_form" method="post">
 							<div class="form-group">
 								<label for="j_username" class="t">用户名：</label>
-								<input id="j_username" value="" name="username" type="text" class="form-control x319 in"  autocomplete="off">
+								<input id="j_username" name="username" type="text" class="form-control x319 in"  autocomplete="off">
 							</div>
 							<div class="form-group">
-								<label for="j_password" class="t">密　码：</label> 
-								<input id="j_password" value="" name="password" type="password" class="password form-control x319 in">
+								<label for="j_password" class="t">密　码：</label>
+								<input id="j_password" name="password" type="password" class="password form-control x319 in">
 							</div>
 							<div class="form-group">
 								<label for="j_captcha" class="t">验证码：</label>
@@ -38,27 +42,24 @@
 							<div class="form-group">
 								<label class="t"></label>
 								<label for="j_remember" class="m">
-								<input id="j_remember" type="checkbox" value="true">&nbsp;记住登陆账号!</label>
+									<input id="j_remember" type="checkbox" value="true">&nbsp;记住登陆账号!</label>
 							</div>
 							<div class="form-group space">
 								<label class="t"></label>　　　
-								<button type="button"  id="submit_btn" class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp; </button>
+								<button type="button" id="submit_btn" class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp;</button>
 								<input type="reset" value="&nbsp;重&nbsp;置&nbsp;" class="btn btn-default btn-lg">
 							</div>
 						</form>
 					</div>
 				</div>
-				<div class="bottom">Copyright &copy; 2014 - 2015 <a href="#">系统登陆</a></div>
+				<div class="bottom">Copyright &copy; 2015 - 2016 <a href="#">系统登陆</a></div>
 			</div>
 		</div>
-  		<div style="text-align:center;"></div>
   	 </body>
   	 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	 <!--[if lt IE 9]>
 		<script type="text/javascript" src="js/login/html5.js"></script>
 	 <![endif]-->
-	 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
-	 <script type="text/javascript" src="js/login/jquery.form.js"></script>
 	 <script type="text/javascript" src="js/login/tooltips.js"></script>
 	 <script type="text/javascript" src="js/login/login.js"></script>
   	 <script type="text/javascript" src="js/login/supersized.3.2.7.min.js"></script>
@@ -69,7 +70,7 @@
 		 	function refresh(obj){
 		 		//点击后替换路径
 		 		//Math.random() 是为了防止缓存
-		 		obj.src="yzm1?"+Math.random();
+		 		obj.src = "yzm1?" + Math.random();
 		 	}
 	 </script>
  </html>

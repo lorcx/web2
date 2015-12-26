@@ -9,6 +9,7 @@
 .main_box .setting a {color: #FF6600;}
 .main_box .setting a:hover {color: #555;}
 .login_logo {margin-bottom: 20px; height: 45px; text-align: center;}
+.login_logo > h1{font-weight:400;color: #8f26e6;font-family: "微软雅黑";}
 .login_logo img {height: 45px;}
 .login_msg {text-align: center; font-size: 16px;}
 .login_form {padding-top: 20px; font-size: 16px;}
