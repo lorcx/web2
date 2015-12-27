@@ -7,6 +7,14 @@
 
 	<bean id="LoginAction" class="module.action.LoginAction">
 		<property name="verification" ref="verification"/>
+		<property name="loginService" ref="loginService"/>
 	</bean>
 
+	<bean id="loginService" class="module.service.login.LoginServiceImpl">
+		<property name="loginDao" ref="loginDao"/>
+	</bean>
+
+	<bean id="loginDao" class="module.dao.login.LoginDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>

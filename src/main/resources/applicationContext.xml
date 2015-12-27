@@ -70,6 +70,7 @@
 			<list>
 				<value>module/entity/Test.hbm.xml</value>
 				<value>module/entity/tree/SsfFaLocation.hbm.xml</value>
+				<value>module/entity/base/BaseUser.hbm.xml</value>
 			</list>
 		</property>
 	</bean>

@@ -5,5 +5,5 @@ package module.service.login;
  * Created by lx on 2015/12/25.
  */
 public interface ILoginService {
-
+    public boolean login(String userName,String passWord);
 }

@@ -1,6 +1,7 @@
 package module.action;
 
 import common.action.BaseAction;
+import module.service.login.ILoginService;
 import org.apache.log4j.Logger;
 import util.verification;
 
@@ -18,10 +19,8 @@ public class LoginAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
 	private Logger log = Logger.getLogger(LoginAction.class);
-	private HttpServletRequest request;
-	private HttpServletResponse response;
 	private verification verification;//验证码工具类
-
+	private ILoginService loginService;
 
 	/**
 	 * 验证码
@@ -57,17 +56,28 @@ public class LoginAction extends BaseAction{
 	}
 
 
+	public String login(){
+		String jump;
+		String userName = request.getParameter("username");
+		String password = request.getParameter("password");
+		boolean b = loginService.login(userName,password);
+		if(b)
+			jump = SUCCESS;
+		else
+			jump = ERROR;
+		return jump;
+	}
+
 	public void setVerification(verification verification) {
 		this.verification = verification;
 	}
-	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 	}
-	@Override
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
-
 	}
-
+	public void setLoginService(ILoginService loginService) {
+		this.loginService = loginService;
+	}
 }

@@ -25,7 +25,7 @@
 						<h1>欢迎登陆</h1>
 					</div>
 					<div class="login_form">
-						<form action="" id="login_form" method="post">
+						<form name="login_form" id="login_form"  method="post">
 							<div class="form-group">
 								<label for="j_username" class="t">用户名：</label>
 								<input id="j_username" name="username" type="text" class="form-control x319 in"  autocomplete="off">
@@ -58,14 +58,23 @@
   	 </body>
   	 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	 <!--[if lt IE 9]>
-		<script type="text/javascript" src="js/login/html5.js"></script>
+	 <script type="text/javascript" src="js/login/html5.js"></script>
 	 <![endif]-->
 	 <script type="text/javascript" src="js/login/tooltips.js"></script>
 	 <script type="text/javascript" src="js/login/login.js"></script>
   	 <script type="text/javascript" src="js/login/supersized.3.2.7.min.js"></script>
 	 <script type="text/javascript" src="js/login/supersized-init.js"></script>
-	 <script type="text/javascript" src="js/login/scripts.js"></script> 
+	 <script type="text/javascript" src="js/login/scripts.js"></script>
 	 <script type="text/javascript">
+		 	$(function (){
+				$("#submit_btn").click(function (){
+					//document.login_form.action = "/login!login.action";//error : $("#login_form").action = "/login!login.action";
+					$("#login_form").attr('action','/login!login.action');
+					$("#login_form").submit();
+				});
+
+			});
+
 		 	//图片切换
 		 	function refresh(obj){
 		 		//点击后替换路径
