@@ -76,6 +76,7 @@
 	</bean>
 
 	<!-- 引入文件 -->
+	<import resource="classpath:spring/applicationContext_base.xml"></import>
 	<import resource="classpath:spring/applicationContext_common.xml"></import>
 	<import resource="classpath:spring/applicationContext_test.xml"></import>
 	<import resource="classpath:spring/applicationContext_zTree.xml"></import>

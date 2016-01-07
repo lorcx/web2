@@ -6,7 +6,7 @@
 
 <struts>
       <package name="util" namespace="/util" extends="struts-default" >
-           <action name="fileUpload" class="util.FileUpload">
+           <action name="fileUpload" class="fileUpload">
            </action>
       </package>
 </struts>

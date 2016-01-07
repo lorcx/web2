@@ -86,7 +86,9 @@
     </listener>
     <!-- spring end -->
 
-    <!-- 验证码 servlet start -->
+    <!--servlet begin -->
+
+    <!-- 验证码start -->
     <servlet>
         <servlet-name>yzm</servlet-name>
         <servlet-class>util.Yzm</servlet-class>
@@ -95,7 +97,21 @@
         <servlet-name>yzm</servlet-name>
         <url-pattern>/yzm</url-pattern>
     </servlet-mapping>
-    <!-- 验证码 servlet end -->
+    <!-- 验证码end -->
+
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>servlet.upload.UploadFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/servlet/uploadFile</url-pattern>
+    </servlet-mapping>
+    <!-- 文件上传begin -->
+
+    <!-- 文件上传end -->
+
+    <!--servlet end -->
 
     <!-- el 表达式可以获取值 -->
     <context-param>
