@@ -9,8 +9,13 @@
         <!-- 验证码工具类 -->
         <bean id="verification" class="util.verification"/>
 
-        <!--文件上传-->
+        <!--文件上传action-->
         <bean id="fileUpload" class="util.upload.FileUpload">
+            <property name="userService" ref="baseUserService"/>
+        </bean>
+
+        <!--文件上传servelt-->
+        <bean id="uploadFileServelt" class="servlet.upload.UploadFileServlet">
             <property name="userService" ref="baseUserService"/>
         </bean>
 

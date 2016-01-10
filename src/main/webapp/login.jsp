@@ -37,7 +37,7 @@
 							<div class="form-group">
 								<label for="j_captcha" class="t">验证码：</label>
 								<input id="j_captcha" name="j_captcha" type="text" class="form-control x164 in">
-								<img  id="captcha_img" title="点击更换" onclick="refresh(this);" src="yzm1">
+								<img  id="captcha_img" title="点击更换" onclick="refresh(this);" src="/login!yzm.action">
 							</div>
 							<div class="form-group">
 								<label class="t"></label>
@@ -72,14 +72,11 @@
 					$("#login_form").attr('action','/login!login.action');
 					$("#login_form").submit();
 				});
-
 			});
 
 		 	//图片切换
 		 	function refresh(obj){
-		 		//点击后替换路径
-		 		//Math.random() 是为了防止缓存
-		 		obj.src = "yzm1?" + Math.random();
+		 		obj.src = "/login!yzm.action?n=" + Math.random();//防止缓存
 		 	}
 	 </script>
  </html>

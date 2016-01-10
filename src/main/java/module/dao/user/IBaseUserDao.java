@@ -1,5 +1,6 @@
 package module.dao.user;
 
+import common.exception.DaoException;
 import module.entity.base.BaseUser;
 
 /**
@@ -7,7 +8,9 @@ import module.entity.base.BaseUser;
  */
 @SuppressWarnings("all")
 public interface IBaseUserDao {
-    public BaseUser getBaseUserDaoById(String id);
+    BaseUser getBaseUserDaoById(String id) throws DaoException;
 
-    public void saveBaseUser(BaseUser user);
+    void saveBaseUser(BaseUser user);
+
+    BaseUser getUserInfoByName(String UserName) throws DaoException;
 }

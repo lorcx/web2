@@ -190,6 +190,13 @@
             <version>2.2.2</version>
         </dependency>
 
+        <!--spring3.0事物需要的-->
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>web2</finalName>
@@ -199,6 +206,7 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
         </resources>

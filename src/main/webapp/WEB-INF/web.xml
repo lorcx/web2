@@ -4,10 +4,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <display-name></display-name>
+    <display-name>web练习项目</display-name>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/login!init.action</welcome-file>
     </welcome-file-list>
 
     <!--druid连接池配置 start-->
@@ -33,7 +33,7 @@
         <servlet-name>DruidStatView</servlet-name>
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
-    <!--druid连接池配置 start-->
+    <!--druid连接池配置 end-->
 
     <!-- struts2 start -->
     <filter>
@@ -55,7 +55,7 @@
     </filter>
     <filter-mapping>
         <filter-name>struts2</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.action</url-pattern> <!--默认 /* -->
     </filter-mapping>
     <!-- struts2 end -->
 
@@ -91,13 +91,15 @@
     <!-- 验证码start -->
     <servlet>
         <servlet-name>yzm</servlet-name>
-        <servlet-class>util.Yzm</servlet-class>
+        <servlet-class>util.YzmServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>yzm</servlet-name>
-        <url-pattern>/yzm</url-pattern>
+        <url-pattern>/servlet/yzm</url-pattern>
     </servlet-mapping>
     <!-- 验证码end -->
+
+    <!-- 文件上传begin -->
 
     <servlet>
         <servlet-name>upload</servlet-name>
@@ -107,7 +109,6 @@
         <servlet-name>upload</servlet-name>
         <url-pattern>/servlet/uploadFile</url-pattern>
     </servlet-mapping>
-    <!-- 文件上传begin -->
 
     <!-- 文件上传end -->
 

@@ -1,9 +1,13 @@
 package module.service.login;
 
+import common.exception.ServiceException;
+
+import java.util.Map;
+
 /**
  * 登陆
  * Created by lx on 2015/12/25.
  */
 public interface ILoginService {
-    public boolean login(String userName,String passWord);
+    Map<String,Object> login(String userName,String passWord) throws ServiceException;
 }

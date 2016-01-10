@@ -4,6 +4,7 @@
 		"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 
 <struts>
+	<!--动态跳转-->
 	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
 	<include file="struts2/struts_dt.xml"/>
 	<include file="struts2/struts_login.xml"/>

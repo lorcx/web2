@@ -1,6 +1,7 @@
 package util.upload;
 
 import common.action.BaseAction;
+import common.exception.ServiceException;
 import module.entity.base.BaseUser;
 import module.service.user.IBaseUserService;
 import org.apache.commons.fileupload.FileItem;
@@ -8,7 +9,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
-
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -27,11 +27,12 @@ public class FileUpload extends BaseAction {
     private static final int DEFAULT_SIZE = 1024 * 1024;
     private static final int SIZE_MAX = 100;//默认大小M
     private int thresholdSize = 10;//向磁盘写入的文件的临界值(单位:M)
-    private String TEMP_DIR = request.getContextPath() + "//tmp" ;
+
     /**
      * 文件上传
      */
-    public String upload(){
+    public String upload() {
+        String TEMP_DIR = request.getContextPath() + "//tmp";
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(thresholdSize * DEFAULT_SIZE);//设置保存到内存还是临时目录，超过临界值保存到临时目录，否则保存到内存
         factory.setRepository(new File(TEMP_DIR));//临时目录
@@ -39,10 +40,10 @@ public class FileUpload extends BaseAction {
         upload.setHeaderEncoding("UTF-8");
         upload.setSizeMax(SIZE_MAX * DEFAULT_SIZE);//设置大小
         try {
-            List<FileItem> list =(List<FileItem>) upload.parseRequest(request);//多组上传
-            if(null != list && list.size() > 0 ){
-                for(FileItem item : list){
-                    if(!item.isFormField()){
+            List<FileItem> list = (List<FileItem>) upload.parseRequest(request);//多组上传
+            if (null != list && list.size() > 0) {
+                for (FileItem item : list) {
+                    if (!item.isFormField()) {
                         String fileName = item.getName();
                         //文件后缀
                         String fileSuffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
@@ -51,17 +52,23 @@ public class FileUpload extends BaseAction {
                         InputStream in = item.getInputStream();
                         file = Hibernate.createBlob(in);
                         BaseUser user = userService.getBaseUserInfoById("admin");//获取用户信息
-                        user.setPic(file);
-                        userService.saveBaseUser(user);
-
+                        if(null != user){
+                            user.setPic(file);
+                            userService.saveBaseUser(user);
+                        }else {
+                            LOG.error("文件上传失败");
+                        }
                     }
                 }
             }
         } catch (Exception e) {
             LOG.error("文件上传失败", e.getCause());
+        } catch (ServiceException e) {
+            e.printStackTrace();
         }
         return null;
     }
+
 
     public void setUserService(IBaseUserService userService) {
         this.userService = userService;

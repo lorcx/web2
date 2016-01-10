@@ -12,11 +12,11 @@ import java.io.OutputStream;
 import java.util.Random;
 
 /**
- * 验证码
+ * 验证码(暂不使用)
  * @author dell
  *
  */
-public class Yzm extends HttpServlet {
+public class YzmServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	/**

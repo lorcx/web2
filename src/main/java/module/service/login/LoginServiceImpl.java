@@ -1,18 +1,20 @@
 package module.service.login;
 
-import module.dao.login.ILoginDao;
+import common.exception.DaoException;
+import common.exception.ServiceException;
+import module.dao.user.IBaseUserDao;
 import module.entity.base.BaseUser;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lx on 2015/12/25.
  */
 @SuppressWarnings("all")
 public class LoginServiceImpl implements ILoginService {
-    private ILoginDao loginDao;
-
-    public void setLoginDao(ILoginDao loginDao) {
-        this.loginDao = loginDao;
-    }
+    private IBaseUserDao userDao;
 
     /**
      * 登录service
@@ -21,13 +23,37 @@ public class LoginServiceImpl implements ILoginService {
      * @return 是否登录成功
      */
     @Override
-    public boolean login(String userName,String passWord) {
-        BaseUser user = (BaseUser) loginDao.getUserInfoByName(userName);
+    public Map<String,Object> login(String userName,String passWord) throws ServiceException {
+        Map<String,Object> infoMap = new HashMap<String, Object>();
+        Boolean isOk = false;//是否登陆成功
+        try {
+            BaseUser user = userDao.getUserInfoByName(userName);
+            isOk = isPasswdOk(user,passWord);
+            infoMap.put("isOk",isOk);//是否登陆成功
+            if(isOk)
+                infoMap.put("BaseUser",user);
+        } catch (DaoException e) {
+            infoMap.put("isOk",isOk);
+            throw new ServiceException("登录service error",e.getCause());
+        }
+        return infoMap;
+    }
+
+    /**
+     * 验证密码是否正确
+     * @return
+     */
+    public Boolean isPasswdOk(BaseUser user,String passWord){
         if(null != user){
-            if(passWord != null && user.getPassWord() != null && user.getPassWord().equals(user.getPassWord())){
+            if(StringUtils.isNotEmpty(passWord) && StringUtils.isNotEmpty(user.getPassWord()) && user.getPassWord().equals(passWord)){
                 return true;
             }
         }
         return false;
+    }
+
+
+    public void setUserDao(IBaseUserDao userDao) {
+        this.userDao = userDao;
     }
 }

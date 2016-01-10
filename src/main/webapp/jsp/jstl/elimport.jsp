@@ -11,9 +11,9 @@
   <body>
 	 <c:import url="1.txt" charEncoding="utf-8"></c:import>
 	 <hr/>
-	 <c:import url="/index.jsp" context="/springTest"></c:import>
+	 <c:import url="/login.jsp" context="/springTest"></c:import>
 	 
-	 <c:import url="/index.jsp" context="/springTest" var="s" scope="session"></c:import>
+	 <c:import url="/login.jsp" context="/springTest" var="s" scope="session"></c:import>
 	 
 	 <a href="${pageContext.request.contextPath}/jsp/jstl/e.jsp" >abcd</a>
 	 <%=request.getContextPath() %>
