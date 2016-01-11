@@ -2,7 +2,6 @@ package module.action.login;
 
 import common.action.BaseAction;
 import common.exception.ServiceException;
-import module.entity.base.BaseUser;
 import module.service.login.ILoginService;
 import org.apache.log4j.Logger;
 import util.verification;
@@ -72,9 +71,9 @@ public class LoginAction extends BaseAction{
      * 设置登陆session信息
      */
     private void setSessionInfo(Map<String,Object> map){
-        BaseUser user = (BaseUser) map.get("BaseUser");
-        session.setAttribute("userName",user.getUserName());//用户登录名
-        session.setAttribute("nickName",user.getNickname());//用户昵称
+//        BaseUser user = (BaseUser) map.get("BaseUser");
+//        session.setAttribute("userName",user.getUserName());//用户登录名
+//        session.setAttribute("nickName",user.getNickname());//用户昵称
     }
 
     public void setVerification(verification verification) {

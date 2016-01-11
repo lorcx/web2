@@ -7,7 +7,7 @@
     <display-name>web练习项目</display-name>
 
     <welcome-file-list>
-        <welcome-file>/login!init.action</welcome-file>
+        <welcome-file>/jumpLogin.jsp</welcome-file>
     </welcome-file-list>
 
     <!--druid连接池配置 start-->
