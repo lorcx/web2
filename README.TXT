@@ -17,6 +17,7 @@ web2项目                                                                      
 1.struts2 拦击*.action因为用了servlet
 
 
+已有功能：文件上传，下载
 
 
 待解决 ：
@@ -30,6 +31,7 @@ web2项目                                                                      
            ServletActionContext.HTTP_REQUEST);
 
 
+    hibernate封装
 
 
        获得request对象有三种方式：

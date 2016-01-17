@@ -44,14 +44,12 @@
 
         -->
         <!-- 配置struts2路径 -->
-        <!--
              <init-param>
                 <param-name>config</param-name>
                 <param-value>
                     struts-default.xml,struts-plugin.xml,struts.xml
                 </param-value>
              </init-param>
-        -->
     </filter>
     <filter-mapping>
         <filter-name>struts2</filter-name>

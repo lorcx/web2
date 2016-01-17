@@ -24,7 +24,9 @@ public class BaseUserDaoImpl extends HibernateDaoSupport implements IBaseUserDao
         Session session = getSession();
         BaseUser baseUser = null;
         try {
-            return (BaseUser) session.get(BaseUser.class,id);
+            baseUser = (BaseUser) session.get(BaseUser.class,id);
+            closeSession(session);
+            return baseUser;
         }catch (Exception e){
             throw new DaoException("通过id获取用户信息出错",e.getCause());
         }
@@ -40,6 +42,7 @@ public class BaseUserDaoImpl extends HibernateDaoSupport implements IBaseUserDao
         Session session = getSession();
         try {
             session.save(user);
+            closeSession(session);
         }catch (Exception e){
             LOG.error("保存用户信息失败！",e.getCause());
         }
@@ -56,6 +59,22 @@ public class BaseUserDaoImpl extends HibernateDaoSupport implements IBaseUserDao
         StringBuilder sql = new StringBuilder();
         sql.append("from BaseUser b where b.userName = '").append(UserName).append("'");
         Query query = session.createQuery(sql.toString());
-        return (BaseUser) query.uniqueResult();
+        BaseUser user = (BaseUser) query.uniqueResult();
+        closeSession(session);
+        return user;
+    }
+
+    /**
+     * 关闭session
+     * @param session
+     */
+    public void closeSession(Session session){
+        try {
+            if(null != session && session.isOpen()){
+                session.close();
+            }
+        }catch (Exception e){
+            LOG.error("关闭session失败！",e.getCause());
+        }
     }
 }

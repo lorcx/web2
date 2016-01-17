@@ -52,7 +52,6 @@ public class LoginServiceImpl implements ILoginService {
         return false;
     }
 
-
     public void setUserDao(IBaseUserDao userDao) {
         this.userDao = userDao;
     }

@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -20,7 +21,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 	private static final long serialVersionUID = 1L;
 	protected HttpServletResponse response;
 	protected HttpServletRequest request;
-//	protected HttpSession session = request.getSession();
+	protected HttpSession session;
 	//struts2 的session
 	protected Map<String, Object> session2;
 	//struts2 的request
@@ -32,6 +33,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
+		session = request.getSession();
 	}
 
 	public void setSession(Map<String, Object> session2) {

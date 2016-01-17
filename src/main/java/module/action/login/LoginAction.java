@@ -2,8 +2,10 @@ package module.action.login;
 
 import common.action.BaseAction;
 import common.exception.ServiceException;
+import module.entity.base.BaseUser;
 import module.service.login.ILoginService;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import util.verification;
 
 import javax.imageio.ImageIO;
@@ -29,6 +31,7 @@ public class LoginAction extends BaseAction{
      * @return
      */
     public String init(){
+        System.out.println(ServletActionContext.getRequest().getSession());
         return "login";
     }
 
@@ -61,8 +64,9 @@ public class LoginAction extends BaseAction{
             Map<String,Object> map = loginService.login(userName,password);
             isOk = (Boolean)map.get("isOk");
             setSessionInfo(map);
+            request.setAttribute("baseUser", map.get("BaseUser"));
         } catch (ServiceException e) {
-            log.error("登陆失败！",e);
+            log.error("登陆失败！ 用户 ："+userName, e);
         }
         return isOk ? SUCCESS : ERROR;
     }
@@ -71,9 +75,21 @@ public class LoginAction extends BaseAction{
      * 设置登陆session信息
      */
     private void setSessionInfo(Map<String,Object> map){
-//        BaseUser user = (BaseUser) map.get("BaseUser");
-//        session.setAttribute("userName",user.getUserName());//用户登录名
-//        session.setAttribute("nickName",user.getNickname());//用户昵称
+        BaseUser user = (BaseUser) map.get("BaseUser");
+        session = ServletActionContext.getRequest().getSession();
+        if(null != user){
+            session.setAttribute("userName",user.getUserName());//用户登录名
+            session.setAttribute("nickName",user.getNickname());//用户昵称
+        }
+    }
+
+    /**
+     * 获取用户的图片信息
+     * @return
+     */
+    public String getUserPic(){
+        
+        return null;
     }
 
     public void setVerification(verification verification) {
