@@ -1,18 +1,22 @@
 package module.action.login;
 
+import com.google.gson.Gson;
 import common.action.BaseAction;
 import common.exception.ServiceException;
 import module.entity.base.BaseUser;
 import module.service.login.ILoginService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import util.verification;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,7 +35,6 @@ public class LoginAction extends BaseAction{
      * @return
      */
     public String init(){
-        System.out.println(ServletActionContext.getRequest().getSession());
         return "login";
     }
 
@@ -41,34 +44,68 @@ public class LoginAction extends BaseAction{
      */
     public String yzm()throws Exception{
         response.setCharacterEncoding("UTF-8");
-        //System.out.println(""+num1+""+operate[oper]+""+num2+"="+result);
-        Object[] obj = verification.RandomCount();//验证码
+        response.setHeader("content-type", "image/jpeg");
+        Object[] obj = verification.RandomCount();//验证码 0 结果 1图片
         //将验证结果放大session中，在登陆时验证
-        request.getSession().setAttribute("result", obj[0]);
+//        session2.put("yzmResult", obj[0]);
         OutputStream out = response.getOutputStream();
         ImageIO.write((BufferedImage) obj[1], "JPEG", out);
+        //结果加到cookie
+        Cookie cookie = new Cookie("captcha", obj[0].toString());
+        cookie.setMaxAge(3600);//失效时间
+        cookie.setPath("/");
+        response.addCookie(cookie);
         out.flush();
-        out.close();
+//        out.close(); //系统会自动关闭它
         return null;
     }
 
     /**
      * 登陆
-     * @return
+     * @return`
      */
     public String login(){
+        response.setCharacterEncoding("utf-8");
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
+        String captcha = request.getParameter("captcha");//验证码
+        Map<String,Object> results = new HashMap<String,Object>();
         Boolean isOk = false;
-        try {
-            Map<String,Object> map = loginService.login(userName,password);
-            isOk = (Boolean)map.get("isOk");
-            setSessionInfo(map);
-            request.setAttribute("baseUser", map.get("BaseUser"));
-        } catch (ServiceException e) {
-            log.error("登陆失败！ 用户 ："+userName, e);
+        Cookie[] cookies = request.getCookies();
+        //检查验证码
+        for(Cookie ck : cookies){
+            if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
+                if(StringUtils.isEmpty(captcha) || !captcha.equals(ck.getValue())){//验证码不正确
+                    results.put("msg","验证码不正确，请重新输入！");
+                }else {
+                    isOk = true;
+                }
+            }else{
+                results.put("msg","验证码不正确，请重新输入！");
+            }
         }
-        return isOk ? SUCCESS : ERROR;
+
+        try {
+            if(isOk){//验证码通过
+                results = loginService.login(userName,password);
+                isOk = (Boolean)results.get("isOk");
+                if(isOk){
+                    setSessionInfo(results);//设置登陆session信息
+                }else {
+                    results.put("msg","用户名或密码错误，请重新输入！");
+                }
+            }
+            results.put("isOk",isOk);
+            Gson gson = new Gson();
+            String maps = gson.toJson(results);
+            response.getWriter().print(maps);
+//            request.setAttribute("baseUser", map.get("BaseUser"));
+        } catch (ServiceException e) {
+            log.error("登陆失败！ 用户 ："+userName, e.getCause());
+        } catch (IOException e) {
+            log.error("登陆失败！ 用户 ："+userName, e.getCause());
+        }
+        return null;
     }
 
     /**
@@ -76,10 +113,9 @@ public class LoginAction extends BaseAction{
      */
     private void setSessionInfo(Map<String,Object> map){
         BaseUser user = (BaseUser) map.get("BaseUser");
-        session = ServletActionContext.getRequest().getSession();
         if(null != user){
-            session.setAttribute("userName",user.getUserName());//用户登录名
-            session.setAttribute("nickName",user.getNickname());//用户昵称
+            session2.put("userName", user.getUserName());//用户登录名
+            session2.put("nickName", user.getNickname());//用户昵称
         }
     }
 

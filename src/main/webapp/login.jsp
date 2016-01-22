@@ -36,8 +36,11 @@
 							</div>
 							<div class="form-group">
 								<label for="j_captcha" class="t">验证码：</label>
-								<input id="j_captcha" name="j_captcha" type="text" class="form-control x164 in">
+								<input id="j_captcha" name="captcha" type="text" class="form-control x164 in">
 								<img  id="captcha_img" title="点击更换" onclick="refresh(this);" src="/login!yzm.action">
+								<!--
+								<s:hidden id="refreshDiv"/>
+								-->
 							</div>
 							<div class="form-group">
 								<label class="t"></label>
@@ -68,12 +71,59 @@
 	 <script type="text/javascript">
 		 	$(function (){
 				$("#submit_btn").click(function (){
-					//document.login_form.action = "/login!login.action";//error : $("#login_form").action = "/login!login.action";
-					$("#login_form").attr('action','/login!login.action');
-					$("#login_form").submit();
+					/**
+					 *    原生js提交: document.login_form.action = "/login!login.action";
+					 *	      错误 : $("#login_form").action = "/login!login.action";
+					 *
+					 *	      旧的form提交（因无法获取到验证码的值,现改为ajax方式）:
+					 *	      show_loading();
+					 *	      $("#login_form").attr('action','/login!login.action');
+					 *	      $("#login_form").submit();
+					 *	      show_msg('登录成功咯！  正在为您跳转...','/');
+					 */
+					//验证表单
+					if(validateForm()){
+						$("#login_form").attr('action','/login!login.action');
+						$("#login_form").asyncSubmit({callBack : loginProcess});
+					}
 				});
+
+				//refreshDiv();
 			});
 
+			//登陆处理
+			function loginProcess(data){
+				window.location.href = '/jsp/main.jsp';
+			}
+
+			//刷新div
+			//function refreshDiv(){
+				//$('#refreshDiv').val('${sessionScope.yzmResult}');
+			//	setTimeout("refreshDiv();",500)
+			//}
+
+			//验证表单
+			function validateForm(){
+				//密码
+				if(!$('#j_password').val()){
+					show_err_msg('密码还没填呢！');
+					$('#password').focus();
+					return false;
+				}
+				if(!$('#j_captcha').val()){
+					show_err_msg('验证码不能为空！');
+					$('#password').focus();
+					return false;
+				}
+//				else{
+//					var n1 = $('#j_captcha').val();
+//					var n2 = $('#refreshDiv').val();
+//					alert(n2);
+//					if(n1 != n2)
+//						show_err_msg('验证码不正确！');
+//				}
+				return true;
+			}
 		 	//图片切换
 		 	function refresh(obj){
 		 		obj.src = "/login!yzm.action?n=" + Math.random();//防止缓存

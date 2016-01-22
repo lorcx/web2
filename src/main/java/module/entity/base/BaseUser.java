@@ -1,9 +1,10 @@
 package module.entity.base;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
 @SuppressWarnings("all")
-public class BaseUser {
+public class BaseUser implements Serializable{
     private String id;
 
     private String nickname;
@@ -71,6 +72,19 @@ public class BaseUser {
     }
 
     public void setPic(Blob pic) {
+        this.pic = pic;
+    }
+
+    public BaseUser() {
+    }
+
+    public BaseUser(String id, String nickname, String userName, String passWord, Date creDate, String status, Blob pic) {
+        this.id = id;
+        this.nickname = nickname;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.creDate = creDate;
+        this.status = status;
         this.pic = pic;
     }
 }

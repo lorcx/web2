@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/common.jsp"%>
-<%@include file="/jsp/common/commn_plug.jsp"%>
+<%@include file="/jsp/common/plugIn.jsp"%>
 <!doctype html>
 <html>
   <head>

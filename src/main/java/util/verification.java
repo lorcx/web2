@@ -1,17 +1,22 @@
 package util;
 
+import org.apache.log4j.Logger;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * 验证码工具类
  * @author dell
  *
  */
+@SuppressWarnings("all")
 public class verification {
+	public static final Logger log = Logger.getLogger(verification.class);
 	private Random random = new Random();
 	/**
 	 * 随机结果
@@ -26,26 +31,45 @@ public class verification {
 		//随机第二个数字
 		int num2 = 1+random.nextInt(9);
 		//结果
-		int result = 0;
+		double result = 0;
+		//临时变量
+		int n = 0;
 		switch(oper){
 			case 0:
 				result = num1 + num2;
 				break;
 			case 1:
+				if(num1 < num2) {
+					n = num1;
+					num1 = num2;
+					num2 = n;
+				}
 				result = num1 - num2;
 				break;
 			case 2:
 				result = num1 * num2;
 				break;
 			case 3:
+				while(num1 % num2 != 0){
+					num1 = random.nextInt();
+					num2 = random.nextInt();
+					n++;
+					if(n == 3){  //如果次数过多可能数字不正常 1500..
+						num1 = 4;
+						num2 = 2;
+					}
+				}
 				result = num1 / num2;
 				break;
 		}
+		System.out.println("num1 :" + num1 + " num2 :" + num2);
+//		log.info("num1 :" + num1 + "num2 :" + num2);
+		//必须是整数
 		BufferedImage image = DrawPic(num1,num2,oper,operate);
 		Object[] obj = new Object[] {result,image}; 
 		return obj;
-				
 	}
+
 	/**
 	 * 画图
 	 * 
@@ -80,6 +104,7 @@ public class verification {
 		graphics.dispose();
 		return image;
 	}
+
 	/**
 	 * 随机颜色
 	 * @param a
@@ -96,4 +121,15 @@ public class verification {
 		
 		return new Color(red,green,blue);
 	}
+
+	/**
+	 * 验证数字是否为整数
+	 * @param num
+	 * @return
+	 */
+	public boolean validateNum(String num){
+		String reg = "^[0-9]*$";
+		return Pattern.compile(reg).matcher(num).matches();
+	}
+
 }
