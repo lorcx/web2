@@ -10,7 +10,8 @@ $.fn.asyncSubmit = function (options){
         type : 'POST',
         beforeSubmit : beforeSubmit,
         success : successDispose,
-        dataType : 'json'
+        dataType : 'json',
+        handle : options.callBack
     };
     $.extend(defaultOptions,options);
     $(this).ajaxSubmit(defaultOptions);
@@ -27,6 +28,37 @@ function beforeSubmit(){
  * 成功处理
  * dispose：处理
  */
-function successDispose(options){
-    console.log(options);
+function successDispose(responseText, statusText, options){
+    if(statusText == 'success'){
+        options.handle(responseText);
+    }
 }
+
+/**
+ * 获取cookie
+ *   用正则表达式验证 也可以
+ *   var loginCookie = document.cookie.split(';')[0].split('=')[0];
+ *
+ *   dispose：处理
+ */
+function getCookie(name) {
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+
+/**
+ * 删除cookie
+ */
+function delCookie (name) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if(cval)
+        document.cookie= name + '='+cval+';expires='+exp.toGMTString();
+}
+
+

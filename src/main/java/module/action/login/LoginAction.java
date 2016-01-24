@@ -44,17 +44,18 @@ public class LoginAction extends BaseAction{
      */
     public String yzm()throws Exception{
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("content-type", "image/jpeg");
+//        response.setHeader("content-type", "image/jpeg");
         Object[] obj = verification.RandomCount();//验证码 0 结果 1图片
-        //将验证结果放大session中，在登陆时验证
-//        session2.put("yzmResult", obj[0]);
-        OutputStream out = response.getOutputStream();
-        ImageIO.write((BufferedImage) obj[1], "JPEG", out);
-        //结果加到cookie
+
+        //结果加到cookie   要先放到response中的cookie 在放到流中
         Cookie cookie = new Cookie("captcha", obj[0].toString());
         cookie.setMaxAge(3600);//失效时间
         cookie.setPath("/");
         response.addCookie(cookie);
+
+        //写入到流
+        OutputStream out = response.getOutputStream();
+        ImageIO.write((BufferedImage) obj[1], "JPEG", out);
         out.flush();
 //        out.close(); //系统会自动关闭它
         return null;
@@ -62,7 +63,7 @@ public class LoginAction extends BaseAction{
 
     /**
      * 登陆
-     * @return`
+     * @return
      */
     public String login(){
         response.setCharacterEncoding("utf-8");
@@ -70,20 +71,8 @@ public class LoginAction extends BaseAction{
         String password = request.getParameter("password");
         String captcha = request.getParameter("captcha");//验证码
         Map<String,Object> results = new HashMap<String,Object>();
-        Boolean isOk = false;
-        Cookie[] cookies = request.getCookies();
         //检查验证码
-        for(Cookie ck : cookies){
-            if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
-                if(StringUtils.isEmpty(captcha) || !captcha.equals(ck.getValue())){//验证码不正确
-                    results.put("msg","验证码不正确，请重新输入！");
-                }else {
-                    isOk = true;
-                }
-            }else{
-                results.put("msg","验证码不正确，请重新输入！");
-            }
-        }
+        validateYZM(captcha,results);
 
         try {
             if(isOk){//验证码通过
@@ -99,13 +88,30 @@ public class LoginAction extends BaseAction{
             Gson gson = new Gson();
             String maps = gson.toJson(results);
             response.getWriter().print(maps);
-//            request.setAttribute("baseUser", map.get("BaseUser"));
         } catch (ServiceException e) {
             log.error("登陆失败！ 用户 ："+userName, e.getCause());
         } catch (IOException e) {
             log.error("登陆失败！ 用户 ："+userName, e.getCause());
         }
         return null;
+    }
+
+    /**
+     * 检查验证码
+     */
+    private void validateYZM(String captcha,Map<String,Object> results){
+        Cookie[] cookies = request.getCookies();
+        for(Cookie ck : cookies){
+            if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
+                if(StringUtils.isEmpty(captcha) || !captcha.equals(ck.getValue())){//验证码不正确
+                    results.put("msg","验证码不正确，请重新输入！");
+                }else {
+                    isOk = true;
+                }
+            }else{
+                results.put("msg","验证码不正确，请重新输入！");
+            }
+        }
     }
 
     /**

@@ -27,6 +27,8 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 	//struts2 的request
 	protected Map<String, Object> request2;
 
+	public static boolean isOk = false;//操作是否成功
+
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
 	}

@@ -38,9 +38,6 @@
 								<label for="j_captcha" class="t">验证码：</label>
 								<input id="j_captcha" name="captcha" type="text" class="form-control x164 in">
 								<img  id="captcha_img" title="点击更换" onclick="refresh(this);" src="/login!yzm.action">
-								<!--
-								<s:hidden id="refreshDiv"/>
-								-->
 							</div>
 							<div class="form-group">
 								<label class="t"></label>
@@ -88,11 +85,11 @@
 					}
 				});
 
-				//refreshDiv();
 			});
 
 			//登陆处理
 			function loginProcess(data){
+				alert(data);
 				window.location.href = '/jsp/main.jsp';
 			}
 
@@ -102,7 +99,9 @@
 			//	setTimeout("refreshDiv();",500)
 			//}
 
-			//验证表单
+			/**
+			 * 验证表单
+			 */
 			function validateForm(){
 				//密码
 				if(!$('#j_password').val()){
@@ -114,17 +113,21 @@
 					show_err_msg('验证码不能为空！');
 					$('#password').focus();
 					return false;
+				}else{
+					var captcha = $('#j_captcha').val();
+					var loginCookieVal = getCookie('captcha');
+					if(captcha != loginCookieVal){
+						show_err_msg('验证码不正确！');
+						return false;
+					}
 				}
-//				else{
-//					var n1 = $('#j_captcha').val();
-//					var n2 = $('#refreshDiv').val();
-//					alert(n2);
-//					if(n1 != n2)
-//						show_err_msg('验证码不正确！');
-//				}
 				return true;
 			}
-		 	//图片切换
+
+		 	/**
+		 	 *  图片切换
+			 *  @param obj
+			 */
 		 	function refresh(obj){
 		 		obj.src = "/login!yzm.action?n=" + Math.random();//防止缓存
 		 	}

@@ -34,3 +34,5 @@ struts2 拦截
 待解决 ：
     1.hibernate template 的currentSession (文件上传)
     hibernate封装
+
+    2.log4j 日志输出
