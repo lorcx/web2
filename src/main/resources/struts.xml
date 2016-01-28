@@ -6,6 +6,10 @@
 <struts>
 	<!--动态跳转-->
 	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+	<!--配置后缀，以action为结尾的请求-->
+	<constant name="struts.action.extension" value="action" />
+
+	<!--导入文件-->
 	<include file="struts2/struts_dt.xml"/>
 	<include file="struts2/struts_login.xml"/>
 	<include file="struts2/struts_tree.xml"/>

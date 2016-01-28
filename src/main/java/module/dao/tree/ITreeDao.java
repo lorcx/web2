@@ -12,4 +12,5 @@ public interface ITreeDao {
 	public SsfFaLocation getEditBase(String tid)throws DaoException;
 	
 	public void addBaseDate(SsfFaLocation location)throws DaoException;
+
 }

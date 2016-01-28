@@ -72,26 +72,29 @@
 					 *    原生js提交: document.login_form.action = "/login!login.action";
 					 *	      错误 : $("#login_form").action = "/login!login.action";
 					 *
-					 *	      旧的form提交（因无法获取到验证码的值,现改为ajax方式）:
+					 *	      旧的form提交:
 					 *	      show_loading();
 					 *	      $("#login_form").attr('action','/login!login.action');
 					 *	      $("#login_form").submit();
 					 *	      show_msg('登录成功咯！  正在为您跳转...','/');
+					 *	      ajax form提交:
+					 *	      $("#login_form").attr('action','/login!login.action');
+					 *		  $("#login_form").asyncSubmit(loginProcess);
 					 */
 					//验证表单
 					if(validateForm()){
 						$("#login_form").attr('action','/login!login.action');
-						$("#login_form").asyncSubmit({callBack : loginProcess});
+					    $("#login_form").submit();
 					}
 				});
 
 			});
 
 			//登陆处理
-			function loginProcess(data){
-				alert(data);
-				window.location.href = '/jsp/main.jsp';
-			}
+//			function loginProcess(data){
+////				alert(1);
+//				window.location.href = '/jsp/main.jsp';
+//			}
 
 			//刷新div
 			//function refreshDiv(){

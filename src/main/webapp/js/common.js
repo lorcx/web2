@@ -1,38 +1,55 @@
 /*****公共js*****/
+
 /**
- * 异步提交
- * 使用方法 ：$("#login_form").asyncSubmit();
+ * 异步提交 ajaxForm
+ * 使用方法 ：	$("#login_form").attr('action','/login!login.action');
+ *              $("#login_form").asyncSubmit(loginProcess);
+ * 如果使用ajaxSubmit则需要return false
  */
-$.fn.asyncSubmit = function (options){
+$.fn.asyncSubmit = function (_handle){
     var url = $(this).attr('action');
     var defaultOptions = {
         url : url,
-        type : 'POST',
+        type : 'post',
         beforeSubmit : beforeSubmit,
-        success : successDispose,
         dataType : 'json',
-        handle : options.callBack
+        success : function (responseText, statusText, options) {
+            if (statusText == 'success') {
+                if ($.isFunction(_handle))
+                    _handle(responseText);
+            } else {
+                alert("提交失败！");
+            }
+        }
     };
-    $.extend(defaultOptions,options);
-    $(this).ajaxSubmit(defaultOptions);
+    //$.extend(defaultOptions,options);
+    $(this).ajaxForm(defaultOptions);
+    $(this).submit();
+    //return false;
 };
 
 /**
  * 表单提交前
+ * formData : 表单提交数据  name :''
+ *  jqForm : jquery对象
+ * options : 表单提交参数
  */
-function beforeSubmit(){
+function beforeSubmit(formData, jqForm, options){
     show_loading();
+
+    //return true;
 }
 
 /**
  * 成功处理
  * dispose：处理
  */
-function successDispose(responseText, statusText, options){
-    if(statusText == 'success'){
-        options.handle(responseText);
-    }
-}
+//function successDispose(responseText, statusText, options){
+//
+//    if(statusText == 'success'){
+//      options.success(responseText);
+//    }
+//}
 
 /**
  * 获取cookie

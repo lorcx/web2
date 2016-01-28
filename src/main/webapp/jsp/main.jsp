@@ -119,11 +119,14 @@
 		  </s:form>
 	  </div>
 	  <div id="ToolBar">
-	  	<a href="#" onclick="uploadFile()">上传文件</a>
+	  	<a href="#" onclick="uploadFile();">上传文件</a>
+	  	<a href="#" onclick="goBackIndex();">返回主页</a>
 	  </div>
   </body>
   <script type="text/javascript">
-	  //上传文件
+	  /**
+	   *上传文件
+	   */
 	  function uploadFile(){
 		  var url = "/jsp/uploadDemo.jsp";
 		  var iHeight = "500";//弹出的高度
@@ -134,7 +137,9 @@
 		  window.open(url,"uploadFile",style);
 	  }
 
-	  //下载文件
+	  /**
+	   *下载文件
+	   */
 	  function downLoadPic(){
 		  var userName = '${requestScope.baseUser.userName}';
 		  var url = "/jsp/module/base/downLoadPic.jsp?userName="+userName;
@@ -144,6 +149,13 @@
 		  var iLeft = (window.screen.width-10-iWidth)/2; //获得窗口的水平位置;
 		  var style = 'status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top='+iTop+',left='+iLeft+', resizable=yes,height='+iHeight+',width='+iWidth;
 		  window.open(url,"",style);
+	  }
+
+	  /**
+	   * 返回主页
+	   */
+	  function goBackIndex(){
+		window.location.href = "/";
 	  }
   </script>
 </html>

@@ -14,7 +14,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,13 +86,12 @@ public class LoginAction extends BaseAction{
             results.put("isOk",isOk);
             Gson gson = new Gson();
             String maps = gson.toJson(results);
-            response.getWriter().print(maps);
+            request.setAttribute("isOk",results.get("isOk"));
+            request.setAttribute("baseUser",results.get("BaseUser"));
         } catch (ServiceException e) {
             log.error("登陆失败！ 用户 ："+userName, e.getCause());
-        } catch (IOException e) {
-            log.error("登陆失败！ 用户 ："+userName, e.getCause());
         }
-        return null;
+        return SUCCESS;
     }
 
     /**

@@ -6,6 +6,7 @@
        ssh : struts2 spring hibernate
        maven
        jquery系列 : jqeury-form 、jquery、jquery-uploadify
+            js   : json2.js（json解析）
 
 一、常用链接：druid首页 : http://localhost:8080/druid/wall.html
 
@@ -26,13 +27,14 @@
 
 
 -------------------------------------------------------
-ajaxsubmit
-struts2 拦截
+
 
 
 
 待解决 ：
     1.hibernate template 的currentSession (文件上传)
     hibernate封装
-
-    2.log4j 日志输出
+待办：
+    1.pageBean
+    2.hiberanteDao 公共类
+    3.分页
