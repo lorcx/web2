@@ -38,3 +38,6 @@
     1.pageBean
     2.hiberanteDao 公共类
     3.分页
+
+    权限
+    http://blog.csdn.net/zhou2s_101216/article/details/50609630

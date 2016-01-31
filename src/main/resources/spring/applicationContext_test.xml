@@ -8,17 +8,29 @@
 	<bean id="DemoDAO" class="module.dao.DemoDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+
+	<bean id="test1Dao" class="test.CommonDaoTestImpl">
+		<property name="sessionFactory"	ref="sessionFactory"/>
+	</bean>
 	<!-- dao end -->
 	
 	<!-- service start -->
 	<bean id="DemoService" class="module.service.DemoServiceImpl">
 		<property name="dao" ref="DemoDAO"/>
 	</bean>
+	<bean id="test1Service" class="module.service.test.Test1ServiceImpl">
+		<property name="daoTest" ref="test1Dao"/>
+	</bean>
 	<!-- service end -->
 	
 	<!-- action begin-->
 	<bean id="DemoAction" class="module.action.DemoAction">
 		<property name="demoService" ref="DemoService"/>
+	</bean>
+
+	<bean id="test1Action" class="module.action.test.Test1Action">
+		<property name="test1Service" ref="test1Service"/>
+
 	</bean>
 	<!-- struts2 stu -->
 	

@@ -113,15 +113,17 @@
 			<tx:method name="save*" propagation="REQUIRED"/>
 			<tx:method name="delete*" propagation="REQUIRED"/>
 			<tx:method name="update*" propagation="REQUIRED"/>
-			<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED"/>
+			<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />
 			<tx:method name="*" read-only="true"/>
 			<tx:method name="doGet" propagation="REQUIRED"/>
+			<!--test-->
+			<tx:method name="test" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 	<!-- 那些类的哪些方法参与事务 -->
 	<aop:config>
-		<aop:pointcut id="allServiceMethod" expression="(execution(* main.java.module.service.*.*(..)) or
-														 execution(* main.java.servlet.upload.*.*(..)) )"/>
+		<aop:pointcut id="allServiceMethod" expression="(execution(* module.service..*.*(..)) or
+														 execution(* servlet.upload.*.*(..)) )"/> <!--第二个没切上-->
 		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
 	</aop:config>
 

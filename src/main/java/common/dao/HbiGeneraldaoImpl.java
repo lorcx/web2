@@ -7,9 +7,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
-
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.List;
 /**
  * 通用hbernate dao
  * http://my.oschina.net/boonya/blog/290587
+ *
+ * http://my.oschina.net/moson/blog/518659
  * Created by dell on 2016/1/28.
  */
 @SuppressWarnings("unchecked")
@@ -28,6 +33,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     protected Class<?> entityClass;
 
     public HbiGeneraldaoImpl() {
+        //(ParameterizedType)getClass().getGenericSuperclass() 取的是<T,pk> 中的类型 [0] T [1] Pk
         this.entityClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
@@ -70,6 +76,11 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return findByCriteria(p);
     }
 
+    /**
+     * 获取实体
+     * @param id
+     * @return
+     */
     public T get(final PK id) {
         Assert.notNull(id);
         return (T)getHibernateTemplate().get(entityClass,id);
@@ -81,11 +92,15 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     public PageBean find(PageBean page, String hql, Object... values){
         Assert.notNull(page);
-        Query query = createQuery(hql,values);
+        Query query = createQuery(hql, values);
 //        query.setFirstResult();
 //        query.setMaxResults();
         return page;
     }
+
+
+
+
 
     public T findUnique(String hql, Object... args) {
         return (T)createQuery(hql,args).uniqueResult();
@@ -100,34 +115,66 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     }
 
     public List<T> findCriteria(Criterion... criterions) {
-        return null;
+        return createCriteria(criterions).list();
     }
 
     public PageBean findByCriteria(PageBean page, Criterion... criterions) {
+        Assert.notNull(page);
+        Criteria criteria = createCriteria(criterions);
+
+        page.setTotalNum(countQueryResult(page,criteria));
+
+        criteria.setFirstResult(1);
+        criteria.setMaxResults(page.getTotalPageNum());
+
         return null;
     }
 
     public List<T> findByProperty(String property, Object value) {
-        return null;
+        Assert.hasText(property);
+        return createCriteria(Restrictions.eq(property,value)).list();
     }
 
     public T findUniqueByProperty(String property, Object value) {
-        return null;
+        Assert.hasText(property);
+        return (T)createCriteria(Restrictions.eq(property,value)).uniqueResult();
     }
 
     public Query createQuery(String queryString, Object... args) {
-        return null;
+        Assert.hasText(queryString);
+        Query query = sessionFactory.getCurrentSession().createQuery(queryString);
+        if(args != null){
+            for(int i = 0;i < args.length;i++){
+                query.setParameter(i,args[i]);
+            }
+        }
+        return query;
     }
 
     public Criteria createCriteria(Criterion... criterions) {
-        return null;
+        Criteria c = getSession().createCriteria(entityClass);
+        for(Criterion cr : criterions){
+            c.add(cr);
+        }
+        return c;
     }
 
     public boolean isPropertyUnique(String propertyName, Object newValue, Object orgValue) {
-        return false;
+        if (newValue == null || newValue.equals(orgValue))
+            return true;
+
+        Object object = findUniqueByProperty(propertyName, newValue);
+        return (object == null);
     }
 
     public int countQueryResult(PageBean page, Criteria c) {
+        CriteriaImpl crimpl = (CriteriaImpl)c;
+        Projection proj = crimpl.getProjection();
+        ResultTransformer rtf = crimpl.getResultTransformer();
+        List<CriteriaImpl.OrderEntry> list = null;
+
         return 0;
     }
+
+
 }

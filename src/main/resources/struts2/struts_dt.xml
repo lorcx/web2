@@ -14,5 +14,8 @@
 		<action name="demoAction" class="DemoAction" >
 			<result name="success">/test.jsp</result>
 		</action>
+		<action name="test1Action" class="test1Action">
+
+		</action>
 	</package>
 </struts>    
