@@ -1,31 +1,32 @@
 package test;
 
-
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dell on 2016/1/28.
  */
-public class Test extends  ParentTest{
-    static Logger log = Logger.getLogger(Test.class);
+public class Test{
     public static void main(String[] args) {
-        System.out.println(1);
-//        new Test();
-//        Object obj = null;
-//         Assert.notNull(obj);
-//        Assert.hasText("","不能为空");
-//        log.info("save失败");
-
-//        List list = new ArrayList();
-
+        List list = new ArrayList();
+        Map map = new HashMap();
+        for(int i = 0;i < 2;i++){
+            TestEntity te = new TestEntity();
+            te.haedMan = (String) map.get("");
+            te.applyUser = (String) map.get("");
+            te.techoglyUser = (String) map.get("");
+            te.businessUser = (String) map.get("");
+            list.set(i,te);
+        }
 
     }
 }
 
-class ParentTest{
-    public ParentTest() {
-        System.out.println(2);
-        getClass();
-
-    }
+class TestEntity{
+    public String haedMan;
+    public String applyUser;
+    public String techoglyUser;
+    public String businessUser;
 }

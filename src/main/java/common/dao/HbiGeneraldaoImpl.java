@@ -28,7 +28,7 @@ import java.util.List;
 public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSupport implements IHbiGeneraldao<T,PK> {
 
     protected Logger log = Logger.getLogger(HbiGeneraldaoImpl.class);
-    protected SessionFactory sessionFactory;
+//    protected SessionFactory sessionFactory;
     protected Session session;
     protected Class<?> entityClass;
 
@@ -38,7 +38,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     }
 
     public HbiGeneraldaoImpl(SessionFactory sessionFactory,Class<T> entityClass) {
-        this.sessionFactory = sessionFactory;
+//        this.sessionFactory = sessionFactory;
         this.entityClass = entityClass;
     }
 
@@ -98,10 +98,6 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return page;
     }
 
-
-
-
-
     public T findUnique(String hql, Object... args) {
         return (T)createQuery(hql,args).uniqueResult();
     }
@@ -142,7 +138,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     public Query createQuery(String queryString, Object... args) {
         Assert.hasText(queryString);
-        Query query = sessionFactory.getCurrentSession().createQuery(queryString);
+        Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(queryString);
         if(args != null){
             for(int i = 0;i < args.length;i++){
                 query.setParameter(i,args[i]);
@@ -152,7 +148,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     }
 
     public Criteria createCriteria(Criterion... criterions) {
-        Criteria c = getSession().createCriteria(entityClass);
+        Criteria c = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(entityClass);
         for(Criterion cr : criterions){
             c.add(cr);
         }
@@ -172,9 +168,6 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         Projection proj = crimpl.getProjection();
         ResultTransformer rtf = crimpl.getResultTransformer();
         List<CriteriaImpl.OrderEntry> list = null;
-
         return 0;
     }
-
-
 }

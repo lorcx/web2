@@ -8,7 +8,7 @@
        jquery系列 : jqeury-form 、jquery、jquery-uploadify
             js   : json2.js（json解析）
 
-一、常用链接：druid首页 : http://localhost:8080/druid/wall.html
+一、常用链接：druid首页 : http://localhost:8080/druid/index.html
 
 
 二、公共使用：
@@ -32,7 +32,7 @@
 
 
 待解决 ：
-    1.hibernate template 的currentSession (文件上传)
+
     hibernate封装
 待办：
     1.pageBean
@@ -41,3 +41,5 @@
 
     权限
     http://blog.csdn.net/zhou2s_101216/article/details/50609630
+
+    连接池关闭

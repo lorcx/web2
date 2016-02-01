@@ -23,6 +23,8 @@ public class DemoAction  extends BaseAction {
 	public String test(){
 //		String testName = request.getParameter("");
 		System.out.println(test.getTname());
+		
+
 		return null;
 	}
 
