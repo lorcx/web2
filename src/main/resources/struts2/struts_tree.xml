@@ -5,7 +5,7 @@
 <struts>
 	<package name="tree" namespace="/tree" extends="struts-default"  >
 		<action name="treeAction" class="treeAction">
-			<result name="edit">/jsp/zTree/bd.jsp</result>
+			<result name="edit">../../webapp/jsp/test/zTree/bd.jsp</result>
 		</action>
 	</package>
 </struts>    

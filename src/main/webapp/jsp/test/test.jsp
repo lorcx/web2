@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-	  	<script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+	  	<script type="text/javascript" src="../../js/jquery/jquery-1.8.2.js"></script>
   </head>
 	<% 
 		String radio = request.getParameter("radio");

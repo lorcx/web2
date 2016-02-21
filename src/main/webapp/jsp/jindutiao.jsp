@@ -13,7 +13,7 @@
 		.center #nei{width:0;height:29px;background:blue ;text-align:center;position:absolute;z-index:-1}
 		.center #sha{position:absolute;z-index:1; filter: Alpha(Opacity=30);}
 	</style>
-  <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+  <script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
    <script type="text/javascript">
   	var process = 1;
 	var u = 100;

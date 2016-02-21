@@ -1,4 +1,6 @@
-/*css3 黑色按钮样式 begin*/
+/*css3 黑色按钮样式 begin
+   例：class="button black side"
+*/
 .button {
     border-radius: 10px;
     color: #fff;

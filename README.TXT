@@ -2,11 +2,15 @@
                                                                            创建时间：2015.12.10
 导入项目注意：
     导入本地jstl.jar和standard.jar
-使用的技术（框架和插件）：
+
+
+****使用的技术（框架和插件）：
        ssh : struts2 spring hibernate
        maven
        jquery系列 : jqeury-form 、jquery、jquery-uploadify
             js   : json2.js（json解析）
+
+       boostrap
 
 一、常用链接：druid首页 : http://localhost:8080/druid/index.html
 
@@ -24,7 +28,29 @@
     1.struts2 拦击*.action因为用了servlet
 
 
+***************目录*********************
+src
+    main
+        java(源文件)
+        resources(配置文件)
+        webapp(web目录)
+            css
+                button(css3按钮样式)
+            font
+            html
+            img
+            js
+            jsp
+            plug_in
+            tmp
+            WEB-INF
+            ...
 
+
+target
+
+
+************************************
 
 -------------------------------------------------------
 
@@ -34,6 +60,8 @@
 待解决 ：
 
     hibernate封装
+
+    切点
 待办：
     1.pageBean
     2.hiberanteDao 公共类

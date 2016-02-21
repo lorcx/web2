@@ -1,7 +1,7 @@
 package test;
 
 import common.dao.HbiGeneraldaoImpl;
-import module.entity.test.*;
+import module.test.entity.Test1;
 
 import java.util.List;
 

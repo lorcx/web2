@@ -6,24 +6,24 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<!-- action start -->
-	<bean id="treeAction" class="module.action.tree.TreeAction">
+	<bean id="treeAction" class="module.tree.action.TreeAction">
 		 <property name="treeService" ref="treeService"/>
 		 <property name="location" ref="location"/>
 	</bean>
 	<!-- action end -->
 
 	<!-- service start -->
-	<bean id="treeService" class="module.service.tree.TreeServiceImpl">
+	<bean id="treeService" class="module.tree.service.TreeServiceImpl">
 		<property name="treeDao" ref="treeDao"/>
 	</bean>
 	<!-- service end -->
 	
 	<!-- dao start -->
-	<bean id="treeDao" class="module.dao.tree.TreeDaoImpl">
+	<bean id="treeDao" class="module.tree.dao.TreeDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<!-- dao end -->
 	
-	<bean id="location" class="module.entity.tree.SsfFaLocation"/>
+	<bean id="location" class="module.tree.entity.SsfFaLocation"/>
 	
 </beans>

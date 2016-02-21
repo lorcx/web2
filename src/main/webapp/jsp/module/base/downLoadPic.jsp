@@ -5,6 +5,7 @@
     <title>下载用户图片</title>
 </head>
 <body>
+  <!-- jsp下载会弹出空白页面 （已废弃）-->
   <%
     response.reset();
     String userName = request.getParameter("userName");

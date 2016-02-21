@@ -34,7 +34,7 @@
     </div>
 	<!--auto end-->
 </body>
-	<script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+	<script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
 	<script type="text/javascript" >
 		$(function (){
 		 	$(".a_text").keyup(function (){

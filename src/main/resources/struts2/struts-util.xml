@@ -9,4 +9,14 @@
            <action name="fileUpload" class="fileUpload">
            </action>
       </package>
+    
+      <package name="downPic" namespace="/downPic" extends="struts-default">
+            <action name="downPic" class="downLoadPic"></action>
+      </package>
+
+      <package name="demo" namespace="/s2deo" extends="struts-default">
+            <action name="downPic" class="Struts2Demo"></action>
+      </package>
+
+
 </struts>

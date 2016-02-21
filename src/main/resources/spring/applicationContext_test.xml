@@ -5,7 +5,7 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!-- dao start -->
-	<bean id="DemoDAO" class="module.dao.DemoDaoImpl">
+	<bean id="DemoDAO" class="module.test.dao.DemoDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 
@@ -15,29 +15,29 @@
 	<!-- dao end -->
 	
 	<!-- service start -->
-	<bean id="DemoService" class="module.service.DemoServiceImpl">
+	<bean id="DemoService" class="module.test.service.DemoServiceImpl">
 		<property name="dao" ref="DemoDAO"/>
 	</bean>
-	<bean id="test1Service" class="module.service.test.Test1ServiceImpl">
+	<bean id="test1Service" class="module.test.service.Test1ServiceImpl">
 		<property name="daoTest" ref="test1Dao"/>
 	</bean>
 	<!-- service end -->
 	
 	<!-- action begin-->
-	<bean id="DemoAction" class="module.action.DemoAction">
+	<bean id="DemoAction" class="module.test.action.DemoAction">
 		<property name="demoService" ref="DemoService"/>
 	</bean>
 
-	<bean id="test1Action" class="module.action.test.Test1Action">
+	<bean id="test1Action" class="module.test.action.Test1Action">
 		<property name="test1Service" ref="test1Service"/>
 
 	</bean>
 	<!-- struts2 stu -->
 	
-	<!-- 
-	<bean id="Struts2Demo" class="web.module.action.Struts2Demo"></bean>
-	 -->
-	<!-- action end -->	
+	<bean id="Struts2Demo" class="module.test.action.Struts2Demo">
+		<property name="userService" ref="baseUserService"/>
+	</bean>
+	<!-- action end -->
 	
 
 	

@@ -7,6 +7,7 @@
 </head>
 <body>
   <%
+    response.reset();
     response.setContentType("image/jpeg");//设置返回类型为图片
     String userName = request.getParameter("userName");
     Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -24,7 +25,8 @@
         ServletOutputStream os = response.getOutputStream();
         os.write(b);
         os.flush();
-        os.close();
+        out.clear();//必加
+        out = pageContext.pushBody(); //必加
       }
     }
   %>

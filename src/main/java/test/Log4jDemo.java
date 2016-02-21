@@ -19,7 +19,7 @@ public class Log4jDemo {
 		log.fatal("fatal");
 		log.info("士大夫");
 		log.warn("warn");
-//		String s1 = "1";
+		//		String s1 = "1";
 //		String s2 = s1;
 //		System.out.println(s1 == s2);
 //

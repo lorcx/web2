@@ -6,11 +6,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<!--baseUser(系统用户)-->
-	<bean id="baseUserService" class="module.service.user.BaseUserServiceImpl">
+	<bean id="baseUserService" class="module.base.user.service.BaseUserServiceImpl">
 		<property name="userDao" ref="baseUserDao"/>
 	</bean>
 
-	<bean id="baseUserDao" class="module.dao.user.BaseUserDaoImpl" >
+	<bean id="baseUserDao" class="module.base.user.dao.BaseUserDaoImpl" >
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 </beans>

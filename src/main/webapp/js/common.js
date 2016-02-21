@@ -16,7 +16,8 @@ $.fn.asyncSubmit = function (_handle){
         success : function (responseText, statusText, options) {
             if (statusText == 'success') {
                 if ($.isFunction(_handle))
-                    _handle(responseText);
+                    //_handle(responseText);
+                    successDispose(responseText,_handle);
             } else {
                 alert("提交失败！");
             }
@@ -36,7 +37,6 @@ $.fn.asyncSubmit = function (_handle){
  */
 function beforeSubmit(formData, jqForm, options){
     show_loading();
-
     //return true;
 }
 
@@ -44,12 +44,11 @@ function beforeSubmit(formData, jqForm, options){
  * 成功处理
  * dispose：处理
  */
-//function successDispose(responseText, statusText, options){
-//
-//    if(statusText == 'success'){
-//      options.success(responseText);
-//    }
-//}
+function successDispose(responseText,_handle){
+    //if(statusText == 'success'){
+    _handle(responseText);
+    //}
+}
 
 /**
  * 获取cookie

@@ -15,7 +15,11 @@
         </bean>
 
         <!--文件上传servelt-->
-        <bean id="uploadFileServelt" class="servlet.upload.UploadFileServlet">
+        <bean id="uploadFileServelt" class="util.upload.UploadFileServlet">
+            <property name="userService" ref="baseUserService"/>
+        </bean>
+    
+        <bean id="downLoadPic" class="util.downLoadPic">
             <property name="userService" ref="baseUserService"/>
         </bean>
 

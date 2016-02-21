@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>跳转主页</title>
+   <!--跳转主页 因为struts2拦截了-->
     <meta http-equiv='refresh'  content='0;url=/login!init.action'>
 </head>
 <body>

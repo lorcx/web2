@@ -2,8 +2,8 @@ package util.upload;
 
 import common.action.BaseAction;
 import common.exception.ServiceException;
-import module.entity.base.BaseUser;
-import module.service.user.IBaseUserService;
+import module.base.user.entity.BaseUser;
+import module.base.user.service.IBaseUserService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -15,7 +15,7 @@ import java.sql.Blob;
 import java.util.List;
 
 /**
- * 文件上传处理
+ * 文件上传处理(暂未使用) 有bug
  * Created by dell on 2015/12/10.
  * suffix 下标
  * 文件上传

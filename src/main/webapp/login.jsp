@@ -84,17 +84,20 @@
 					//验证表单
 					if(validateForm()){
 						$("#login_form").attr('action','/login!login.action');
-					    $("#login_form").submit();
+						$("#login_form").asyncSubmit(loginProcess);
 					}
 				});
 
 			});
 
 			//登陆处理
-//			function loginProcess(data){
-////				alert(1);
-//				window.location.href = '/jsp/main.jsp';
-//			}
+			function loginProcess(data){
+				if(data.isOk){
+					window.location.href = '/login!toMain.action';
+				}else{
+					alert("登陆失败");
+				}
+			}
 
 			//刷新div
 			//function refreshDiv(){

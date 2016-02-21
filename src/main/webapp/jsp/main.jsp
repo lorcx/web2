@@ -106,21 +106,21 @@
 					  </tr>
 					  <tr>
 						  <td class="dt_td_l">头像：</td>
-						  <td class="dt_td_r" style="" colspan="3" >
+						  <td class="dt_td_r" style="" colspan="3" ><s:property value="#attr.baseUser.userName"/>
 								<img width="500px" onclick="downLoadPic();" height="250px" src="/jsp/module/base/userPic.jsp?userName=<s:property value="#attr.baseUser.userName"/>"/>
 						  </td>
 					  </tr>
 				  </tbody>
 			  </table>
 			  <div>
-					session: <s:property value="#attr.userName"/><br/>
-				  			<s:property value="#attr.nickName"/>
+					session: <s:property value="#attr.userInfo.userName"/><br/>
+				  			<s:property value="#attr.userInfo.nickname"/>
 			  </div>
 		  </s:form>
 	  </div>
 	  <div id="ToolBar">
-	  	<a href="#" onclick="uploadFile();">上传文件</a>
-	  	<a href="#" onclick="goBackIndex();">返回主页</a>
+		  <button type="button" class="btn btn-lg btn-link" onclick="uploadFile();">上传文件</button>
+		  <button type="button" class="btn btn-lg btn-link" onclick="goBackIndex();">返回主页</button>
 	  </div>
   </body>
   <script type="text/javascript">
@@ -128,8 +128,8 @@
 	   *上传文件
 	   */
 	  function uploadFile(){
-		  var url = "/jsp/uploadDemo.jsp";
-		  var iHeight = "500";//弹出的高度
+		  var url = "/jsp/uploadFile.jsp";
+		  var iHeight = "550";//弹出的高度
 		  var iWidth = "400";//弹出的宽度
 		  var iTop = (window.screen.height-30-iHeight)/2; //获得窗口的垂直位置;
 		  var iLeft = (window.screen.width-10-iWidth)/2; //获得窗口的水平位置;
@@ -142,13 +142,8 @@
 	   */
 	  function downLoadPic(){
 		  var userName = '${requestScope.baseUser.userName}';
-		  var url = "/jsp/module/base/downLoadPic.jsp?userName="+userName;
-		  var iHeight = "500";//弹出的高度
-		  var iWidth = "400";//弹出的宽度
-		  var iTop = (window.screen.height-30-iHeight)/2; //获得窗口的垂直位置;
-		  var iLeft = (window.screen.width-10-iWidth)/2; //获得窗口的水平位置;
-		  var style = 'status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top='+iTop+',left='+iLeft+', resizable=yes,height='+iHeight+',width='+iWidth;
-		  window.open(url,"",style);
+		  var url = "/downPic/downPic!downPic.action?userName="+userName;
+		  window.location.href = url;
 	  }
 
 	  /**

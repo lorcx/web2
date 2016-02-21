@@ -20,7 +20,7 @@
 				<value>classpath:hibnate.properties</value>
 			</list>
 		</property>
-		<property name="fileEncoding" value="utf-8" />
+		<property name="fileEncoding" value="UTF-8" />
 	</bean>
 
 	<!-- 数据源 begin -->
@@ -94,9 +94,9 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>module/entity/Test.hbm.xml</value>
-				<value>module/entity/tree/SsfFaLocation.hbm.xml</value>
-				<value>module/entity/base/BaseUser.hbm.xml</value>
+				<value>module/test/entity/Test.hbm.xml</value>
+				<value>module/tree/entity/SsfFaLocation.hbm.xml</value>
+				<value>module/base/user/entity/BaseUser.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -115,15 +115,17 @@
 			<tx:method name="update*" propagation="REQUIRED"/>
 			<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />
 			<tx:method name="*" read-only="true"/>
-			<tx:method name="doGet" propagation="REQUIRED"/>
+			<tx:method name="doGet*" propagation="REQUIRED"/>
 			<!--test-->
 			<tx:method name="test" propagation="REQUIRED"/>
+			<tx:method name="upload*" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 	<!-- 那些类的哪些方法参与事务 -->
 	<aop:config>
-		<aop:pointcut id="allServiceMethod" expression="(execution(* module.service..*.*(..)) or
-														 execution(* servlet.upload.*.*(..)) )"/> <!--第二个没切上-->
+		<aop:pointcut id="allServiceMethod" expression="(execution(* module.*.service..*.*(..)) or
+														 execution(* module.base.*.service.*.*(..))
+														 )"/> <!--没切上 只切的到了一个类  execution(* util..*.*(..))	-->
 		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
 	</aop:config>
 

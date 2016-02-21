@@ -9,7 +9,7 @@
 	<!-- 动态方法调用 -->
 	<package name="dt" namespace="/dt" extends="struts-default"  >
 		<!-- 验证码 -->
-		<action name="Struts2Demo" class="module.action.Struts2Demo" >
+		<action name="Struts2Demo" class="module.test.action.Struts2Demo" >
 		</action>
 		<action name="demoAction" class="DemoAction" >
 			<result name="success">/test.jsp</result>
