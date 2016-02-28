@@ -27,7 +27,7 @@
 <script type="text/javascript">
     $(function (){
         //0 未通过 1 通过 2 有条件通过 3 复议
-       var final_res = "":
+       var final_res = "";
        var tg,ntg,tjtg = 0;
        $('#auditTab input[class="audit_result"]').each(function(i,o){
            var res = $(o).val();//每个审议结果

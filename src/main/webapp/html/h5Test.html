@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div id="textDiv">
+    <input type="text" id="textBox" onfocus="test();" />
+
+    <hr/>
+    <input type="text" size="20" onkeydown="if(event.keyCode == 13) alert(/^(\d*\.\d*)||(-\d*)$/.test(this.value));"/>
+
+    <div>
+        <table>
+            <thead>
+             <tr>
+                <td>序号</td>
+                <td>人员资质</td>
+                <td>人数</td>
+                <td>工作量</td>
+                <td>单价</td>
+                <td>小计</td>
+            </tr>
+
+            </thead>
+            <tbody>
+
+
+
+            <tr>
+                <td>1</td>
+                <td>xx</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>1234.45</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>xx</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>2332223.24</td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>总计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+</body>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function (){
+       // $('#textBox').removeAttr("onfocus");
+        $('table tbody tr td:nth-child(6)').each(function(i,o){
+            console.log(this);
+            $(o).text('格式化');
+        });
+    })
+
+
+    function test(){
+        alert("onfocus事件");
+    }
+
+</script>
+</html>

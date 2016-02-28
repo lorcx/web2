@@ -6,7 +6,7 @@
 <link href="/plug_in/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <!--js-->
-<script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery-1.12.1.min.js"></script>
 <script type="text/javascript" src="../../plug_in/form/jquery.form.js"></script>
 <script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript" src="/plug_in/bootstrap/js/bootstrap.min.js"></script>
