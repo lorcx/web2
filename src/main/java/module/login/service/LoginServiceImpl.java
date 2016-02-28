@@ -5,6 +5,7 @@ import common.exception.ServiceException;
 import module.base.user.dao.IBaseUserDao;
 import module.base.user.entity.BaseUser;
 import org.apache.commons.lang.StringUtils;
+import util.Md5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class LoginServiceImpl implements ILoginService {
         Boolean isOk = false;//是否登陆成功
         try {
             BaseUser user = userDao.getUserInfoByName(userName);
+            passWord = Md5.md5(passWord);
             isOk = isPasswdOk(user,passWord);
             infoMap.put("isOk",isOk);//是否登陆成功
             if(isOk)

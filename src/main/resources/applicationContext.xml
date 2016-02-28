@@ -110,22 +110,24 @@
 	<!-- 配置事务的传播特性 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED"/>
-			<tx:method name="delete*" propagation="REQUIRED"/>
-			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception"/>
+			<tx:method name="update*" propagation="REQUIRED"  rollback-for="java.lang.Throwable,java.lang.Exception"/>
 			<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />
-			<tx:method name="*" read-only="true"/>
-			<tx:method name="doGet*" propagation="REQUIRED"/>
+			<tx:method name="doGet*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception"/>
 			<!--test-->
-			<tx:method name="test" propagation="REQUIRED"/>
-			<tx:method name="upload*" propagation="REQUIRED"/>
+			<tx:method name="test" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception" />
+			<tx:method name="upload*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception"/>
 		</tx:attributes>
 	</tx:advice>
 	<!-- 那些类的哪些方法参与事务 -->
 	<aop:config>
+		<!--没切上 只切的到了一个类  execution(* util..*.*(..))
+			第二个测试daoImpl   execution(* module.test.dao.DemoDaoImpl.test(..)) or
+			-->
 		<aop:pointcut id="allServiceMethod" expression="(execution(* module.*.service..*.*(..)) or
 														 execution(* module.base.*.service.*.*(..))
-														 )"/> <!--没切上 只切的到了一个类  execution(* util..*.*(..))	-->
+														 )"/>
 		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
 	</aop:config>
 

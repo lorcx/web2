@@ -1,0 +1,6 @@
+ERROR:[2016-02-20 20:41]-test.Log4jDemo.main(Log4jDemo.java:17) : 士大夫
+FATAL:[2016-02-20 20:41]-test.Log4jDemo.main(Log4jDemo.java:19) : fatal
+ERROR:[2016-02-20 20:41]-test.Log4jDemo.main(Log4jDemo.java:17) : 士大夫
+FATAL:[2016-02-20 20:41]-test.Log4jDemo.main(Log4jDemo.java:19) : fatal
+ERROR:[2016-02-20 21:11]-test.Log4jDemo.main(Log4jDemo.java:17) : 士大夫
+FATAL:[2016-02-20 21:11]-test.Log4jDemo.main(Log4jDemo.java:19) : fatal

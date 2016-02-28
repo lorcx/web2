@@ -22,7 +22,7 @@
         <%@ include file="/jsp/common/plugIn.jsp" %>  js插件
 
 三、已有功能：
-        文件上传，下载
+        文件上传，下载,md5加密
 
 四、其他：
     1.struts2 拦击*.action因为用了servlet

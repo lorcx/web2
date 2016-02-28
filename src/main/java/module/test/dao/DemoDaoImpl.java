@@ -1,20 +1,43 @@
 package module.test.dao;
 
-import module.test.entity.Test;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import common.dao.HbiGeneraldaoImpl;
+import module.test.entity.Test1;
 
 
+/**
+ * 测试dao
+ */
+public class DemoDaoImpl extends HbiGeneraldaoImpl<Test1, String> implements IDemoDao {
 
 
-public class DemoDaoImpl extends HibernateDaoSupport implements IDemoDao {
+    @Override
+    public void test()throws Exception {
+//		ApplicationContext ac = new FileSystemXmlApplicationContext("applicationContext.xml");
+//		id ac.getBean("DemoDAO");
+//        try {
+            Test1 t = new Test1();
+            t.setTid("656");
+            t.setTname("玉兔");
+            saveEntity(t);
 
-	@Override
-	public void demo() {
-		Session session = getSession();
-		Test t = (Test) session.get(Test.class, "1");
-		if(t != null)
-			System.out.println(t.getTname());
-	}
+            Test1 t1 = new Test1();
+            t1.setTid("799");
+            t1.setTname("bbf");
+            saveEntity(t1);
+            throw new RuntimeException("报错吧");
 
+
+//            log.info("操作成功");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+    }
+
+
+//    public static void main(String[] args) {
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+//        IDemoDao demoDao = (IDemoDao) ac.getBean("DemoDAO");
+//        demoDao.test();
+//    }
 }

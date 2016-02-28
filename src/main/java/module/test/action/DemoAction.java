@@ -6,6 +6,8 @@ import module.test.entity.Test1;
 import module.test.service.IDemoService;
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 public class DemoAction  extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
@@ -15,15 +17,24 @@ public class DemoAction  extends BaseAction {
 
 	public String demo(){
 		demoService.demo();
-		request.setAttribute("user", "123");
+//		request.setAttribute("user", "123");
 //		log.error("abc");
-		return "success";
+		return null;
 	}
 
+	/**
+	 * 测试方法
+	 * @return
+	 */
 	public String test(){
-//		String testName = request.getParameter("");
-		System.out.println(test.getTname());
-		
+//		String a = request.getParameter("a");
+//		System.out.println(test.getTname());
+
+		/*getParameterMap 用法*/
+		Map m = request.getParameterMap();
+		String [] a = (String[]) m.get("a");
+		System.out.println(a[1]);
+
 
 		return null;
 	}

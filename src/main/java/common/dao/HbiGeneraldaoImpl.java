@@ -24,8 +24,8 @@ import java.util.List;
  * http://my.oschina.net/moson/blog/518659
  * Created by dell on 2016/1/28.
  */
-@SuppressWarnings("unchecked")
-public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSupport implements IHbiGeneraldao<T,PK> {
+@SuppressWarnings("unused")
+public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSupport {
 
     protected Logger log = Logger.getLogger(HbiGeneraldaoImpl.class);
 //    protected SessionFactory sessionFactory;
@@ -45,9 +45,9 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     /**
      * 保存
-     * @param o
+     * @param
      */
-    public void saveEntity(Object o) {
+    public void saveEntity(T o) {
         Assert.notNull(o);
         getHibernateTemplate().saveOrUpdate(o);
         log.info("save entity:"+o);
@@ -55,9 +55,9 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     /**
      * 删除
-     * @param o
+     * @param
      */
-    public void delEntity(Object o) {
+    public void delEntity(T o) {
         Assert.notNull(o);
         getHibernateTemplate().delete(o);
         log.info("delEntity:"+o);
