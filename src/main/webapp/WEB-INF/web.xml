@@ -116,6 +116,31 @@
 
     <!-- 文件上传end -->
 
+    <!--jsp学习 page对象获取初始化信息-->
+    <servlet>
+        <servlet-name>studyJsp</servlet-name>
+        <jsp-file>/jsp/study/jsp/zyfwfx.jsp</jsp-file>
+        <init-param>
+            <param-name>key</param-name>
+            <param-value>val</param-value>
+        </init-param>
+        <init-param>
+            <param-name>name</param-name>
+            <param-value>joke</param-value>
+        </init-param>
+        <init-param>
+            <param-name>user</param-name>
+            <param-value>lx</param-value>
+        </init-param>
+        <init-param>
+            <param-name>passWd</param-name>
+            <param-value>123</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>studyJsp</servlet-name>
+        <url-pattern>/studyJsp</url-pattern>
+    </servlet-mapping>
     <!--servlet end -->
 
     <!-- el 表达式可以获取值 -->

@@ -72,9 +72,10 @@ public class LoginAction extends BaseAction{
         String password = request.getParameter("password");
         String captcha = request.getParameter("captcha");//验证码
         Map<String,Object> results = new HashMap<String,Object>();
+        Gson gson = new Gson();
         //检查验证码
         validateYZM(captcha,results);
-
+        String maps;
         try {
             if(isOk){//验证码通过
                 results = loginService.login(userName,password);
@@ -86,14 +87,14 @@ public class LoginAction extends BaseAction{
                 }
             }
             results.put("isOk",isOk);
-            Gson gson = new Gson();
-            String maps = gson.toJson(results);
-            response.getWriter().print(maps);
-//            request.setAttribute("isOk",results.get("isOk"));
-//            request.setAttribute("baseUser",results.get("BaseUser"));
+            maps = gson.toJson(results);
         } catch (ServiceException e) {
-            log.error("登陆失败！ 用户 ："+userName, e.getCause());
-        }
+            log.error("登陆失败：" + userName, e.getCause());
+            results.put("isOk",false);
+            results.put("msg","登陆失败");
+            maps = gson.toJson(results);
+        };
+        response.getWriter().print(maps);
         return null;
     }
 
@@ -106,11 +107,14 @@ public class LoginAction extends BaseAction{
             if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
                 if(StringUtils.isEmpty(captcha) || !captcha.equals(ck.getValue())){//验证码不正确
                     results.put("msg","验证码不正确，请重新输入！");
+                    return;
                 }else {
                     isOk = true;
+                    return;
                 }
             }else{
                 results.put("msg","验证码不正确，请重新输入！");
+                return;
             }
         }
     }

@@ -36,7 +36,7 @@ $.fn.asyncSubmit = function (_handle){
  * options : 表单提交参数
  */
 function beforeSubmit(formData, jqForm, options){
-    show_loading();
+   // show_loading();
     //return true;
 }
 
@@ -46,6 +46,7 @@ function beforeSubmit(formData, jqForm, options){
  */
 function successDispose(responseText,_handle){
     //if(statusText == 'success'){
+     close_loading();
     _handle(responseText);
     //}
 }

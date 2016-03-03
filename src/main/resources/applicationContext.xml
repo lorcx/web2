@@ -102,34 +102,50 @@
 	</bean>
 
 	<!-- 3.事物管理 -->
-	<!-- 配置事务管理器 指定其作用的sessionFactory把事务交给Spring去处理 -->
+	<!-- 配置事务管理器 指定其作用的sessionFactory把事务交给Spring去处理  (声明式)-->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 
+	<bean id="txManager" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="remove*">PROPAGATION_REQUIRED,-DataAccessException</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-DataAccessException</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-DataAccessException</prop>
+				<prop key="test*">PROPAGATION_REQUIRED,-DataAccessException</prop>
+				<prop key="demo*">PROPAGATION_REQUIRED,-DataAccessException</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,-DataAccessException,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,-DataAccessException,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!-- 配置事务的传播特性 -->
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception" />
-			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception"/>
-			<tx:method name="update*" propagation="REQUIRED"  rollback-for="java.lang.Throwable,java.lang.Exception"/>
-			<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />
-			<tx:method name="doGet*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception"/>
-			<!--test-->
-			<tx:method name="test" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception" />
-			<tx:method name="upload*" propagation="REQUIRED" rollback-for="java.lang.Throwable,java.lang.Exception"/>
-		</tx:attributes>
-	</tx:advice>
+	<!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+		<!--<tx:attributes>-->
+			<!--<tx:method name="save*" propagation="REQUIRED" rollback-for="DataAccessException,java.lang.Exception" />-->
+			<!--<tx:method name="delete*" propagation="REQUIRED" rollback-for="DataAccessException,java.lang.Exception"/>-->
+			<!--<tx:method name="update*" propagation="REQUIRED"  rollback-for="DataAccessException,java.lang.Exception"/>-->
+			<!--<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />-->
+			<!--<tx:method name="doGet*" propagation="REQUIRED" rollback-for="DataAccessException,java.lang.Exception"/>-->
+			<!--&lt;!&ndash;test&ndash;&gt;-->
+			<!--<tx:method name="test" propagation="REQUIRED" rollback-for="DataAccessException,java.lang.Exception" />-->
+			<!--<tx:method name="upload*" propagation="REQUIRED" rollback-for="DataAccessException,java.lang.Exception"/>-->
+		<!--</tx:attributes>-->
+	<!--</tx:advice>-->
 	<!-- 那些类的哪些方法参与事务 -->
-	<aop:config>
 		<!--没切上 只切的到了一个类  execution(* util..*.*(..))
 			第二个测试daoImpl   execution(* module.test.dao.DemoDaoImpl.test(..)) or
 			-->
+
+	<!--<aop:config>
 		<aop:pointcut id="allServiceMethod" expression="(execution(* module.*.service..*.*(..)) or
 														 execution(* module.base.*.service.*.*(..))
 														 )"/>
 		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
-	</aop:config>
+	</aop:config>-->
 
 
 	<!--hibernate配置 end-->

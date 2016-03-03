@@ -62,8 +62,7 @@ public class verification {
 				result = num1 / num2;
 				break;
 		}
-		System.out.println("num1 :" + num1 + " num2 :" + num2);
-//		log.info("num1 :" + num1 + "num2 :" + num2);
+		log.info("num1 :" + num1 + " num2 :" + num2);
 		//必须是整数
 		BufferedImage image = DrawPic(num1,num2,oper,operate);
 		return new Object[] {(int)result,image};

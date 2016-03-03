@@ -58,3 +58,8 @@ function show_loading()
 	$('.msg_bg').height($(document).height());
 	$('.loading').css('margin-top',scroll_height+240);
 }
+
+//关闭动画
+function close_loading(){
+	$('.msg_bg').hide();
+}

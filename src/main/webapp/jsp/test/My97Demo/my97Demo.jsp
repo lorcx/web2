@@ -320,7 +320,7 @@
 	  </div>	
   </body>
   <!-- 引入该js库 -->
-  <script type="text/javascript" src="../../My97DatePickerBeta/My97DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="../../../plug_in/My97DatePickerBeta/My97DatePicker/WdatePicker.js"></script>
   <script type="text/javascript">
   	WdatePicker({eCont:'div1',onpicked:function(dp){
   					alert('您选择的日期是：'+dp.cal.getDateStr());

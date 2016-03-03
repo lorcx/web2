@@ -95,7 +95,7 @@
 				if(data.isOk){
 					window.location.href = '/login!toMain.action';
 				}else{
-					alert("登陆失败");
+					alert(data.msg);
 				}
 			}
 
