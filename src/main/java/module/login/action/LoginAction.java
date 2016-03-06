@@ -105,17 +105,14 @@ public class LoginAction extends BaseAction{
         Cookie[] cookies = request.getCookies();
         for(Cookie ck : cookies){
             if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
-                if(StringUtils.isEmpty(captcha) || !captcha.equals(ck.getValue())){//验证码不正确
-                    results.put("msg","验证码不正确，请重新输入！");
-                    return;
-                }else {
+                if(StringUtils.isNotEmpty(captcha) || captcha.equals(ck.getValue())){//验证码正确
                     isOk = true;
                     return;
                 }
-            }else{
-                results.put("msg","验证码不正确，请重新输入！");
-                return;
             }
+        }
+        if(!isOk){
+            results.put("msg","验证码不正确，请重新输入！");
         }
     }
 

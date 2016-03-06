@@ -2,6 +2,6 @@ package module.test.service;
 
 public interface IDemoService {
 
-	public void demo();
+	public void demo()throws Exception;
 
 }

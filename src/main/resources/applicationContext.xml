@@ -3,6 +3,7 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/aop
@@ -87,9 +88,9 @@
 				<!--格式化sql-->
 				<prop key="hibernate.format_sql">${format_sql}</prop>
 
-				<prop key="hibernate.current_session_context_class">${thread}</prop>
+				<!--<prop key="hibernate.current_session_context_class">${thread}</prop>-->
 
-				<prop key="hibernate.transaction.factory_class">${transaction}</prop>
+				<!--<prop key="hibernate.transaction.factory_class">${transaction}</prop>-->
 			</props>
 		</property>
 		<property name="mappingResources">
@@ -102,23 +103,59 @@
 	</bean>
 
 	<!-- 3.事物管理 -->
-	<!-- 配置事务管理器 指定其作用的sessionFactory把事务交给Spring去处理  (声明式)-->
+	<!-- (声明式) 拦截器
+		 配置事务管理器
+		 指定其作用的sessionFactory把事务交给Spring去处理
+	-->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 
-	<bean id="txManager" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager" ref="transactionManager" />
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager"/>
 		<property name="transactionAttributes">
 			<props>
-				<prop key="remove*">PROPAGATION_REQUIRED,-DataAccessException</prop>
-				<prop key="update*">PROPAGATION_REQUIRED,-DataAccessException</prop>
-				<prop key="save*">PROPAGATION_REQUIRED,-DataAccessException</prop>
-				<prop key="test*">PROPAGATION_REQUIRED,-DataAccessException</prop>
-				<prop key="demo*">PROPAGATION_REQUIRED,-DataAccessException</prop>
-				<prop key="get*">PROPAGATION_REQUIRED,-DataAccessException,readOnly</prop>
-				<prop key="find*">PROPAGATION_REQUIRED,-DataAccessException,readOnly</prop>
+				<prop key="save*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
+				<prop key="add*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
+				<prop key="update*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
+				<prop key="del*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
+				<prop key="delete*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
+				<prop key="get*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable,readOnly
+				</prop>
+				<prop key="find*">
+					PROPAGATION_REQUIRED,-java.lang.Throwable,readOnly
+				</prop>
+				<prop key="demo">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
+				<prop key="login">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
 			</props>
+		</property>
+	</bean>
+
+	<bean id="autoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
 		</property>
 	</bean>
 
@@ -139,14 +176,12 @@
 		<!--没切上 只切的到了一个类  execution(* util..*.*(..))
 			第二个测试daoImpl   execution(* module.test.dao.DemoDaoImpl.test(..)) or
 			-->
-
-	<!--<aop:config>
-		<aop:pointcut id="allServiceMethod" expression="(execution(* module.*.service..*.*(..)) or
-														 execution(* module.base.*.service.*.*(..))
-														 )"/>
-		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
-	</aop:config>-->
-
+	<!--<aop:config>-->
+		<!--<aop:pointcut id="allServiceMethod" expression="(execution(* module.*.service..*.*(..)) or-->
+														 <!--execution(* module.base.*.service.*.*(..))-->
+														 <!--)"/>-->
+		<!--<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txManager"/>-->
+	<!--</aop:config>-->
 
 	<!--hibernate配置 end-->
 

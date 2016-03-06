@@ -2,8 +2,8 @@ package common.dao;
 
 import common.PageBean;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,10 +30,6 @@ public interface IHbiGeneraldao<T,PK extends Serializable> {
 
     public T findUnique (String hql,Object ...args);
 
-    public int findInt(String hql,Object...args);
-
-    public Long findLong(String hql,Object...args);
-
     public List<T> findCriteria(Criterion... criterions);
 
     public PageBean findByCriteria(PageBean page,Criterion... criterions);
@@ -41,10 +37,6 @@ public interface IHbiGeneraldao<T,PK extends Serializable> {
     public List<T> findByProperty(String property,Object value);
 
     public T findUniqueByProperty(String property,Object value);
-
-    public Query createQuery(String queryString,Object...args);
-
-    public Criteria createCriteria(Criterion...criterions);
 
     public boolean isPropertyUnique(String propertyName,Object newValue,Object orgValue);
 

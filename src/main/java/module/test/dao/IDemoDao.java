@@ -5,6 +5,6 @@ import module.test.entity.Test1;
 
 public interface IDemoDao extends IHbiGeneraldao<Test1,String> {
 
-	public void test()throws Exception;
+	public void test(Test1 t)throws Exception;
 
 }

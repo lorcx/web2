@@ -13,7 +13,7 @@ public class PageBean {
     public int totalPageNum;//总页数
     public int currentNum;//当前页
     public int showCount;//每页的个数
-    public int totalNum;//总记录数
+    public int totalNum;
     public int totalResult;//总记录数
 
     public PageBean() {
@@ -25,6 +25,16 @@ public class PageBean {
         this.showCount = showCount;
         this.totalNum = totalNum;
     }
+
+    /**
+     * 获取起始记录数
+     * @return
+     */
+//    public int getFirstPageNum(){
+////        double d = totalResult/showCount;
+////        Math.pow(d,1);
+//        return ;
+//    }
 
     public int getTotalPageNum() {
         return totalPageNum;

@@ -16,7 +16,11 @@ public class DemoAction  extends BaseAction {
 	public Test1 test;
 
 	public String demo(){
-		demoService.demo();
+		try {
+			demoService.demo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 //		request.setAttribute("user", "123");
 //		log.error("abc");
 		return null;

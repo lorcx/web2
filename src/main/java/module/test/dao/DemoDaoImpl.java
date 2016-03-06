@@ -11,28 +11,30 @@ public class DemoDaoImpl extends HbiGeneraldaoImpl<Test1, String> implements IDe
 
 
     @Override
-    public void test() throws Exception {
+    public void test(Test1 t) throws Exception {
 //		ApplicationContext ac = new FileSystemXmlApplicationContext("applicationContext.xml");
 //		id ac.getBean("DemoDAO");
+//      StringBuilder sql = new StringBuilder();
+//      BaseUser b = new BaseUser();
+//      b.setUserName("admin");
+//      get("1");
+//        sql.append("from BaseUser b where b.userName = ?");
+//        b = findUnique(sql.toString(),b);
 //        try {
-
-        Test1 t1 = new Test1();
-        t1.setTid("799");
-        t1.setTname("bbf");
-        saveEntity(t1);
-
-        Test1 t = new Test1();
-//            t.setTid("656");
-        t.setTname("玉兔");
-        saveEntity(t);
-
-
-        throw new RuntimeException("报错吧");
-
-
-//            log.info("操作成功");
-//        } catch (Exception e) {
-//            e.printStackTrace();
+//
+        findByCriteria(null);
+//        countQueryResult(null,);
+//        List<Test1> list = findAll();
+//        for(Test1 t1 : list){
+//            System.out.println(t1.getTname());
+//            System.out.println(t1.getTid());
+//        }
+//        saveEntity(t);
+//        delEntity(t);
+//        delById("1");
+////            log.info("操作成功");
+//       } catch (Exception e) {
+//          e.printStackTrace();
 //        }
 
     }

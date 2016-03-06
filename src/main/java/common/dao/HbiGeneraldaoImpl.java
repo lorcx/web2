@@ -4,15 +4,12 @@ import common.PageBean;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.impl.CriteriaImpl;
-import org.hibernate.transform.ResultTransformer;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
+
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -29,7 +26,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     protected Logger log = Logger.getLogger(HbiGeneraldaoImpl.class);
 //    protected SessionFactory sessionFactory;
-    protected Session session;
+//    protected Session session;
     protected Class<?> entityClass;
 
     public HbiGeneraldaoImpl() {
@@ -37,10 +34,10 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         this.entityClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    public HbiGeneraldaoImpl(SessionFactory sessionFactory,Class<T> entityClass) {
+//    public HbiGeneraldaoImpl(SessionFactory sessionFactory,Class<T> entityClass) {
 //        this.sessionFactory = sessionFactory;
-        this.entityClass = entityClass;
-    }
+//        this.entityClass = entityClass;
+//    }
 
 
     /**
@@ -54,20 +51,28 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     }
 
     /**
-     * 删除
+     * 删除实体
      * @param
      */
     public void delEntity(T o) {
         Assert.notNull(o);
         getHibernateTemplate().delete(o);
-        log.info("delEntity:"+o);
+        log.info("delEntity:" + o);
     }
 
+    /**
+     * 根据id删除
+     * @param p
+     */
     public void delById(PK p) {
         Assert.notNull(p);
         delEntity(get(p));
     }
 
+    /**
+     * 查询所有记录
+     * @return
+     */
     public List<T> findAll() {
         return findCriteria();
     }
@@ -98,18 +103,31 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return page;
     }
 
+    /**
+     * 根据hql查询，返回单个实体
+     * @param hql
+     * @param args
+     * @return
+     */
     public T findUnique(String hql, Object... args) {
         return (T)createQuery(hql,args).uniqueResult();
     }
 
-    public int findInt(String hql, Object... args) {
-        return (Integer)findUnique(hql,args);
-    }
+//    public int findInt(String hql, Object... args) {
+//        return (Integer)findUnique(hql, args);
+//    }
 
-    public Long findLong(String hql, Object... args) {
-        return (Long)findUnique(hql,args);
-    }
+//    public Long findLong(String hql, Object... args) {
+//        return (Long)findUnique(hql, args);
+//    }
 
+    /**
+     * 动态查询
+     * Criterion是Criteria的查询条件接口
+     * Criterion 的实例可以通过 Restrictions 工具类来创建
+     * @param criterions
+     * @return
+     */
     public List<T> findCriteria(Criterion... criterions) {
         return createCriteria(criterions).list();
     }
@@ -120,9 +138,10 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
         page.setTotalNum(countQueryResult(page,criteria));
 
+        page.getTotalNum();
         criteria.setFirstResult(1);
         criteria.setMaxResults(page.getTotalPageNum());
-
+        criteria.list();
         return null;
     }
 
@@ -136,7 +155,40 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return (T)createCriteria(Restrictions.eq(property,value)).uniqueResult();
     }
 
-    public Query createQuery(String queryString, Object... args) {
+    /**
+     * 查询结果个数
+     * @param page
+     * @param c
+     * @return
+     */
+    public int countQueryResult(PageBean page, Criteria c) {
+//        CriteriaImpl crimpl = (CriteriaImpl)c;
+//        Projection proj = crimpl.getProjection();
+//        ResultTransformer rtf = crimpl.getResultTransformer();
+//        List<CriteriaImpl.OrderEntry> list = null;
+        Object n = c.setProjection(Projections.projectionList().add(Projections.rowCount())).uniqueResult();
+        if(n != null){
+            return Integer.parseInt(String.valueOf(n));
+        }
+        return 0;
+    }
+
+
+    public boolean isPropertyUnique(String propertyName, Object newValue, Object orgValue) {
+        if (newValue == null || newValue.equals(orgValue))
+            return true;
+
+        Object object = findUniqueByProperty(propertyName, newValue);
+        return (object == null);
+    }
+
+    /**
+     * 创建query
+     * @param queryString
+     * @param args
+     * @return
+     */
+    private Query createQuery(String queryString, Object... args) {
         Assert.hasText(queryString);
         Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(queryString);
         if(args != null){
@@ -147,27 +199,19 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return query;
     }
 
-    public Criteria createCriteria(Criterion... criterions) {
+    /**
+     * 获取Criteria
+     * @param criterions
+     * @return
+     */
+    private Criteria createCriteria(Criterion... criterions) {
         Criteria c = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(entityClass);
-        for(Criterion cr : criterions){
-            c.add(cr);
+        if(criterions != null && criterions.length > 0){
+            for(Criterion cr : criterions){
+                c.add(cr);
+            }
         }
         return c;
     }
 
-    public boolean isPropertyUnique(String propertyName, Object newValue, Object orgValue) {
-        if (newValue == null || newValue.equals(orgValue))
-            return true;
-
-        Object object = findUniqueByProperty(propertyName, newValue);
-        return (object == null);
-    }
-
-    public int countQueryResult(PageBean page, Criteria c) {
-        CriteriaImpl crimpl = (CriteriaImpl)c;
-        Projection proj = crimpl.getProjection();
-        ResultTransformer rtf = crimpl.getResultTransformer();
-        List<CriteriaImpl.OrderEntry> list = null;
-        return 0;
-    }
 }

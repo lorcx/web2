@@ -57,17 +57,5 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
         }
     }
 
-    /**
-     * 关闭session
-     * @param session
-     */
-//    public void closeSession(Session session){
-//        try {
-//            if(null != session && session.isOpen()){
-//                session.close();
-//            }
-//        }catch (Exception e){
-//            LOG.error("关闭session失败！",e.getCause());
-//        }
-//    }
+
 }

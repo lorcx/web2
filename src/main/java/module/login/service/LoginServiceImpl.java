@@ -27,17 +27,26 @@ public class LoginServiceImpl implements ILoginService {
         Map<String,Object> infoMap = new HashMap<String, Object>();
         Boolean isOk = false;//是否登陆成功
         try {
-            BaseUser user = userDao.getUserInfoByName(userName);
+            BaseUser user = getUserInfo(userName);
             passWord = Md5.md5(passWord);
             isOk = isPasswdOk(user,passWord);
             infoMap.put("isOk",isOk);//是否登陆成功
-            if(isOk)
+            if(isOk){
                 infoMap.put("BaseUser",user);
+            }
         } catch (DaoException e) {
             infoMap.put("isOk",isOk);
             throw new ServiceException("登录service error",e.getCause());
         }
         return infoMap;
+    }
+
+    /**
+     * 根据用户名称获取用户信息
+     * @return
+     */
+    public BaseUser getUserInfo(String userName) throws DaoException {
+        return userDao.getUserInfoByName(userName);
     }
 
     /**
