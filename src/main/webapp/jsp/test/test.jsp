@@ -53,8 +53,55 @@
 //		  return (arg1*m+arg2*m)/m
 //	  }
 
+	//以数组作为参数
+//	var arr = new Array('a','b');
+//	sendMsgRemind(arr);
+//	function sendMsgRemind(data){
+//		console.log(data);
+//	}
 
 
+//	  var stu = new Object();
+//	  stu.name = 'a';
+//	  stu.id = 1;
+//	  var json = JSON.stringify(stu);
+//	  alert(json.name);
+//	  var jsonStr = JSON.parse(json);
+//	  console.log(jsonStr.name);
+
+//	var str1 = '{ "title": "11", "memo": "22" }';
+//	var str3 = { "title": "11", "memo": "22" };
+//	var json = JSON.parse(str1);
+//	//alert(json.name);
+//	console.log(json);
+//	console.log(str3);
+
+	var data = {"title":"","memo":"",
+				"users":[{"acceptUser":"1","acceptDept":"","showDate":""}],
+				"depts":[{"acceptUser":"1","acceptDept":"","showDate":""}]
+	           };
+
+	var data1 = {"title":"","memo":"",
+					"depts":[{"acceptUser":"1","acceptDept":"","showDate":""}]
+				};
+	var data2 = {"title":"","memo":"",
+				"users":[{"acceptUser":"1","acceptDept":"","showDate":""}],
+			};
+
+
+	sendMsgRemind(data2);
+
+	function sendMsgRemind(data2){
+		var arr = '[';
+		if(!data2.users){
+			var u = data2.users;
+			for(var i = 0;i < u.length;i++){
+				arr+='{"msgRemind/acceptUser":'+u[i].acceptUser+',"msgRemind/acceptDept":'+u[i].acceptDept+',"showDate":'+u[i].showDate+'}'
+			}
+		}
+
+		arr += ']';
+	}
 
   </script>
 </html>
