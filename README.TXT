@@ -71,3 +71,7 @@ target
     http://blog.csdn.net/zhou2s_101216/article/details/50609630
 
     连接池关闭
+
+
+input 图标怎么放进去的 :  input width 100% 图标position absoulte
+  z -zoom 2
