@@ -18,8 +18,8 @@
      *
      * */
     function getAssignDate() {
-        //var d = new Date('2016-02-03');
-        //  d.setHours(13);
+        var d = new Date('2016-03-31');
+          d.setHours(13);
         var d = new Date();
         var year = d.getFullYear();
         var mouth = d.getMonth() + 1;
