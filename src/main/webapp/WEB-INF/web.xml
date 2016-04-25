@@ -92,6 +92,23 @@
 
     <!--servlet begin -->
 
+    <!--pushLet-->
+    <!--
+    <servlet>
+        <servlet-name>pushlet</servlet-name>
+        <servlet-class>nl.justobjects.pushlet.servlet.Pushlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    -->
+    <!-- Define the Servlet Mappings. -->
+    <!-- The pushlet -->
+    <!--
+    <servlet-mapping>
+        <servlet-name>pushlet</servlet-name>
+        <url-pattern>/pushlet.srv</url-pattern>
+    </servlet-mapping>
+     -->
+
     <!-- 验证码start (暂时没用到)-->
     <servlet>
         <servlet-name>yzm</servlet-name>
@@ -141,6 +158,7 @@
         <servlet-name>studyJsp</servlet-name>
         <url-pattern>/studyJsp</url-pattern>
     </servlet-mapping>
+
     <!--servlet end -->
 
     <!-- el 表达式可以获取值 -->

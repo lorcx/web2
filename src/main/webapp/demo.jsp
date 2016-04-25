@@ -1,27 +1,39 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page import="org.apache.struts2.ServletActionContext" %>
+<!DOCTYPE HTML>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
   </head>
   
   <body>
-  	<%request.getRequestDispatcher("/test/demo!getDemo.action").forward(request, response);%>
+  <%!
+      synchronized void count() {
+          ServletContext application = ServletActionContext.getServletContext();
+          Integer num = (Integer)application.getAttribute("num");
+          if (null == num) {
+              num = new Integer(1);
+              application.setAttribute("num", num);
+          } else {
+              num = new Integer(1 + num);
+              application.setAttribute("num", num);
+          }
+      }
+  %>
+  <%
+      //      if (session.isNew()) { //为了避免用户的刷新的问题
+      count();
+//      }
+      Integer tNum = (Integer)application.getAttribute("num");
+      out.print(tNum);
+  %>
+  <button id="btn4" onclick="op();">ee</button>
   </body>
+<script>
+
+    function op(){
+
+    }
+
+</script>
 </html>

@@ -4,93 +4,43 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 		<title>js练习</title>
 		<style type="text/css">
-			div{width: 200px;height:200px;background: blue;position: absolute;left:500px;top:200px;z-index: -1}
-		
+			/*div{width: 200px;height:200px;background: blue;position: absolute;left:500px;top:200px;z-index: -1}*/
+			div{border: 1px solid #000;height: 400px;}
 		</style>
 	</head>
 	<body>
-		<form id="frm1" name="frm1">
-			<img/>
-			<img/>
-			<a href=""></a>
-			<a href=""></a>
-			<div></div>
-			<span id="sp"></span>
-		</form>
-		<form id="frm2" name="frm2"></form>
+		<!--<form id="frm1" name="frm1">-->
+			<!--<img/>-->
+			<!--<img/>-->
+			<!--<a href=""></a>-->
+			<!--<a href=""></a>-->
+			<!--<div></div>-->
+			<!--<span id="sp"></span>-->
+		<!--</form>-->
+		<!--<form id="frm2" name="frm2"></form>-->
+		<button id="btn3" onclick="change()">dd</button>
+		<button id="btn4">ee</button>
+		<div id="d1"></div>
 	</body>
+	<script type="text/javascript" src="../js/jquery/jquery-1.12.1.min.js"></script>
 	<script type="text/javascript">
-	//	var forms = document.forms;
-	//	alert(forms.length);
-		
-	//	var imgs = document.images;
-	//	alert(imgs.length);
-		
-	//	var links = document.links;
-		//alert(links.length);
-		
-		
-		//alert(location.port);
-		//alert(location.protocol);
-		
-		//alert(location.host);
-		//alert(location.href);
-		
-		//alert(window.location.href);
-		//alert(location.search);
-		
-		
-	//	setTimeout(function(){location.replace("http://www.baidu.com")},2000);
-		
-	//	location.reload(false);
-		
-	//	document.write(navigator.userAgent+"<br/>");
-	//	document.write(navigator.platform+"<br/>");
-		
-		
-		//window.moveTo(0,0);
-		//window.resizeTo(screen.availWidth,screen.availHeight);
-		
-	//	if(document.all){
-	//		alert(1);
-	//	}
-		//获取当前鼠标的位置
-	//	function handlerMM(e){
-	//		var x = document.body.scrollLeft+e.clientX;
-	//		var y = document.body.scrollTop+e.clientY;
-	//		var sp = document.getElementById("sp");
-	//		sp.innerHTML = "x="+x+"   y=="+y;
-	//
-	//	}
-	//	document.onmousemove = handlerMM(event);
+//		$(function(){
+//			$("#btn3").click(function(){
+//				alert("aa");
+//			});
+//		});
+//		function change(){
+//			alert("bb");
+//		}
+	$(function(){
+		$('#btn4').bind('myClick',function (event,message1,message2){
+			$('#d1').append('<p>' + message1 + ' : ' + message2 + '</p>');
+		});
 
-	window.onload = getAssignDate();
-
-	function getAssignDate() {
-		var d = new Date('2015-12-31');
-		d.setHours(15);
-		//var d = new Date();
-		var year = d.getFullYear();
-		var mouth = d.getMonth() + 1;
-		var day = d.getDate();
-		var week = d.getDay();
-		var hour = d.getHours();
-		if (week == 2) {//周二
-			if (hour == 14) {
-				console.log(year + '-' + mouth + '-' + day + ' 14 : 00');
-			} else if (hour < 14) {
-				console.log(year + '-' + mouth + '-' + day + ' 14 : 00');
-			}
-		} else if (week < 2) { // < 2
-			var n = 2 - week;
-			d.setDate(d.getDate() + n);
-			console.log(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' 14 : 00');
-		}
-		if ((week == 2 && hour > 14) || (week > 2)) {
-			var n = week - 2;//计算与周二的差
-			d.setDate(d.getDate() + 7 - n);
-			console.log(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' 14 : 00');
-		}
-	}
+		$('#btn4').click(function (){
+			$(this).trigger('myClick',['我的自定义事件1','哈哈哈'])
+					.trigger('myClick',['我的自定义事件2','啦啦啦']);
+		});
+	});
 	</script>
 </html>
