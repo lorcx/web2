@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <title></title>
+    <style type="text/css">
+        div{border: 1px solid #000;height: 400px;}
+    </style>
+</head>
+<body>
+    <div></div>
+    <button id="btn4" onclick="f1();">ee</button>
+</body>
+<script type="text/javascript" src="../js/jquery/jquery-1.12.1.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('div').load('/demo.jsp');
+    });
+
+    function f1 (){
+        window.open('/html/t3.html','newwindow','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+    }
+
+//    function myRefresh(){
+//        location.reload();
+//    }
+//    setTimeout('myRefresh()',1000);
+</script>
+</html>

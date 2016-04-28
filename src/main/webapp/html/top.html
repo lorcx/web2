@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type=button value="刷新1" onclick="window.parent.frames[1].location.reload()"><br>
+<input type=button value="刷新2" onclick="window.parent.frames.bottom.location.reload()"><br>
+<input type=button value="刷新3" onclick="window.parent.frames['bottom'].location.reload()"><br>
+<input type=button value="刷新4" onclick="window.parent.frames.item(1).location.reload()"><br>
+<input type=button value="刷新5" onclick="window.parent.frames.item('bottom').location.reload()"><br>
+<input type=button value="刷新6" onclick="window.parent.bottom.location.reload()"><br>
+<input type=button value="刷新7" onclick="window.parent['bottom'].location.reload()"><br>
+</body>
+</html>
