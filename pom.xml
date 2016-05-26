@@ -202,6 +202,12 @@
             <version>1.5.8</version>
         </dependency>
 
+        <!--jstl-->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
         <!--pushLet消息推送-->
         <!--
         <dependency>
