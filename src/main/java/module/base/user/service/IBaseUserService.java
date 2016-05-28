@@ -3,6 +3,8 @@ package module.base.user.service;
 import common.exception.ServiceException;
 import module.base.user.entity.BaseUser;
 
+import java.util.List;
+
 /**
  * Created by dell on 2016/1/6.
  */
@@ -13,4 +15,6 @@ public interface IBaseUserService {
      void saveBaseUser(BaseUser user);
 
      BaseUser getBaseUserInfoByName(String name)throws ServiceException;
+
+     List<BaseUser> getUserList(BaseUser user)throws ServiceException;
 }

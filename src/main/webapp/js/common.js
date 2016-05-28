@@ -6,10 +6,9 @@
  *              $("#login_form").asyncSubmit(loginProcess);
  * 如果使用ajaxSubmit则需要return false
  */
-$.fn.asyncSubmit = function (_handle){
-    var url = $(this).attr('action');
+$.fn.asyncSubmit = function (options,_handle){
     var defaultOptions = {
-        url : url,
+        url : $(this).attr('action'),
         type : 'post',
         beforeSubmit : beforeSubmit,
         dataType : 'json',
@@ -23,7 +22,7 @@ $.fn.asyncSubmit = function (_handle){
             }
         }
     };
-    //$.extend(defaultOptions,options);
+    $.extend(defaultOptions,options);
     $(this).ajaxForm(defaultOptions);
     $(this).submit();
     //return false;
@@ -36,7 +35,7 @@ $.fn.asyncSubmit = function (_handle){
  * options : 表单提交参数
  */
 function beforeSubmit(formData, jqForm, options){
-   // show_loading();
+    show_loading();
     //return true;
 }
 

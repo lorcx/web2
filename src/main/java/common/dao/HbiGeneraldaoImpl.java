@@ -91,7 +91,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return (T)getHibernateTemplate().get(entityClass,id);
     }
 
-    public List find(String hql, Object... args) {
+    public List<T> findList(String hql, Object... args) {
         return createQuery(hql,args).list();
     }
 

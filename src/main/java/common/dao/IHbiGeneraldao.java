@@ -12,33 +12,33 @@ import java.util.List;
  */
 @SuppressWarnings("all")
 public interface IHbiGeneraldao<T,PK extends Serializable> {
-    public void saveEntity(T t);
+     void saveEntity(T t);
 
-    public void delEntity(T t);
+     void delEntity(T t);
 
-    public void delById(PK p);
+     void delById(PK p);
 
-    public List<T> findAll();
+     List<T> findAll();
 
-    public PageBean findAll(PageBean p);
+     PageBean findAll(PageBean p);
 
-    public T get(final PK id);
+     T get(final PK id);
 
-    public List find(String hql,Object ... args);
+     List<T> findList(String hql,Object ... args);
 
-    public PageBean find(PageBean page, String hql, Object... values);
+     PageBean find(PageBean page, String hql, Object... values);
 
-    public T findUnique (String hql,Object ...args);
+     T findUnique (String hql,Object ...args);
 
-    public List<T> findCriteria(Criterion... criterions);
+     List<T> findCriteria(Criterion... criterions);
 
-    public PageBean findByCriteria(PageBean page,Criterion... criterions);
+     PageBean findByCriteria(PageBean page,Criterion... criterions);
 
-    public List<T> findByProperty(String property,Object value);
+     List<T> findByProperty(String property,Object value);
 
-    public T findUniqueByProperty(String property,Object value);
+     T findUniqueByProperty(String property,Object value);
 
-    public boolean isPropertyUnique(String propertyName,Object newValue,Object orgValue);
+     boolean isPropertyUnique(String propertyName,Object newValue,Object orgValue);
 
-    public int countQueryResult(PageBean page,Criteria c);
+     int countQueryResult(PageBean page,Criteria c);
 }

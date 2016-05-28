@@ -14,4 +14,5 @@
 	<include file="struts2/struts_login.xml"/>
 	<include file="struts2/struts_tree.xml"/>
 	<include file="struts2/struts-util.xml"/>
+	<include file="struts2/struts-base.xml"/>
 </struts>

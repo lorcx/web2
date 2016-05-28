@@ -3,7 +3,10 @@ package module.base.user.dao;
 import common.dao.HbiGeneraldaoImpl;
 import common.exception.DaoException;
 import module.base.user.entity.BaseUser;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /**
  * Created by dell on 2016/1/6.
@@ -47,15 +50,49 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
      * @return
      */
     public BaseUser getUserInfoByName(String UserName) throws DaoException {
-        StringBuilder sql = new StringBuilder();
-        sql.append("from BaseUser b where b.userName = ?");
+        StringBuilder hql = new StringBuilder();
+        hql.append("from BaseUser b where b.userName = ?");
         try {
-            BaseUser user = findUnique(sql.toString(), UserName);
+            BaseUser user = findUnique(hql.toString(), UserName);
             return user;
         }catch (Exception e){
            throw new DaoException("根据用户名获取用户信息失败",e);
         }
     }
 
+    /**
+     * 获取系统用户列表
+     * @return
+     * @throws DaoException
+     */
+    @Override
+    public List<BaseUser> getUserList(BaseUser user) throws DaoException {
+        StringBuilder hql = new StringBuilder();
+        hql.append("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u");
+        int n = 0;
+        if(StringUtils.isNotEmpty(user.getUserName())){
+            prefix(hql,n).append("u.userName like '%").append(user.getUserName()).append("%'");
+        }
+        if(StringUtils.isNotEmpty(user.getNickName())){
+            prefix(hql,n).append("u.nickName like '%").append(user.getNickName()).append("%'");
+        }
+        List<BaseUser> list = null;
+        try {
+            list = findList(hql.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    /**
+     * 查询条件追加前缀
+     * @return
+     */
+    private StringBuilder prefix(StringBuilder hql,int n){
+        StringBuilder sb = n > 0 ? hql.append(" and ") : hql.append(" where ");
+        n++;
+        return sb;
+    }
 
 }

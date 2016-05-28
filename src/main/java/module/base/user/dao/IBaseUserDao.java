@@ -4,6 +4,8 @@ import common.dao.IHbiGeneraldao;
 import common.exception.DaoException;
 import module.base.user.entity.BaseUser;
 
+import java.util.List;
+
 /**
  * Created by dell on 2016/1/6.
  */
@@ -14,4 +16,6 @@ public interface IBaseUserDao extends IHbiGeneraldao<BaseUser,String > {
     void saveBaseUser(BaseUser user);
 
     BaseUser getUserInfoByName(String UserName) throws DaoException;
+
+    List<BaseUser> getUserList(BaseUser user) throws DaoException;
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 public class BaseUser implements Serializable{
     private String id;
 
-    private String nickname;
+    private String nickName;
 
     private String userName;
 
@@ -19,20 +19,33 @@ public class BaseUser implements Serializable{
 
     private Blob pic;
 
+    public BaseUser() {
+    }
+
+    public BaseUser(String id, String nickName, String userName, String passWord, Date creDate, String status, Blob pic) {
+        this.id = id;
+        this.nickName = nickName;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.creDate = creDate;
+        this.status = status;
+        this.pic = pic;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getUserName() {
@@ -40,7 +53,7 @@ public class BaseUser implements Serializable{
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getPassWord() {
@@ -48,7 +61,7 @@ public class BaseUser implements Serializable{
     }
 
     public void setPassWord(String passWord) {
-        this.passWord = passWord == null ? null : passWord.trim();
+        this.passWord = passWord;
     }
 
     public Date getCreDate() {
@@ -64,7 +77,7 @@ public class BaseUser implements Serializable{
     }
 
     public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+        this.status = status;
     }
 
     public Blob getPic() {
@@ -72,19 +85,6 @@ public class BaseUser implements Serializable{
     }
 
     public void setPic(Blob pic) {
-        this.pic = pic;
-    }
-
-    public BaseUser() {
-    }
-
-    public BaseUser(String id, String nickname, String userName, String passWord, Date creDate, String status, Blob pic) {
-        this.id = id;
-        this.nickname = nickname;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.creDate = creDate;
-        this.status = status;
         this.pic = pic;
     }
 }

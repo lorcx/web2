@@ -5,6 +5,9 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<bean id="baseUserAction" class="module.base.user.action.UserAction">
+		<property name="userService" ref="baseUserService"/>
+	</bean>
 	<!--baseUser(系统用户)-->
 	<bean id="baseUserService" class="module.base.user.service.BaseUserServiceImpl">
 		<property name="userDao" ref="baseUserDao"/>

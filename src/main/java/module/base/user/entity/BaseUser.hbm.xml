@@ -10,7 +10,7 @@
             <column name="ID" length="50" />
             <generator class="uuid" />
         </id>
-        <property name="nickname" type="java.lang.String">
+        <property name="nickName" type="java.lang.String">
             <column name="NICKNAME" length="100" />
         </property>
         <property name="userName" type="java.lang.String">

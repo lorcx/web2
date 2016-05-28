@@ -3,8 +3,6 @@ package test;
 import common.dao.HbiGeneraldaoImpl;
 import module.test.entity.Test1;
 
-import java.util.List;
-
 /**
  * 公共dao测试类
  * Created by lx on 2016/1/31.
@@ -21,8 +19,8 @@ public class CommonDaoTestImpl extends HbiGeneraldaoImpl<Test1,String > implemen
 //        System.out.println(t2.getTname());
         StringBuilder hql = new StringBuilder("from Test1 where id = ?");
         String args[] = {"123"};
-        List list = find(hql.toString(),args);
-        System.out.println(list.size());
+//        List list = find(hql.toString(),args);
+//        System.out.println(list.size());
 
 //        delEntity(t);
     }

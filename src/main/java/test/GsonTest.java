@@ -80,7 +80,7 @@ public class GsonTest {
         names.add("Mallory");
 
        String str4 = gson.toJson(names);
-        System.out.println(str4);
+        System.out.println("======="+str4);
 
         BaseUser b1 = new BaseUser("1","aa","123","123",null,"1",null);
         BaseUser b2 = new BaseUser("2","bb","165","123",null,"1",null);

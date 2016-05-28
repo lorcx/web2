@@ -60,7 +60,7 @@
 	 <!--[if lt IE 9]>
 	 <script type="text/javascript" src="js/login/html5.js"></script>
 	 <![endif]-->
-	 <script type="text/javascript" src="js/login/tooltips.js"></script>
+	 <%--<script type="text/javascript" src="js/login/tooltips.js"></script>--%>
 	 <script type="text/javascript" src="js/login/login.js"></script>
   	 <script type="text/javascript" src="js/login/supersized.3.2.7.min.js"></script>
 	 <script type="text/javascript" src="js/login/supersized-init.js"></script>
@@ -84,7 +84,7 @@
 					//验证表单
 					if(validateForm()){
 						$("#login_form").attr('action','/login!login.action');
-						$("#login_form").asyncSubmit(loginProcess);
+						$("#login_form").asyncSubmit({},loginProcess);
 					}
 				});
 

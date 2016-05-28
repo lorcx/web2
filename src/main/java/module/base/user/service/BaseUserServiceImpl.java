@@ -4,6 +4,9 @@ import common.exception.DaoException;
 import common.exception.ServiceException;
 import module.base.user.dao.IBaseUserDao;
 import module.base.user.entity.BaseUser;
+import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /**
  * Created by dell on 2016/1/6.
@@ -11,6 +14,7 @@ import module.base.user.entity.BaseUser;
 @SuppressWarnings("all")
 public class BaseUserServiceImpl implements IBaseUserService {
     private IBaseUserDao userDao;
+    private static final Logger LOG = Logger.getLogger(BaseUserServiceImpl.class);
 
     /**
      * 通过id获取用户信息
@@ -22,7 +26,8 @@ public class BaseUserServiceImpl implements IBaseUserService {
         try {
             return userDao.getBaseUserDaoById(id);
         } catch (DaoException e) {
-           throw new ServiceException("通过id获取用户信息error",e.getCause());
+            LOG.error("通过id获取用户信息error id="+id,e.getCause());
+            throw new ServiceException("通过id获取用户信息error",e.getCause());
         }
     }
 
@@ -46,7 +51,23 @@ public class BaseUserServiceImpl implements IBaseUserService {
         try {
             return userDao.getUserInfoByName(name);
         } catch (DaoException e) {
+            LOG.error("通过name获取用户信息error name=="+name,e.getCause());
             throw new ServiceException("通过id获取用户信息error",e.getCause());
+        }
+    }
+
+    /**
+     * 查询用户列表
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public List<BaseUser> getUserList(BaseUser user) throws ServiceException {
+        try {
+            return userDao.getUserList(user);
+        } catch (DaoException e) {
+            LOG.error("查询用户列表error",e.getCause());
+            throw new ServiceException("查询用户列表失败",e.getCause());
         }
     }
 
