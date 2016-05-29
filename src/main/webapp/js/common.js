@@ -12,11 +12,17 @@ $.fn.asyncSubmit = function (options,_handle){
         type : 'post',
         beforeSubmit : beforeSubmit,
         dataType : 'json',
+        contentId : 'content',
         success : function (responseText, statusText, options) {
             if (statusText == 'success') {
-                if ($.isFunction(_handle))
-                    //_handle(responseText);
-                    successDispose(responseText,_handle);
+                if ($.isFunction(_handle)){
+                    //successDispose(responseText,_handle);
+                    close_loading();
+                    if(responseText.page){
+                        loadPaginator(responseText.page);
+                    }
+                    _handle(responseText);
+                }
             } else {
                 alert("提交失败！");
             }
@@ -35,6 +41,9 @@ $.fn.asyncSubmit = function (options,_handle){
  * options : 表单提交参数
  */
 function beforeSubmit(formData, jqForm, options){
+    //if($('#'+options.contentId)){
+        //buildPaginator(options.contentId);
+    //}
     show_loading();
     //return true;
 }
@@ -47,7 +56,59 @@ function successDispose(responseText,_handle){
     //if(statusText == 'success'){
      close_loading();
     _handle(responseText);
+    loadPaginator(responseText.page);
     //}
+}
+
+/**
+ * 加载分页
+ */
+function loadPaginator(page){
+    var pageCount = page.totalPageNum;//总页数
+    var currentPage = page.currentNum;//当前页
+    var options = {
+        currentPage: currentPage,
+        totalPages: pageCount,
+        size:"normal",
+        bootstrapMajorVersion: 3,
+        alignment:"right",
+        numberOfPages:5,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case 'first':
+                    return '首页';
+                case 'prev':
+                    return '上一页';
+                case 'next':
+                    return '下一页';
+                case 'last':
+                    return '末页';
+                case 'page':
+                    return page;
+            }
+        },
+        //点击事件，用于通过Ajax来刷新整个list列表
+        onPageClicked: function(event,originalEvent,type,page){
+            $("#currentPage").val(page);
+            queryForm();
+        }
+    }
+    $('#paginator').bootstrapPaginator(options);
+}
+
+/**
+ * 生成分页区域
+ */
+function buildPaginator(tabId){
+    var obj = $('#pageDiv');
+    if(obj){
+       // obj.remove();
+    }
+    var pageDiv = '<div id="pageDiv" style="text-align: center;">';
+    pageDiv += '<ul id="paginator"></ul>';
+    pageDiv += '<s:hidden name="page.currentNum" id="currentPage"/>';
+    pageDiv += '</div>';
+    $('#'+tabId).after(pageDiv);
 }
 
 /**

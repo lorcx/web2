@@ -1,5 +1,6 @@
 package module.base.user.dao;
 
+import common.PageBean;
 import common.dao.HbiGeneraldaoImpl;
 import common.exception.DaoException;
 import module.base.user.entity.BaseUser;
@@ -66,19 +67,22 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
      * @throws DaoException
      */
     @Override
-    public List<BaseUser> getUserList(BaseUser user) throws DaoException {
+    public List<BaseUser> getUserList(PageBean page,BaseUser user) throws DaoException {
         StringBuilder hql = new StringBuilder();
-        hql.append("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u");
+        hql.append("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u ");
         int n = 0;
         if(StringUtils.isNotEmpty(user.getUserName())){
             prefix(hql,n).append("u.userName like '%").append(user.getUserName()).append("%'");
+            n++;
         }
         if(StringUtils.isNotEmpty(user.getNickName())){
             prefix(hql,n).append("u.nickName like '%").append(user.getNickName()).append("%'");
+            n++;
         }
+        hql.append(" order by u.creDate ");
         List<BaseUser> list = null;
         try {
-            list = findList(hql.toString());
+            list = findListByPage(page, hql.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

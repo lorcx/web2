@@ -26,7 +26,7 @@ public interface IHbiGeneraldao<T,PK extends Serializable> {
 
      List<T> findList(String hql,Object ... args);
 
-     PageBean find(PageBean page, String hql, Object... values);
+     List<T> findListByPage(PageBean page, String hql, Object... values);
 
      T findUnique (String hql,Object ...args);
 
@@ -38,7 +38,7 @@ public interface IHbiGeneraldao<T,PK extends Serializable> {
 
      T findUniqueByProperty(String property,Object value);
 
-     boolean isPropertyUnique(String propertyName,Object newValue,Object orgValue);
+//     boolean isPropertyUnique(String propertyName,Object newValue,Object orgValue);
 
      int countQueryResult(PageBean page,Criteria c);
 }

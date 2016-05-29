@@ -8,6 +8,7 @@
 </head>
 <body>
     <form id="queryFrom" action="/base/userAction!getUserList.action" method="post">
+
         <div>
             <h3>用户查询列表</h3>
         </div>
@@ -29,10 +30,8 @@
                 </td>
             </tr>
         </table>
-    </form>
-    <form action="" id="queryForm" method="POST" >
-        <div class=""><%--row--%>
-            <div class=""><%--col-md-10--%>
+        <div id="content"><%--row--%>
+            <div><%--col-md-10--%>
                 <table id="contentTable" class="table table-hover table-striped table-bordered table-condensed">
                     <colgroup>
                         <col width="20%"></col>
@@ -54,6 +53,7 @@
                 </table>
             </div>
         </div>
+        <%@ include file="/jsp/common/page.jsp" %>
     </form>
 </body>
 <script type="text/javascript">
@@ -65,29 +65,30 @@
 
     /**
      *查询表单
+     * eval("(" + data + ")").list
      */
     function queryForm(){
-        $("#queryFrom").asyncSubmit({},function (data){
-            if(data){
-                $('#contentTable tbody').empty();
-                var list = data.list;
-                if(list){
-                    var n = list.length;
-                    var record = '';
-                    for(var i = 0;i < n;i++){
-                        var obj = list[i];
-                        record += '<tr>';
-                        record += '<td>'+(i+1)+'</td>';
-                        record += '<td>'+obj.userName+'</td>';
-                        record += '<td>'+obj.nickName+'</td>';
-                        record += '<td><input type="checkbox"/></td>';
-                        record += '</tr>';
-                    }
-                    $('#contentTable tbody').append(record);
-                }
-            }
+        console.log($('#currentPage').val());
+;        $("#queryFrom").asyncSubmit({},addContent);
+    }
 
-        });
+    /**
+     * 查询显示
+     */
+    function addContent(data){
+        if(data){
+            $('#contentTable tbody').empty();
+            var record = '';
+            $.each(data.list,function(i,obj){
+                record += '<tr>';
+                record += '<td>'+(i+1)+'</td>';
+                record += '<td>'+obj.userName+'</td>';
+                record += '<td>'+obj.nickName+'</td>';
+                record += '<td><input type="checkbox"/></td>';
+                record += '</tr>';
+            });
+            $('#contentTable tbody').append(record);
+        }
     }
 
     /**

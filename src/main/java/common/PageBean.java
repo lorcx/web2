@@ -5,18 +5,19 @@ package common;
  * 起始页：（当前页-1*每页个数）+1
  * 结束页：（当前页*每页个数）
  * 总页数： 总记录数/每页的个数
- *
+ * <p/>
  * Created by dell on 2016/1/28.
  */
 @SuppressWarnings("unused")
 public class PageBean {
-    public int totalPageNum;//总页数
-    public int currentNum;//当前页
-    public int showCount;//每页的个数
-    public int totalNum;
-    public int totalResult;//总记录数
+    private int totalPageNum;//总页数
+    private int currentNum;//当前页
+    private int showCount;//每页的个数
+    private int totalNum;//总记录数
 
     public PageBean() {
+        showCount = Constant.DEFAULT_PAGE_NUM;//默认5
+        currentNum = 1;
     }
 
     public PageBean(int totalPageNum, int currentNum, int showCount, int totalNum) {
@@ -26,18 +27,16 @@ public class PageBean {
         this.totalNum = totalNum;
     }
 
-    /**
-     * 获取起始记录数
-     * @return
-     */
-//    public int getFirstPageNum(){
-////        double d = totalResult/showCount;
-////        Math.pow(d,1);
-//        return ;
-//    }
+    public int getShowCount() {
+        return showCount;
+    }
+
+    public void setShowCount(int showCount) {
+        this.showCount = showCount;
+    }
 
     public int getTotalPageNum() {
-        return totalPageNum;
+        return totalNum > 0 ? (int) Math.ceil(totalNum / showCount) : 1;
     }
 
     public void setTotalPageNum(int totalPageNum) {

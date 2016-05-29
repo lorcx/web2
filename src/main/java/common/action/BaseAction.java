@@ -1,6 +1,7 @@
 package common.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import common.PageBean;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -26,6 +27,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 	protected Map<String, Object> session2;
 	//struts2 的request
 	protected Map<String, Object> request2;
+	protected PageBean page = new PageBean();
 
 	public static boolean isOk = false;//操作是否成功
 
@@ -46,6 +48,11 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 		this.request2 = request2;
 	}
 
+	public PageBean getPage() {
+		return page;
+	}
 
-
+	public void setPage(PageBean page) {
+		this.page = page;
+	}
 }

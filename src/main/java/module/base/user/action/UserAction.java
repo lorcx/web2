@@ -24,6 +24,10 @@ public class UserAction extends BaseAction{
     private IBaseUserService userService;
     private BaseUser user = new BaseUser();
 
+    public String list(){
+        return "userList";
+    }
+
     /**
      * 查询用户列表
      * @return
@@ -38,8 +42,9 @@ public class UserAction extends BaseAction{
         user.setUserName(userName);
         user.setNickName(nickName);
         try {
-            List<BaseUser> userList = userService.getUserList(user);
+            List<BaseUser> userList = userService.getUserList(page,user);
             result.put("list",userList);
+            result.put("page",page);
         } catch (Exception e) {
             LOG.error("查询用户列表失败action",e.getCause());
             result.put("list",null);

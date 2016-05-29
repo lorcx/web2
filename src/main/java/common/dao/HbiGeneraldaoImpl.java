@@ -21,7 +21,7 @@ import java.util.List;
  * http://my.oschina.net/moson/blog/518659
  * Created by dell on 2016/1/28.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSupport {
 
     protected Logger log = Logger.getLogger(HbiGeneraldaoImpl.class);
@@ -91,17 +91,44 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
         return (T)getHibernateTemplate().get(entityClass,id);
     }
 
+    /**
+     * 不带分页的hql查询
+     * @param hql
+     * @param args
+     * @return
+     */
     public List<T> findList(String hql, Object... args) {
         return createQuery(hql,args).list();
     }
 
-    public PageBean find(PageBean page, String hql, Object... values){
+    /**
+     * 分页查询
+     * @param page
+     * @param hql
+     * @param values
+     * @return
+     */
+    public List<T> findListByPage(PageBean page, String hql, Object... values){
         Assert.notNull(page);
         Query query = createQuery(hql, values);
-//        query.setFirstResult();
-//        query.setMaxResults();
-        return page;
+        int countPage = countQueryResult(page, createCriteria());
+        page.setTotalNum(countPage);
+        page.setTotalPageNum(page.getTotalPageNum());
+        int firstPage = ((page.getCurrentNum() - 1) * page.getShowCount());
+        int lastPage = page.getCurrentNum() * page.getShowCount();
+        query.setFirstResult(firstPage);
+        query.setMaxResults(lastPage);
+        return query.list();
     }
+
+//    /**
+//     * 获取总记录数
+//     */
+//    public void queryCount(String hql){
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("select count(1) from (").append(hql).append(")");
+//
+//    }
 
     /**
      * 根据hql查询，返回单个实体
@@ -166,21 +193,21 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 //        Projection proj = crimpl.getProjection();
 //        ResultTransformer rtf = crimpl.getResultTransformer();
 //        List<CriteriaImpl.OrderEntry> list = null;
-        Object n = c.setProjection(Projections.projectionList().add(Projections.rowCount())).uniqueResult();
-        if(n != null){
-            return Integer.parseInt(String.valueOf(n));
-        }
-        return 0;
+//        Object n = c.setProjection(Projections.projectionList().add(Projections.rowCount())).uniqueResult();
+//        if(n != null){
+//            return Integer.parseInt(String.valueOf(n));
+//        }
+        return (int) c.setProjection(Projections.rowCount()).uniqueResult();
     }
 
 
-    public boolean isPropertyUnique(String propertyName, Object newValue, Object orgValue) {
-        if (newValue == null || newValue.equals(orgValue))
-            return true;
-
-        Object object = findUniqueByProperty(propertyName, newValue);
-        return (object == null);
-    }
+//    public boolean isPropertyUnique(String propertyName, Object newValue, Object orgValue) {
+//        if (newValue == null || newValue.equals(orgValue))
+//            return true;
+//
+//        Object object = findUniqueByProperty(propertyName, newValue);
+//        return (object == null);
+//    }
 
     /**
      * 创建query

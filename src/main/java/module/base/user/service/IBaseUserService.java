@@ -1,5 +1,6 @@
 package module.base.user.service;
 
+import common.PageBean;
 import common.exception.ServiceException;
 import module.base.user.entity.BaseUser;
 
@@ -16,5 +17,5 @@ public interface IBaseUserService {
 
      BaseUser getBaseUserInfoByName(String name)throws ServiceException;
 
-     List<BaseUser> getUserList(BaseUser user)throws ServiceException;
+     List<BaseUser> getUserList(PageBean page,BaseUser user)throws ServiceException;
 }

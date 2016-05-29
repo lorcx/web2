@@ -1,5 +1,6 @@
 package module.base.user.service;
 
+import common.PageBean;
 import common.exception.DaoException;
 import common.exception.ServiceException;
 import module.base.user.dao.IBaseUserDao;
@@ -62,9 +63,9 @@ public class BaseUserServiceImpl implements IBaseUserService {
      * @throws ServiceException
      */
     @Override
-    public List<BaseUser> getUserList(BaseUser user) throws ServiceException {
+    public List<BaseUser> getUserList(PageBean page,BaseUser user) throws ServiceException {
         try {
-            return userDao.getUserList(user);
+            return userDao.getUserList(page,user);
         } catch (DaoException e) {
             LOG.error("查询用户列表error",e.getCause());
             throw new ServiceException("查询用户列表失败",e.getCause());

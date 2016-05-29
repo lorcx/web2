@@ -6,6 +6,8 @@
 
 <struts>
       <package name="base" namespace="/base" extends="struts-default" >
-           <action name="userAction" class="baseUserAction"></action>
+           <action name="userAction" class="baseUserAction">
+               <result name="userList">/jsp/module/base/userList.jsp</result>
+           </action>
       </package>
 </struts>
