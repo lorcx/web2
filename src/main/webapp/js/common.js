@@ -138,4 +138,13 @@ function delCookie (name) {
         document.cookie= name + '='+cval+';expires='+exp.toGMTString();
 }
 
-
+/**
+ * 打开窗口
+ */
+function openWindow(url,title,width,height){
+    var iWidth=width; //弹出窗口的宽度;
+    var iHeight=height; //弹出窗口的高度;
+    var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
+    var iLeft = (window.screen.availWidth-10-iWidth)/2; //获得窗口的水平位置;
+    window.open(url,title,'height='+iHeight+', width='+iWidth+', top='+iTop+', left='+iLeft+',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+}

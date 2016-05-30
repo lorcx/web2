@@ -22,7 +22,7 @@ public class DemoDaoImpl extends HbiGeneraldaoImpl<Test1, String> implements IDe
 //        b = findUnique(sql.toString(),b);
 //        try {
 //
-        findByCriteria(null);
+//        findByCriteria(null);
 //        countQueryResult(null,);
 //        List<Test1> list = findAll();
 //        for(Test1 t1 : list){

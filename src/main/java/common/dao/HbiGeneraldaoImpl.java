@@ -5,11 +5,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
-
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -17,21 +14,21 @@ import java.util.List;
 /**
  * 通用hbernate dao
  * http://my.oschina.net/boonya/blog/290587
- *
+ * <p/>
  * http://my.oschina.net/moson/blog/518659
  * Created by dell on 2016/1/28.
  */
 @SuppressWarnings("all")
-public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSupport {
+public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoSupport {
 
     protected Logger log = Logger.getLogger(HbiGeneraldaoImpl.class);
-//    protected SessionFactory sessionFactory;
+    //    protected SessionFactory sessionFactory;
 //    protected Session session;
     protected Class<?> entityClass;
 
     public HbiGeneraldaoImpl() {
         //(ParameterizedType)getClass().getGenericSuperclass() 取的是<T,pk> 中的类型 [0] T [1] Pk
-        this.entityClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
 //    public HbiGeneraldaoImpl(SessionFactory sessionFactory,Class<T> entityClass) {
@@ -42,16 +39,18 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     /**
      * 保存
+     *
      * @param
      */
     public void saveEntity(T o) {
         Assert.notNull(o);
         getHibernateTemplate().saveOrUpdate(o);
-        log.info("save entity:"+o);
+        log.info("save entity:" + o);
     }
 
     /**
      * 删除实体
+     *
      * @param
      */
     public void delEntity(T o) {
@@ -62,6 +61,7 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     /**
      * 根据id删除
+     *
      * @param p
      */
     public void delById(PK p) {
@@ -70,147 +70,71 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     }
 
     /**
-     * 查询所有记录
-     * @return
-     */
-    public List<T> findAll() {
-        return findCriteria();
-    }
-
-    public PageBean findAll(PageBean p) {
-        return findByCriteria(p);
-    }
-
-    /**
      * 获取实体
+     *
      * @param id
      * @return
      */
     public T get(final PK id) {
         Assert.notNull(id);
-        return (T)getHibernateTemplate().get(entityClass,id);
+        return (T) getHibernateTemplate().get(entityClass, id);
     }
 
     /**
      * 不带分页的hql查询
+     *
      * @param hql
      * @param args
      * @return
      */
     public List<T> findList(String hql, Object... args) {
-        return createQuery(hql,args).list();
+        return createQuery(hql, args).list();
     }
 
     /**
      * 分页查询
+     *
      * @param page
      * @param hql
      * @param values
      * @return
      */
-    public List<T> findListByPage(PageBean page, String hql, Object... values){
+    public List<T> findListByPage(PageBean page, String hql, Object... values) {
         Assert.notNull(page);
         Query query = createQuery(hql, values);
-        int countPage = countQueryResult(page, createCriteria());
-        page.setTotalNum(countPage);
-        page.setTotalPageNum(page.getTotalPageNum());
-        int firstPage = ((page.getCurrentNum() - 1) * page.getShowCount());
-        int lastPage = page.getCurrentNum() * page.getShowCount();
+        int firstPage = ((page.getCurrentNum() - 1) * page.getShowCount());//起始页
+        int lastPage = page.getCurrentNum() * page.getShowCount();//结束页
         query.setFirstResult(firstPage);
         query.setMaxResults(lastPage);
-        return query.list();
+        List<T> list = query.list();
+        page.setTotalNum(list.size());//总个数
+        page.setTotalPageNum(page.getTotalPageNum());//计算总页数
+        return list;
     }
 
-//    /**
-//     * 获取总记录数
-//     */
-//    public void queryCount(String hql){
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("select count(1) from (").append(hql).append(")");
-//
-//    }
+    /**
+     * 获取总记录数
+     */
+    private int queryCount(String hql,Object... values) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("select count(1) from (").append(hql).append(")");
+        return Integer.valueOf(findUnique(sb.toString(),values).toString());
+    }
 
     /**
      * 根据hql查询，返回单个实体
+     *
      * @param hql
      * @param args
      * @return
      */
     public T findUnique(String hql, Object... args) {
-        return (T)createQuery(hql,args).uniqueResult();
+        return (T) createQuery(hql, args).uniqueResult();
     }
-
-//    public int findInt(String hql, Object... args) {
-//        return (Integer)findUnique(hql, args);
-//    }
-
-//    public Long findLong(String hql, Object... args) {
-//        return (Long)findUnique(hql, args);
-//    }
-
-    /**
-     * 动态查询
-     * Criterion是Criteria的查询条件接口
-     * Criterion 的实例可以通过 Restrictions 工具类来创建
-     * @param criterions
-     * @return
-     */
-    public List<T> findCriteria(Criterion... criterions) {
-        return createCriteria(criterions).list();
-    }
-
-    public PageBean findByCriteria(PageBean page, Criterion... criterions) {
-        Assert.notNull(page);
-        Criteria criteria = createCriteria(criterions);
-
-        page.setTotalNum(countQueryResult(page,criteria));
-
-        page.getTotalNum();
-        criteria.setFirstResult(1);
-        criteria.setMaxResults(page.getTotalPageNum());
-        criteria.list();
-        return null;
-    }
-
-    public List<T> findByProperty(String property, Object value) {
-        Assert.hasText(property);
-        return createCriteria(Restrictions.eq(property,value)).list();
-    }
-
-    public T findUniqueByProperty(String property, Object value) {
-        Assert.hasText(property);
-        return (T)createCriteria(Restrictions.eq(property,value)).uniqueResult();
-    }
-
-    /**
-     * 查询结果个数
-     * @param page
-     * @param c
-     * @return
-     */
-    public int countQueryResult(PageBean page, Criteria c) {
-//        CriteriaImpl crimpl = (CriteriaImpl)c;
-//        Projection proj = crimpl.getProjection();
-//        ResultTransformer rtf = crimpl.getResultTransformer();
-//        List<CriteriaImpl.OrderEntry> list = null;
-//        Object n = c.setProjection(Projections.projectionList().add(Projections.rowCount())).uniqueResult();
-//        if(n != null){
-//            return Integer.parseInt(String.valueOf(n));
-//        }
-        return (int) c.setProjection(Projections.rowCount()).uniqueResult();
-    }
-
-
-//    public boolean isPropertyUnique(String propertyName, Object newValue, Object orgValue) {
-//        if (newValue == null || newValue.equals(orgValue))
-//            return true;
-//
-//        Object object = findUniqueByProperty(propertyName, newValue);
-//        return (object == null);
-//    }
 
     /**
      * 创建query
+     *
      * @param queryString
      * @param args
      * @return
@@ -218,9 +142,9 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
     private Query createQuery(String queryString, Object... args) {
         Assert.hasText(queryString);
         Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(queryString);
-        if(args != null){
-            for(int i = 0;i < args.length;i++){
-                query.setParameter(i,args[i]);
+        if (args != null) {
+            for (int i = 0; i < args.length; i++) {
+                query.setParameter(i, args[i]);
             }
         }
         return query;
@@ -228,17 +152,27 @@ public class HbiGeneraldaoImpl<T,PK extends Serializable> extends HibernateDaoSu
 
     /**
      * 获取Criteria
+     *
      * @param criterions
      * @return
      */
     private Criteria createCriteria(Criterion... criterions) {
         Criteria c = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(entityClass);
-        if(criterions != null && criterions.length > 0){
-            for(Criterion cr : criterions){
+        if (criterions != null && criterions.length > 0) {
+            for (Criterion cr : criterions) {
                 c.add(cr);
             }
         }
         return c;
     }
 
+    /**
+     * 查询条件追加前缀
+     * @return
+     */
+    public StringBuilder prefix(StringBuilder hql,int n){
+        StringBuilder sb = n > 0 ? hql.append(" and ") : hql.append(" where ");
+        n++;
+        return sb;
+    }
 }

@@ -7,6 +7,7 @@ import module.base.user.entity.BaseUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,34 +70,27 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
     @Override
     public List<BaseUser> getUserList(PageBean page,BaseUser user) throws DaoException {
         StringBuilder hql = new StringBuilder();
+        List params = new ArrayList();
         hql.append("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u ");
         int n = 0;
         if(StringUtils.isNotEmpty(user.getUserName())){
-            prefix(hql,n).append("u.userName like '%").append(user.getUserName()).append("%'");
+            prefix(hql,n).append("u.userName like '%?%' ");
+            params.add(user.getUserName());
             n++;
         }
         if(StringUtils.isNotEmpty(user.getNickName())){
-            prefix(hql,n).append("u.nickName like '%").append(user.getNickName()).append("%'");
+            prefix(hql, n).append("u.nickName like '%?%'");
+            params.add(user.getNickName());
             n++;
         }
         hql.append(" order by u.creDate ");
         List<BaseUser> list = null;
         try {
-            list = findListByPage(page, hql.toString());
+            list = findListByPage(page, hql.toString(),params.toArray());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
-    }
-
-    /**
-     * 查询条件追加前缀
-     * @return
-     */
-    private StringBuilder prefix(StringBuilder hql,int n){
-        StringBuilder sb = n > 0 ? hql.append(" and ") : hql.append(" where ");
-        n++;
-        return sb;
     }
 
 }
