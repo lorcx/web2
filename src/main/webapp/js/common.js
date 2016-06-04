@@ -10,7 +10,9 @@ $.fn.asyncSubmit = function (options,_handle){
     var defaultOptions = {
         url : $(this).attr('action'),
         type : 'post',
-        beforeSubmit : beforeSubmit,
+        beforeSubmit : function (formData, jqForm, options){
+            show_loading();
+        },
         dataType : 'json',
         contentId : 'content',
         success : function (responseText, statusText, options) {
@@ -33,32 +35,6 @@ $.fn.asyncSubmit = function (options,_handle){
     $(this).submit();
     //return false;
 };
-
-/**
- * 表单提交前
- * formData : 表单提交数据  name :''
- *  jqForm : jquery对象
- * options : 表单提交参数
- */
-function beforeSubmit(formData, jqForm, options){
-    //if($('#'+options.contentId)){
-        //buildPaginator(options.contentId);
-    //}
-    show_loading();
-    //return true;
-}
-
-/**
- * 成功处理
- * dispose：处理
- */
-function successDispose(responseText,_handle){
-    //if(statusText == 'success'){
-     close_loading();
-    _handle(responseText);
-    loadPaginator(responseText.page);
-    //}
-}
 
 /**
  * 加载分页
@@ -97,19 +73,19 @@ function loadPaginator(page){
 }
 
 /**
- * 生成分页区域
+ * 生成分页区域 (暂时没用)
  */
-function buildPaginator(tabId){
-    var obj = $('#pageDiv');
-    if(obj){
-       // obj.remove();
-    }
-    var pageDiv = '<div id="pageDiv" style="text-align: center;">';
-    pageDiv += '<ul id="paginator"></ul>';
-    pageDiv += '<s:hidden name="page.currentNum" id="currentPage"/>';
-    pageDiv += '</div>';
-    $('#'+tabId).after(pageDiv);
-}
+//function buildPaginator(tabId){
+//    var obj = $('#pageDiv');
+//    if(obj){
+//       // obj.remove();
+//    }
+//    var pageDiv = '<div id="pageDiv" style="text-align: center;">';
+//    pageDiv += '<ul id="paginator"></ul>';
+//    pageDiv += '<s:hidden name="page.currentNum" id="currentPage"/>';
+//    pageDiv += '</div>';
+//    $('#'+tabId).after(pageDiv);
+//}
 
 /**
  * 获取cookie

@@ -4,11 +4,16 @@ import common.PageBean;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.engine.SessionFactoryImplementor;
+import org.hibernate.hql.ast.QueryTranslatorImpl;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
+
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -88,7 +93,7 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
      * @return
      */
     public List<T> findList(String hql, Object... args) {
-        return createQuery(hql, args).list();
+        return createQuery(hql,"h",args).list();
     }
 
     /**
@@ -101,13 +106,13 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
      */
     public List<T> findListByPage(PageBean page, String hql, Object... values) {
         Assert.notNull(page);
-        Query query = createQuery(hql, values);
+        Query query = createQuery(hql,"h",values);
         int firstPage = ((page.getCurrentNum() - 1) * page.getShowCount());//起始页
         int lastPage = page.getCurrentNum() * page.getShowCount();//结束页
         query.setFirstResult(firstPage);
         query.setMaxResults(lastPage);
         List<T> list = query.list();
-        page.setTotalNum(list.size());//总个数
+        page.setTotalNum(toCountHql(hql,values));//总个数
         page.setTotalPageNum(page.getTotalPageNum());//计算总页数
         return list;
     }
@@ -115,10 +120,14 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
     /**
      * 获取总记录数
      */
-    private int queryCount(String hql,Object... values) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("select count(1) from (").append(hql).append(")");
-        return Integer.valueOf(findUnique(sb.toString(),values).toString());
+    private int toCountHql(String hql, Object[] values) {
+        QueryTranslatorImpl queryTranslator = new QueryTranslatorImpl(hql, hql,
+                Collections.EMPTY_MAP, (SessionFactoryImplementor) this
+                .getSessionFactory());
+        queryTranslator.compile(Collections.EMPTY_MAP, false);
+        String tempSQL = queryTranslator.getSQLString();
+        String countSQL = "select count(*) from (" + tempSQL + ") tmp_count_t";
+        return Integer.parseInt(findUniqueSql(countSQL,values).toString());
     }
 
     /**
@@ -129,21 +138,58 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
      * @return
      */
     public T findUnique(String hql, Object... args) {
-        return (T) createQuery(hql, args).uniqueResult();
+        return (T) createQuery(hql,"h",args).uniqueResult();
     }
 
     /**
-     * 创建query
+     * 根据sql查询，返回单个实体
+     *
+     * @param hql
+     * @param args
+     * @return
+     */
+    public T findUniqueSql(String hql, Object... args) {
+        return (T) createQuery(hql,"s",args).uniqueResult();
+    }
+
+    /**
+     * 创建sql query
      *
      * @param queryString
      * @param args
      * @return
      */
-    private Query createQuery(String queryString, Object... args) {
+    private Query createSqlQuery(String queryString, Object... args) {
         Assert.hasText(queryString);
-        Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(queryString);
+        Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(queryString);
         if (args != null) {
             for (int i = 0; i < args.length; i++) {
+                query.setParameter(i, args[i]);
+            }
+        }
+        return query;
+    }
+
+    /**
+     * 创建hql query
+     *
+     * @param queryString
+     * @param args
+     * @return
+     */
+    private Query createQuery(String queryStr,String flag, Object... args) {
+        Assert.hasText(queryStr);
+        Assert.hasText(flag);
+        Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Query query = null;
+        if(flag.equals("s") || flag.equalsIgnoreCase("sql")){
+            query = session.createSQLQuery(queryStr);
+        }
+        if(flag.equals("h") || flag.equalsIgnoreCase("hql")){
+            query = session.createQuery(queryStr);
+        }
+        if (args != null) {
+            for (int i = 0,len = args.length; i < len; i++) {
                 query.setParameter(i, args[i]);
             }
         }

@@ -74,12 +74,12 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
         hql.append("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u ");
         int n = 0;
         if(StringUtils.isNotEmpty(user.getUserName())){
-            prefix(hql,n).append("u.userName like '%?%' ");
+            prefix(hql,n).append("u.userName like '%'||?||'%' ");
             params.add(user.getUserName());
             n++;
         }
         if(StringUtils.isNotEmpty(user.getNickName())){
-            prefix(hql, n).append("u.nickName like '%?%'");
+            prefix(hql, n).append("u.nickName like '%'||?||'%' ");
             params.add(user.getNickName());
             n++;
         }

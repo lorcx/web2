@@ -36,7 +36,11 @@ public class PageBean {
     }
 
     public int getTotalPageNum() {
-        return totalNum > 0 ? (int) Math.ceil(totalNum / showCount) : 1;
+        if(totalNum > 0){
+            int n = (int) Math.ceil(totalNum / showCount);
+            return n == 0 ? 1 : n;
+        }
+        return 1;
     }
 
     public void setTotalPageNum(int totalPageNum) {

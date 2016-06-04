@@ -1,19 +1,16 @@
 package module.test;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.SessionFactory;
-import org.hibernate.engine.SessionFactoryImplementor;
-import org.hibernate.engine.query.HQLQueryPlan;
-import java.util.Collections;
 
 /**
  * Created by dell on 2016/5/30.
  */
 public class TestTest {
     public static void main(String[] args) {
-        TestTest t = new TestTest();
-        String hql = "select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u ";
-        System.out.println(t.prepareCountHql(hql));
+        System.out.println(Math.ceil(2 / 5) );
+//        TestTest t = new TestTest();
+//        String hql = "select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u ";
+//        System.out.println(t.prepareCountHql(hql));
     }
     protected String prepareCountHql(String hql) {
 

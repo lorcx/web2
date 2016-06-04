@@ -142,6 +142,9 @@
 				<prop key="login">
 					PROPAGATION_REQUIRED,-java.lang.Throwable
 				</prop>
+				<prop key="test">
+					PROPAGATION_REQUIRED,-java.lang.Throwable
+				</prop>
 			</props>
 		</property>
 	</bean>

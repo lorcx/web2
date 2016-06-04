@@ -76,6 +76,7 @@
      * 查询显示
      */
     function addContent(data){
+        //console.log(data.list.length);
         if(data){
             $('#contentTable tbody').empty();
             var record = '';
