@@ -11,4 +11,4 @@
 <script type="text/javascript" src="<%=basePath%>/plug_in/bootstrap/js/paginator/bootstrap-paginator.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/login/tooltips.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/common.js"></script>
-<script type="text/javascript" src="<%=basePath%>/plug_in/bootstrap/css/bootstrap.min.css"></script>
+<script type="text/javascript" src="<%=basePath%>/plug_in/bootstrap/js/bootstrap.min.js"></script>

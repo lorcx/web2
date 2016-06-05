@@ -2,7 +2,7 @@
 <%@ include file="/jsp/common/common.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE HTML>
-<html lang="en" class="no-js">
+<html lang="zh-cn" class="no-js">
 	 <title>登陆</title>
   	 <head>
   			<meta charset="utf-8">

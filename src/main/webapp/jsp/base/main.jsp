@@ -2,7 +2,7 @@
 <%@include file="/jsp/common/common.jsp"%>
 <%@include file="/jsp/common/plugIn.jsp"%>
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
   <head>
     <title>首页</title>
 	<meta http-equiv="pragma" content="no-cache">
@@ -10,8 +10,6 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"> <!-- 关键词 -->
 	<meta http-equiv="description" content="web2 首页"> <!-- 简介 -->
-
-
   </head>
   
   <body>
@@ -21,8 +19,8 @@
 	  </div>
 
 	  <!--内容-->
-	   <div>
-		   <table class="table table-bordered table-hover">
+	  <div class="page-header">
+	  		<table class="table table-bordered table-hover">
 			   <thead>
 				   <tr>
 					   <th>#</th>
@@ -55,68 +53,20 @@
 					   <td>@twitter</td>
 				   </tr>
 			   </tbody>
-		   </table>
+		    </table>
 	   </div>
 
+	  <%--<hr class="container">--%>
 
+	  <footer class="container">
+		  <p>Brought to you by Weborithm.Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
+	  </footer>
 
-	  <!--
-	  <div id="Main">
-		  <s:form id="dataForm" name="dataForm"  method="post" cssClass="dataForm" theme="simple">
-			  <table id="data" class="dt"  >
-				  <colgroup>
-					  <col style="width: 15%;"/>
-					  <col style="width: 35%;"/>
-					  <col style="width: 15%;"/>
-					  <col style="width: 35%;"/>
-				  </colgroup>
-				  <tbody>
-				  <tr>
-					  <td class="dt_td_l">登录名：</td>
-					  <td class="dt_td_r" >
-						  <s:textfield id="userName" name="#attr.baseUser.userName"  cssClass="dt_text"  />
-					  </td>
-					  <td class="dt_td_l">昵称：</td>
-					  <td class="dt_td_r">
-						  <s:textfield id="nickname" name="#attr.baseUser.nickname"  cssClass="dt_text"  />
-					  </td>
-				  </tr>
-				  <tr>
-					  <td class="dt_td_l">登陆密码：</td>
-					  <td class="dt_td_r">
-						  <s:textfield id="passWord" name="#attr.baseUser.passWord"  cssClass="dt_text"  />
-					  </td>
-					  <td class="dt_td_l">创建时间：</td>
-					  <td class="dt_td_r">
-						  <s:date name="#attr.baseUser.creDate" format="yyyy-MM-dd"></s:date>
-					  </td>
-				  </tr>
-				  <tr>
-					  <td class="dt_td_l">头像：</td>
-					  <td class="dt_td_r" style="" colspan="3" ><s:property value="#attr.baseUser.userName"/>
-						  <img width="500px" onclick="downLoadPic();" height="250px" src="/jsp/module/base/userPic.jsp?userName=<s:property value="#attr.baseUser.userName"/>"/>
-					  </td>
-				  </tr>
-				  </tbody>
-			  </table>
-			  <div>
-				  session: <s:property value="#attr.userInfo.userName"/><br/>
-				  <s:property value="#attr.userInfo.nickname"/>
-			  </div>
-		  </s:form>
-	  </div>
-
-	  <div id="ToolBar">
-		  <button type="button" class="btn btn-lg btn-link" onclick="uploadFile();">上传文件</button>
-		  <button type="button" class="btn btn-lg btn-link" onclick="goBackIndex();">返回主页</button>
-	  </div>
-
-	  -->
   </body>
   <script type="text/javascript">
 
 	  $(function (){
-		 $('#top_bar').load("/jsp/base/topBar.jsp");
+		 $('#top_bar').load("/jsp/base/topBar.jsp");//加载顶部导航条
 	  });
 
 	  /**

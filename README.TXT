@@ -18,9 +18,10 @@ aa
 二、公共使用：
   jsp页面：
      在页面中引入
-        <%@ include file="/jsp/common/common.jsp" %>  标签库
-        <%@ include file="/jsp/common/plugIn.jsp" %>  js插件
-
+        <%@ include file="/jsp/common/common.jsp" %> 标签库
+        <%@ include file="/jsp/common/plugIn.jsp" %> js插件
+        <!DOCTYPE HTML>
+        <html lang="zh-cn">
 三、已有功能：
         文件上传，下载,md5加密
 

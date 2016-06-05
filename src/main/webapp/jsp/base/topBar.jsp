@@ -1,6 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/jsp/common/common.jsp" %>
-<%@include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +7,7 @@
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
+
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
@@ -19,34 +18,71 @@
             </button>
             <a class="navbar-brand" href="#">web2</a>
         </div>
+        <%--导航栏内容--%>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
+                    <a id="dLabel" data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Dropdown trigger
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
                         <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
                 <li><a href="#" onclick="openWindow('/base/userAction!list.action','用户列表',1000,600)">用户列表</a></li>
             </ul>
 
+            <%--导航栏右侧--%>
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="../">Default <span class="sr-only">(current)</span></a></li>
-                <li><a href="../navbar-static-top/">Static top</a></li>
-                <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+                <li class="active"><a id="currentDate" href="#">2016-06-05 11:11:11 </a></li>
+                <li class="dropdown">
+                    <a id="dLabel1" data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        我的操作
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <li><a href="#">我的资料</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a id="loginOut" href="#">注销</a></li>
+                        <li><a href="#">重置密码</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
+
     </div>
 </nav>
 </body>
+<script type="text/javascript">
+    $(function (){
+        currentDate();
+        //注销
+        $('#loginOut').click(function (){
+            window.location.href = '/login.jsp';
+        });
+    });
+
+    function currentDate(){
+        var nowDate = new Date();
+        var y = nowDate.getFullYear();
+        var M = nowDate.getMonth();
+        var d = nowDate.getDate();
+        var h = nowDate.getHours();
+        var m = nowDate.getMinutes();
+        var s = nowDate.getSeconds();
+        $('#currentDate').text(y + '-' + datePrefix(M) + '-' + datePrefix(d) + ' ' + datePrefix(h) + ':' + datePrefix(m) + ':' + datePrefix(s));
+        setTimeout("currentDate();",500);
+    }
+
+    function datePrefix(str){
+        return str < 10 ? '0' + str : str;;
+    }
+</script>
 </html>
