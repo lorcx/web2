@@ -5,6 +5,9 @@
 <html lang="zh-cn">
 <head>
     <title>我的个人信息</title>
+    <style>
+        .center{text-align: center;}
+    </style>
 </head>
 <body>
     <form class="form-horizontal" role="form">
@@ -41,7 +44,7 @@
                         </div>
                     </div>
                     <%--按钮--%>
-                    <div style="width:100%;margin: 0 auto;">
+                    <div class="center">
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-primary">保存</button>
                         </div>
