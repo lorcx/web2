@@ -31,7 +31,7 @@
 			   </thead>
 			   <tbody>
 				   <tr>
-					   <td rowspan="2">1</td>
+					   <td rowspan="2">${sessionScope.userName}</td>
 					   <td>Mark</td>
 					   <td>Otto</td>
 					   <td>@mdo</td>
@@ -86,7 +86,7 @@
 	   *下载文件
 	   */
 	  function downLoadPic(){
-		  var userName = '${requestScope.baseUser.userName}';
+		  var userName = '${sessionScope.userName}';
 		  var url = "/downPic/downPic!downPic.action?userName="+userName;
 		  window.location.href = url;
 	  }

@@ -33,20 +33,6 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
     }
 
     /**
-     * 保存用户信息
-     * @param user
-     * @return
-     */
-    @Override
-    public void saveBaseUser(BaseUser user) {
-        try {
-            saveEntity(user);
-        }catch (Exception e){
-            LOG.error("保存用户信息失败！",e.getCause());
-        }
-    }
-
-    /**
      * <p>根据用户名获取用户信息</p>
      * @param id
      * @return

@@ -93,9 +93,10 @@
 			//登陆处理
 			function loginProcess(data){
 				if(data.isOk){
+					delCookie('captcha');//删除验证码信息
 					window.location.href = '/login!toMain.action';
 				}else{
-					alert(data.msg);
+					w2.error(data.msg);
 				}
 			}
 
@@ -111,19 +112,22 @@
 			function validateForm(){
 				//密码
 				if(!$('#j_password').val()){
-					show_err_msg('密码还没填呢！');
+//					show_err_msg('密码还没填呢！');
+					w2.error('密码还没填呢！');
 					$('#password').focus();
 					return false;
 				}
 				if(!$('#j_captcha').val()){
-					show_err_msg('验证码不能为空！');
+//					show_err_msg('验证码不能为空！');
+					w2.error('验证码不能为空！');
 					$('#password').focus();
 					return false;
 				}else{
 					var captcha = $('#j_captcha').val();
 					var loginCookieVal = getCookie('captcha');
 					if(captcha != loginCookieVal){
-						show_err_msg('验证码不正确！');
+//						show_err_msg('验证码不正确！');
+						w2.error('验证码不正确！');
 						return false;
 					}
 				}

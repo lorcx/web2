@@ -47,7 +47,7 @@
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="dLabel">
-                        <li><a href="#">我的资料</a></li>
+                        <li id="userInfo"><a href="#">我的资料</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a id="loginOut" href="#">注销</a></li>
                         <li><a href="#">重置密码</a></li>
@@ -66,6 +66,10 @@
         //注销
         $('#loginOut').click(function (){
             window.location.href = '/login.jsp';
+        });
+        //我的资料
+        $('#userInfo').click(function(){
+            openWindow('/base/userAction!userInfoEdit.action','我的资料',500,400);
         });
     });
 

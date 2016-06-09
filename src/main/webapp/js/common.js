@@ -1,40 +1,86 @@
 /*****公共js*****/
 
-/**
- * 异步提交 ajaxForm
- * 使用方法 ：	$("#login_form").attr('action','/login!login.action');
- *              $("#login_form").asyncSubmit(loginProcess);
- * 如果使用ajaxSubmit则需要return false
- */
-$.fn.asyncSubmit = function (options,_handle){
-    var defaultOptions = {
-        url : $(this).attr('action'),
-        type : 'post',
-        beforeSubmit : function (formData, jqForm, options){
-            show_loading();
-        },
-        dataType : 'json',
-        contentId : 'content',
-        success : function (responseText, statusText, options) {
-            if (statusText == 'success') {
-                if ($.isFunction(_handle)){
-                    //successDispose(responseText,_handle);
+var w2 = w2 || {};//定义命名空间
+
+$(function(){
+
+    /**
+     * 弹出插件初始化
+     * toast-bottom-right 右边
+     * toast-top-center 中上
+     * toast-bottom-center 下中
+     *
+     * toastr.success('提交数据成功');
+     * toastr.error('Error');
+     * toastr.warning('只能选择一行进行编辑');
+     * toastr.info('info');
+     */
+    toastr.options.positionClass = 'toast-top-center';
+
+    /**
+     * 异步提交 ajaxForm
+     * 使用方法 ：	$("#login_form").attr('action','/login!login.action');
+     *              $("#login_form").asyncSubmit(loginProcess);
+     * 如果使用ajaxSubmit则需要return false
+     */
+    $.fn.asyncSubmit = function (options,_handle){
+        var defaultOptions = {
+            url : $(this).attr('action'),
+            type : 'post',
+            beforeSubmit : function (formData, jqForm, options){
+                show_loading();
+            },
+            dataType : 'json',
+            contentId : 'content',
+            success : function (responseText, statusText, options) {
+                if (statusText == 'success') {
                     close_loading();
-                    if(responseText.page){
-                        loadPaginator(responseText.page);
+                    console.log($.isFunction(_handle));
+                    if ($.isFunction(_handle)){
+                        if(responseText.page && responseText.list.length > 0){//没数据就不要显示分页
+                            loadPaginator(responseText.page);
+                        }
+                        _handle(responseText);
                     }
-                    _handle(responseText);
+                } else {
+                    toastr.error("提交失败！");
                 }
-            } else {
-                alert("提交失败！");
+            },
+            error : function(data){
+                close_loading();
+                toastr.error(data.message);
             }
-        }
+        };
+        $.extend(defaultOptions,options);
+        $(this).ajaxForm(defaultOptions);
+        $(this).submit();
+        //return false;
     };
-    $.extend(defaultOptions,options);
-    $(this).ajaxForm(defaultOptions);
-    $(this).submit();
-    //return false;
-};
+
+
+    //关闭当前窗口
+    $('.closeWin').click(function(){
+        window.close();
+    });
+
+    w2.info = function(content,title,time){
+        toastr.info(content,title,{timeOut : parseInt(time) || 2000});
+    }
+
+    w2.success = function(content,title,time){
+        toastr.success(content,title,{timeOut : parseInt(time) || 2000});
+    }
+
+    w2.error = function(content,title,time){
+        toastr.error(content,title,{timeOut : parseInt(time) || 2000});
+    }
+
+    w2.warning = function(content,title,time){
+        toastr.warning(content,title,{timeOut : parseInt(time) || 2000});
+    }
+
+});
+
 
 /**
  * 加载分页

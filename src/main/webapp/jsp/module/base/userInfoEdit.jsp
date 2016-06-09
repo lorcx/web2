@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <form class="form-horizontal" role="form">
+    <form id="dataForm" name="dataForm"  class="form-horizontal" role="form">
         <div id="content" class="container">
             <div class="row">
                 <div class="col-md-12" role="main">
@@ -25,19 +25,19 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="nickName">昵称：</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" id="nickName" type="text"/>
+                                        <s:textfield id="nickName" cssClass="form-control" name="user.nickName" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="userName">用户名：</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" id="userName" type="text"/>
+                                        <s:textfield id="userName" cssClass="form-control" name="user.userName" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="creDate">创建时间：</label>
+                                    <label class="col-sm-2 control-label" >创建时间：</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" id="creDate" type="text"/>
+                                        <s:date name="user.creDate" format="yyyy-MM-dd HH:mm:ss"/>
                                     </div>
                                 </div>
                             </fieldset>
@@ -46,10 +46,10 @@
                     <%--按钮--%>
                     <div class="center">
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-primary">保存</button>
+                            <button id="saveInfo" type="button" class="btn btn-primary ">保存</button>
                         </div>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-primary">关闭</button>
+                            <button type="button" class="btn btn-primary closeWin">关闭</button>
                         </div>
                     </div>
                 </div><%--col-md-12--%>
@@ -57,4 +57,17 @@
         </div><%--container--%>
     </form>
 </body>
+<script type="text/javascript">
+
+    $(function(){
+        $('#saveInfo').click(function(){
+            $("#dataForm").attr('action','/base/userAction!saveUserInfo.action');
+            $("#dataForm").asyncSubmit({},function(data){
+                if(data.isOk){
+                    w2.success("保存成功！");
+                }
+            });
+        });
+    });
+</script>
 </html>

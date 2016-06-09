@@ -11,7 +11,7 @@
             js   : json2.js（json解析）
 
        boostrap
-
+        toastr (alert弹出插件)
 一、常用链接：druid首页 : http://localhost:8080/druid/index.html
 
 aa

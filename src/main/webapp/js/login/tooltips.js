@@ -1,3 +1,6 @@
+/***
+ * 自定义消息提示框
+ */
 var msgdsq;
 var contxt = '${pageContext.request.contextPath}';
 //错误时：提示调用方法

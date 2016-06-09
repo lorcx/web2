@@ -122,9 +122,10 @@ public class LoginAction extends BaseAction{
     private void setSessionInfo(Map<String,Object> map){
         BaseUser user = (BaseUser) map.get("BaseUser");
         if(null != user){
-//            session2.put("userName", user.getUserName());//用户登录名
-//            session2.put("nickName", user.getNickname());//用户昵称
-            session2.put("userInfo",user);
+            session2.put("userName", user.getUserName());//用户登录名
+            session2.put("nickName", user.getNickName());//用户昵称
+            session2.put("userId", user.getId());//用户id
+//            session2.put("userInfo",user);
         }
     }
 
@@ -134,8 +135,9 @@ public class LoginAction extends BaseAction{
      * @return
      */
     public String toMain(){
-        BaseUser user = (BaseUser) session2.get("userInfo");
-        request.setAttribute("baseUser",user);
+//        BaseUser user = (BaseUser) session2.get("userInfo");
+//        String userName = (String) session2.get("userName");
+//        request.setAttribute("userName",userName);
         return "main";
     }
 

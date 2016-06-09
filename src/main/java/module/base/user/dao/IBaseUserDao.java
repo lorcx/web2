@@ -14,8 +14,6 @@ import java.util.List;
 public interface IBaseUserDao extends IHbiGeneraldao<BaseUser,String > {
     BaseUser getBaseUserDaoById(String id) throws DaoException;
 
-    void saveBaseUser(BaseUser user);
-
     BaseUser getUserInfoByName(String UserName) throws DaoException;
 
     List<BaseUser> getUserList(PageBean page,BaseUser user) throws DaoException;

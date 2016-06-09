@@ -13,7 +13,7 @@ import java.util.List;
 public interface IBaseUserService {
      BaseUser getBaseUserInfoById(String id) throws ServiceException;
 
-     void saveBaseUser(BaseUser user);
+     void saveBaseUser(BaseUser user) throws ServiceException;
 
      BaseUser getBaseUserInfoByName(String name)throws ServiceException;
 

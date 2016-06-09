@@ -76,18 +76,21 @@
      * 查询显示
      */
     function addContent(data){
-        //console.log(data.list.length);
         if(data){
             $('#contentTable tbody').empty();
             var record = '';
-            $.each(data.list,function(i,obj){
-                record += '<tr>';
-                record += '<td>'+(i+1)+'</td>';
-                record += '<td>'+obj.userName+'</td>';
-                record += '<td>'+obj.nickName+'</td>';
-                record += '<td><input type="checkbox"/></td>';
-                record += '</tr>';
-            });
+            if(data.list && data.list.length > 0){
+                $.each(data.list,function(i,obj){
+                    record += '<tr>';
+                    record += '<td>'+(i+1)+'</td>';
+                    record += '<td>'+obj.userName+'</td>';
+                    record += '<td>'+obj.nickName+'</td>';
+                    record += '<td><input type="checkbox"/></td>';
+                    record += '</tr>';
+                })
+            }else{
+                record += '<tr><td colspan="4" class="w2_text_center">暂无任何信息</td></tr>';
+            }
             $('#contentTable tbody').append(record);
         }
     }
