@@ -135,13 +135,8 @@ public class LoginAction extends BaseAction{
      * @return
      */
     public String toMain(){
-//        BaseUser user = (BaseUser) session2.get("userInfo");
-//        String userName = (String) session2.get("userName");
-//        request.setAttribute("userName",userName);
         return "main";
     }
-
-
 
     public void setVerification(verification verification) {
         this.verification = verification;

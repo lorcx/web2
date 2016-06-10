@@ -21,8 +21,7 @@
 			<div class="main_box">
 				<div class="login_box">
 					<div class="login_logo">
-						<!--<img src="img/login/logo.png" >-->
-						<h1>欢迎登陆</h1>
+						<p class="masked" style="font-size: 51px;font-family:Microsoft Yahei, Arial, sans-serif">欢迎登陆</p>
 					</div>
 					<div class="login_form">
 						<form name="login_form" id="login_form"  method="post">

@@ -1,32 +1,27 @@
 package module.tree.dao;
 
+import common.dao.HbiGeneraldaoImpl;
 import common.exception.DaoException;
 import module.tree.entity.SsfFaLocation;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class TreeDaoImpl extends HibernateDaoSupport implements ITreeDao{
+public class TreeDaoImpl extends HbiGeneraldaoImpl<SsfFaLocation,String> implements ITreeDao{
 
-	//	private Session session = getSession();
 	private Logger log = Logger.getLogger(TreeDaoImpl.class);
 
 	@SuppressWarnings("unchecked")
 	public List<SsfFaLocation> getBaseDate() throws DaoException {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" select * from ssf_fa_location t　start with pid=0 connect by prior id = pid ");
-		//	 sb.append(" where t.id = t1.pid ");
-		Session session = getSession();
-		SQLQuery q = session.createSQLQuery(sb.toString());
-		q.addEntity(SsfFaLocation.class);
-		List<SsfFaLocation> list = null;
+		sb.append(" select * from Ssf_Fa_Location t");
+		List<SsfFaLocation> list;
 		try{
-			list = q.list();
+			list = findListBySql(sb.toString());
 		}catch (Exception e) {
 			e.printStackTrace();
 			log.error("获取树失败",e.getCause());

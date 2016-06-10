@@ -96,6 +96,18 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
         return createQuery(hql,"h",args).list();
     }
 
+
+    /**
+     * 不带分页的sql查询
+     *
+     * @param hql
+     * @param args
+     * @return
+     */
+    public List<T> findListBySql(String sql, Object... args) {
+        return createQuery(sql, "s", args).list();
+    }
+
     /**
      * 分页查询
      *
@@ -153,24 +165,6 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
     }
 
     /**
-     * 创建sql query
-     *
-     * @param queryString
-     * @param args
-     * @return
-     */
-    private Query createSqlQuery(String queryString, Object... args) {
-        Assert.hasText(queryString);
-        Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-        if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-                query.setParameter(i, args[i]);
-            }
-        }
-        return query;
-    }
-
-    /**
      * 创建hql query
      *
      * @param queryString
@@ -183,7 +177,7 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
         Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
         Query query = null;
         if(flag.equals("s") || flag.equalsIgnoreCase("sql")){
-            query = session.createSQLQuery(queryStr);
+            query = session.createSQLQuery(queryStr).addEntity(entityClass);
         }
         if(flag.equals("h") || flag.equalsIgnoreCase("hql")){
             query = session.createQuery(queryStr);

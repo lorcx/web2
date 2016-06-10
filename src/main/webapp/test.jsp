@@ -7,10 +7,10 @@
   </head>
   
   <body>
-  	${user }
   	<%
-  		String user = (String)request.getAttribute("user");
-  		System.out.println(user);
+		System.out.print(1/0);
+//  		String user = (String)request.getAttribute("user");
+//  		System.out.println(user);
   	%>
   	<s:property value="#attr.user"/>
   </body>

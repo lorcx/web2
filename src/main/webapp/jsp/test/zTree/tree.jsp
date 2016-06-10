@@ -3,10 +3,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
+       <title>ztree</title>
   </head>
   
    <frameset cols="280px,*">
-   		<frame src="${pageContext.request.contextPath }/jsp/zTree/ztreeDemo.jsp"/>
-   		<frame src="${pageContext.request.contextPath }/jsp/zTree/bd.jsp"/>
+   		<frame src="ztreeDemo.jsp"/>
+   		<frame src="bd.jsp"/>
    </frameset>
 </html>

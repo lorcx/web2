@@ -64,6 +64,9 @@
             $("#dataForm").attr('action','/base/userAction!saveUserInfo.action');
             $("#dataForm").asyncSubmit({},function(data){
                 if(data.isOk){
+                    if(window.opener){
+                        $('#topBarLoginInfo',window.opener.document).text('欢迎你11：' + data.nickName);
+                    }
                     w2.success("保存成功！");
                 }
             });

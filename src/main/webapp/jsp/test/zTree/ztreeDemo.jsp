@@ -53,7 +53,7 @@
 	
 			 async: {
 				enable: true,
-				url: "${pageContext.request.contextPath}/tree/treeAction!getBaseDate.action",
+				url: "/tree/treeAction!getBaseDate.action",
 				autoParam: ["id","pid","name"]
 			},
 			

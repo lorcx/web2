@@ -6,6 +6,7 @@
     <title>公共dao_test</title>
 </head>
 <body>
+  <h1>dao test</h1>
   <button onclick="test();">test</button>
 </body>
 <script>

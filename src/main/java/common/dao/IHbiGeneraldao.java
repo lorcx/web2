@@ -20,6 +20,8 @@ public interface IHbiGeneraldao<T,PK extends Serializable> {
 
      List<T> findList(String hql,Object ... args);
 
+     List<T> findListBySql(String sql,Object ... args);
+
      List<T> findListByPage(PageBean page, String hql, Object... values);
 
      T findUnique (String hql,Object ...args);

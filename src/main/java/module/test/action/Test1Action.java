@@ -18,7 +18,7 @@ public class Test1Action extends BaseAction{
     }
 
     public String test(){
-        test1Service.test();
+//        test1Service.test();
         return null;
     }
 

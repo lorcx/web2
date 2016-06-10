@@ -4,7 +4,7 @@
     <title>自动设置时间为下周2的下午14：00</title>
 </head>
 <body>
-
+    <p id="showTime"></p>
 </body>
 <script>
 //    window.onload = getAssignDate();
@@ -18,6 +18,7 @@
      *
      * */
     function getAssignDate() {
+        var showTime = document.getElementById('showTime');
         var d = new Date('2016-03-31');
           d.setHours(13);
         var d = new Date();
@@ -29,17 +30,21 @@
         if (week == 2) {//周二
             if (hour == 14) {
                 console.log(year + '-' + mouth + '-' + day + ' 14 : 00');
+                showTime.innerHTML =  year + '-' + mouth + '-' + day + ' 14 : 00';
             } else if (hour < 14) {
                 console.log(year + '-' + mouth + '-' + day + ' 14 : 00');
+                showTime.innerHTML =  year + '-' + mouth + '-' + day + ' 14 : 00';
             }
         } else if (week < 2) { // < 2
             var n = 2 - week;
             d.setDate(d.getDate() + n);
             console.log(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' 14 : 00');
+            showTime.innerHTML =  d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' 14 : 00';
         }
         if ((week == 2 && hour > 14) || (week > 2)) {
             var n = week - 2;//计算与周二的差
             d.setDate(d.getDate() + 7 - n);
+            showTime.innerHTML =  d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' 14 : 00';
             console.log(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' 14 : 00');
         }
     }

@@ -87,17 +87,28 @@ public class UserAction extends BaseAction{
         Map result = new HashMap();
         try {
             userService.saveBaseUser(user);
+            updateSession();
+            result.put("nickName",user.getNickName());
             result.put("isOk", true);
         } catch (ServiceException e) {
             e.printStackTrace();
             LOG.error(" 保存用户信息action", e.getCause());
             result.put("isOk",false);
         }
-        System.out.println(gson.toJson(result));
         pw.print(gson.toJson(result));
 //        pw.flush();
         return null;
     }
+
+    /**
+     * 更新session信息
+     */
+    private void updateSession(){
+        session2.put("userName", user.getUserName());//用户登录名
+        session2.put("nickName", user.getNickName());//用户昵称
+        session2.put("userId", user.getId());//用户id
+    }
+
 
     public void setUserService(IBaseUserService userService) {
         this.userService = userService;
