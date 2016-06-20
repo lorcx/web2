@@ -47,6 +47,7 @@
                         <li id="floatBottom"><a href="#">浮动在最下边</a></li>
                         <li id="daoTest"><a href="#">daoTest</a></li>
                         <li id="jslx"><a href="#">js练习</a></li>
+                        <li id="collections"><a href="#">js实现集合</a></li>
                     </ul>
                 </li>
                 <li><a href="#" onclick="openWindow('/base/userAction!list.action','用户列表',1000,600)">用户列表</a></li>
@@ -133,6 +134,10 @@
         //javascript test练习
         $('#jslx').click(function(){
             openWindow('/html/jslx1.html','javascript test练习',392,129);
+        });
+        //js实现集合
+        $('#collections').click(function(){
+            openWindow('/jsp/study/js/Collections.jsp','javascript test练习',900,600);
         });
     });
 
