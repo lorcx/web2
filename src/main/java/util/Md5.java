@@ -7,9 +7,7 @@ import java.security.NoSuchAlgorithmException;
  * md5加密
  * Created by lx on 2016/2/27.
  */
-@SuppressWarnings("unused")
 public class Md5 {
-
     /**
      * 将字符串md5加密
      *

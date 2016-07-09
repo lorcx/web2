@@ -36,7 +36,7 @@ $(function(){
                 if (statusText == 'success') {
                     close_loading();
                     if ($.isFunction(_handle)){
-                        if(responseText.page && responseText.list.length > 0){//没数据就不要显示分页
+                        if(responseText.page && responseText.list && responseText.list.length > 0){//没数据就不要显示分页
                             loadPaginator(responseText.page);
                         }
                         _handle(responseText);

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @SuppressWarnings("unused")
 public class downLoadPic extends BaseAction {
     private static final long serialVersionUID = 1L;
-    private Logger log = Logger.getLogger(downLoadPic.class);
+    private Logger LOG = Logger.getLogger(downLoadPic.class);
     private IBaseUserService userService;
 
     /**

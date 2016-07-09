@@ -8,7 +8,6 @@ package common;
  * <p/>
  * Created by dell on 2016/1/28.
  */
-@SuppressWarnings("unused")
 public class PageBean {
     private int totalPageNum;//总页数
     private int currentNum;//当前页

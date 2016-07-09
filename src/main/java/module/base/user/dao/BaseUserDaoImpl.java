@@ -75,6 +75,7 @@ public class BaseUserDaoImpl extends HbiGeneraldaoImpl<BaseUser,String> implemen
             list = findListByPage(page, hql.toString(),params.toArray());
         } catch (Exception e) {
             e.printStackTrace();
+            throw new DaoException("获取系统用户列表DAO失败");
         }
         return list;
     }

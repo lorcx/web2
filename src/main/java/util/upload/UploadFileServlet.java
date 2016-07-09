@@ -30,7 +30,6 @@ import java.util.List;
  *文件上传
  * Created by dell on 2016/1/7.
  */
-@SuppressWarnings("unused")
 public class UploadFileServlet extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(UploadFileServlet.class);
     private IBaseUserService userService;
@@ -39,11 +38,12 @@ public class UploadFileServlet extends HttpServlet {
 
     /**
      * servelt文件上传
-     * @param request
-     * @param response
+     * @param :request
+     * @param :response
      * @throws ServletException
      * @throws IOException
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String temp_dir = "/WEB-INF/tmp";
         int DEFAULT_SIZE = 1024 * 1024;
@@ -61,7 +61,7 @@ public class UploadFileServlet extends HttpServlet {
             if(null != list && list.size() > 0 ){
                 for(FileItem item : list){
                     if(!item.isFormField()){
-                        String fileName = item.getName();
+//                        String fileName = item.getName();
                         //文件后缀
 //                        String fileSuffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
 //                String oldName = fileName.replaceAll("." + fileSuffix,"");
@@ -88,8 +88,7 @@ public class UploadFileServlet extends HttpServlet {
 
     /**
      * 查询用户信息
-     * @param session
-     * @param name
+     * @param:name
      * @return
      */
     public BaseUser getBaseUserInfoByName(String name){
@@ -100,8 +99,7 @@ public class UploadFileServlet extends HttpServlet {
 
     /**
      * 保存用户信息
-     * @param name
-     * @param session
+     * @param:user
      * @return
      */
     public void saveOrUpdateBaseUser(BaseUser user){

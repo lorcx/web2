@@ -17,7 +17,7 @@ public class CommonDaoTestImpl extends HbiGeneraldaoImpl<Test1,String > implemen
 ////        saveEntity(t);
 //        Test1 t2 = get("203");
 //        System.out.println(t2.getTname());
-        StringBuilder hql = new StringBuilder("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u");
+//        StringBuilder hql = new StringBuilder("select new map(u.id as id,u.nickName as nickName,u.userName as userName,u.creDate as creDate) from BaseUser u");
 //        long n = getDataTotal("select distinct nickName,userName from BaseUser",null);
 //        System.out.println(n);
 //        Object count = findUnique(hql.toString());

@@ -15,7 +15,6 @@ public class TreeDaoImpl extends HbiGeneraldaoImpl<SsfFaLocation,String> impleme
 
 	private Logger log = Logger.getLogger(TreeDaoImpl.class);
 
-	@SuppressWarnings("unchecked")
 	public List<SsfFaLocation> getBaseDate() throws DaoException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" select * from Ssf_Fa_Location t");

@@ -19,12 +19,11 @@ import java.util.Map;
  * 用户
  * Created by lx on 2016/5/28.
  */
-@SuppressWarnings("unused")
 public class UserAction extends BaseAction{
+    public static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(BaseUserServiceImpl.class);
     private IBaseUserService userService;
     private BaseUser user;
-
     public String list(){
         return "userList";
     }
@@ -36,7 +35,7 @@ public class UserAction extends BaseAction{
     public String getUserList() throws IOException {
         response.setCharacterEncoding("UTF-8");
         PrintWriter pw = response.getWriter();
-        Map result = new HashMap();
+        Map<String ,Object> result = new HashMap<String ,Object>();
         Gson gson = new Gson();
         String userName = request.getParameter("userName");
         String nickName = request.getParameter("nickName");
@@ -84,7 +83,7 @@ public class UserAction extends BaseAction{
         response.setCharacterEncoding("UTF-8");
         PrintWriter pw = response.getWriter();
         Gson gson = new Gson();
-        Map result = new HashMap();
+        Map<String,Object> result = new HashMap<String, Object>();
         try {
             userService.saveBaseUser(user);
             updateSession();

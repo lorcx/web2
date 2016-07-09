@@ -68,7 +68,6 @@
      * eval("(" + data + ")").list
      */
     function queryForm(){
-        console.log($('#currentPage').val());
 ;        $("#queryFrom").asyncSubmit({},addContent);
     }
 

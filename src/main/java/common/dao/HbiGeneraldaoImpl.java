@@ -177,7 +177,7 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
         Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
         Query query = null;
         if(flag.equals("s") || flag.equalsIgnoreCase("sql")){
-            query = session.createSQLQuery(queryStr).addEntity(entityClass);
+            query = session.createSQLQuery(queryStr);//addEntity(entityClass)
         }
         if(flag.equals("h") || flag.equalsIgnoreCase("hql")){
             query = session.createQuery(queryStr);

@@ -23,7 +23,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="javascript:;">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="javascript:;">About</a></li>
                 <%--工作上的--%>
                 <li class="dropdown">
                     <a data-target="#" href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
