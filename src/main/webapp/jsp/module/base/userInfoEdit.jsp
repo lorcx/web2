@@ -61,8 +61,9 @@
 
     $(function(){
         $('#saveInfo').click(function(){
-            $("#dataForm").attr('action','/base/userAction!saveUserInfo.action');
-            $("#dataForm").asyncSubmit({},function(data){
+            var url = '/base/userAction!saveUserInfo.action';
+            $("#dataForm").attr('action',url)
+                          .asyncSubmit({},function(data){
                 if(data.isOk){
                     if(window.opener){
                         $('#topBarLoginInfo',window.opener.document).text('欢迎你11：' + data.nickName);

@@ -4,21 +4,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
-    <title>首页</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"> <!-- 关键词 -->
-	<meta http-equiv="description" content="web2 首页"> <!-- 简介 -->
+	 <title>首页</title>
+	 <meta charset="utf-8" >
+	 <meta name="description" content="web2 首页" >
+	 <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript"  >
   </head>
-  
   <body>
 	  <div id="container">
-  	 	  <!--导航条-->
+  	 	  <%--导航条--%>
 		  <div id="top_bar"></div>
 	  </div>
 
-	  <!--内容-->
+	  <%--内容--%>
 	  <div class="page-header">
 	  		<table class="table table-bordered table-hover">
 			   <thead>
@@ -74,12 +71,7 @@
 	   */
 	  function uploadFile(){
 		  var url = "/jsp/uploadFile.jsp";
-		  var iHeight = "550";//弹出的高度
-		  var iWidth = "400";//弹出的宽度
-		  var iTop = (window.screen.height-30-iHeight)/2; //获得窗口的垂直位置;
-		  var iLeft = (window.screen.width-10-iWidth)/2; //获得窗口的水平位置;
-		  var style = 'status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top='+iTop+',left='+iLeft+', resizable=yes,height='+iHeight+',width='+iWidth;
-		  window.open(url,"uploadFile",style);
+		  openWindow(url,'上传文件',550,400);
 	  }
 
 	  /**
@@ -87,8 +79,7 @@
 	   */
 	  function downLoadPic(){
 		  var userName = '${sessionScope.userName}';
-		  var url = "/downPic/downPic!downPic.action?userName="+userName;
-		  window.location.href = url;
+		  window.location.href = "/downPic/downPic!downPic.action?userName=" + userName;
 	  }
 
 	  /**

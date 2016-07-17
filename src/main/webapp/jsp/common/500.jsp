@@ -17,5 +17,4 @@
     window.location.href = '/';
   }
 </script>
-·
 </html>

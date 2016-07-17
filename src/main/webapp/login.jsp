@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/common.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE HTML>
@@ -12,9 +12,9 @@
   			<meta name="description" content="简介">
   			<meta name="author" content="lx">
   			<!-- CSS -->
-  			<link rel="stylesheet" href="css/login/supersized.css" type="text/css"/>
-			<link rel="stylesheet" href="css/login/login.css" type="text/css"/>
-			<link rel="stylesheet" href="css/login/bootstrap.min.css" type="text/css"/>
+  			<link rel="stylesheet" href="css/login/supersized.css" type="text/css">
+			<link rel="stylesheet" href="css/login/login.css" type="text/css">
+			<link rel="stylesheet" href="css/login/bootstrap.min.css" type="text/css">
  	 </head>
  	 <body>
 		<div class="page-container">
@@ -51,7 +51,7 @@
 						</form>
 					</div>
 				</div>
-				<div class="bottom">Copyright &copy; 2015 - 2016 <a href="#">系统登陆</a></div>
+				<div class="bottom">Copyright &copy; 2015 - 2016 <a href="javascript:void(0)">系统登陆</a></div>
 			</div>
 		</div>
   	 </body>
@@ -85,8 +85,8 @@
 					 */
 					//验证表单
 					if(validateForm()){
-						$("#login_form").attr('action','/login!login.action');
-						$("#login_form").asyncSubmit({},loginProcess);
+						$("#login_form").attr('action','/login!login.action')
+										.asyncSubmit({},loginProcess);
 					}
 				});
 
@@ -132,13 +132,13 @@
 					$('#password').focus();
 					return false;
 				}
-				if(!$('#j_captcha').val()){
+				var captcha = $('#j_captcha').val();
+				if(!captcha){
 //					show_err_msg('验证码不能为空！');
 					w2.error('验证码不能为空！');
 					$('#password').focus();
 					return false;
 				}else{
-					var captcha = $('#j_captcha').val();
 					var loginCookieVal = getCookie('captcha');
 					if(captcha != loginCookieVal){
 //						show_err_msg('验证码不正确！');

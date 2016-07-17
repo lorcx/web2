@@ -2,13 +2,12 @@
 <%@ include file="/jsp/common/common.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
     <title>用户列表</title>
 </head>
 <body>
     <form id="queryFrom" action="/base/userAction!getUserList.action" method="post">
-
         <div>
             <h3>用户查询列表</h3>
         </div>
@@ -34,10 +33,10 @@
             <div><%--col-md-10--%>
                 <table id="contentTable" class="table table-hover table-striped table-bordered table-condensed">
                     <colgroup>
-                        <col width="20%"></col>
-                        <col width="30%"></col>
-                        <col width="30%"></col>
-                        <col width="20%"></col>
+                        <col width="20%">
+                        <col width="30%">
+                        <col width="30%">
+                        <col width="20%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -47,9 +46,7 @@
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody>
-
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -68,7 +65,7 @@
      * eval("(" + data + ")").list
      */
     function queryForm(){
-;        $("#queryFrom").asyncSubmit({},addContent);
+        $("#queryFrom").asyncSubmit({},addContent);
     }
 
     /**
@@ -76,7 +73,8 @@
      */
     function addContent(data){
         if(data){
-            $('#contentTable tbody').empty();
+            var contentTable = $('#contentTable').find('tbody');
+            contentTable.empty();
             var record = '';
             if(data.list && data.list.length > 0){
                 $.each(data.list,function(i,obj){
@@ -90,7 +88,7 @@
             }else{
                 record += '<tr><td colspan="4" class="w2_text_center">暂无任何信息</td></tr>';
             }
-            $('#contentTable tbody').append(record);
+            contentTable.append(record);
         }
     }
 

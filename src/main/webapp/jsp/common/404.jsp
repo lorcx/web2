@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" isErrorPage="true" language="java" %>
 <html>
     <%response.setStatus(HttpServletResponse.SC_OK);%>
@@ -6,7 +7,7 @@
         <link href="../../css/error/error.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div id="container"><img class="png" src="/img/error/404/404.png" /> <img class="png msg" src="/img/error/404/404_msg.png" />
+        <div id="container"><img class="png" src="<c:url value="/img/error/404/404.png"/>" /> <img class="png msg" src="<c:url value="/img/error/404/404_msg.png"/>" />
             <p>
                 <a href="/login.jsp">返回首页</a>
             </p>
