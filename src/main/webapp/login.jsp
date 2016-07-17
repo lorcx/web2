@@ -2,19 +2,20 @@
 <%@ include file="/jsp/common/common.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE HTML>
-<html lang="zh-cn" class="no-js">
+<html lang="zh-CN" class="no-js">
 	 <title>web2 - ssh练习项目</title>
   	 <head>
-  			<meta charset="utf-8">
-  			<title>登录界面</title>
-  			<!-- 让网页的宽度自动适应手机屏幕的宽度 -->
-  			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  			<meta name="description" content="简介">
-  			<meta name="author" content="lx">
-  			<!-- CSS -->
-  			<link rel="stylesheet" href="css/login/supersized.css" type="text/css">
-			<link rel="stylesheet" href="css/login/login.css" type="text/css">
-			<link rel="stylesheet" href="css/login/bootstrap.min.css" type="text/css">
+		<title>登录界面</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<%-- 让网页的宽度自动适应手机屏幕的宽度 --%>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="简介">
+		<meta name="author" content="lx">
+		<%-- CSS --%>
+		<link rel="stylesheet" href="css/login/supersized.css" type="text/css">
+		<link rel="stylesheet" href="css/login/login.css" type="text/css">
+		<link rel="stylesheet" href="css/login/bootstrap.min.css" type="text/css">
  	 </head>
  	 <body>
 		<div class="page-container">

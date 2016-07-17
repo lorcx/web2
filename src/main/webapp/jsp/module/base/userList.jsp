@@ -2,9 +2,11 @@
 <%@ include file="/jsp/common/common.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
     <title>用户列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 </head>
 <body>
     <form id="queryFrom" action="/base/userAction!getUserList.action" method="post">

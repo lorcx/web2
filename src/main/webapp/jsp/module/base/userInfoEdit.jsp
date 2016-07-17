@@ -2,9 +2,11 @@
 <%@ include file="/jsp/common/common.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE HTML>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
     <title>我的个人信息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <style>
         .center{text-align: center;}
     </style>

@@ -21,7 +21,9 @@ aa
         <%@ include file="/jsp/common/common.jsp" %> 标签库
         <%@ include file="/jsp/common/plugIn.jsp" %> js插件
         <!DOCTYPE HTML>
-        <html lang="zh-cn">
+        <html lang="zh-CN">
+            <%--IE 兼容模式--%>
+            <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 三、已有功能：
         文件上传，下载,md5加密
 

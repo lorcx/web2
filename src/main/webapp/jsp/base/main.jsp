@@ -2,10 +2,11 @@
 <%@include file="/jsp/common/common.jsp"%>
 <%@include file="/jsp/common/plugIn.jsp"%>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
   <head>
 	 <title>首页</title>
-	 <meta charset="utf-8" >
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	 <meta name="description" content="web2 首页" >
 	 <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript"  >
   </head>

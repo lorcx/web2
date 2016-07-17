@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/jsp/common/common.jsp"%>
 <!DOCTYPE HTML>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
     <title>顶部导航栏</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
