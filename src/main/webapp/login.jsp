@@ -7,15 +7,16 @@
   	 <head>
 		<title>登录界面</title>
 		<meta charset="utf-8">
+		 <%--IE 兼容性设置--%>
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 		<%-- 让网页的宽度自动适应手机屏幕的宽度 --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="简介">
 		<meta name="author" content="lx">
 		<%-- CSS --%>
-		<link rel="stylesheet" href="css/login/supersized.css" type="text/css">
-		<link rel="stylesheet" href="css/login/login.css" type="text/css">
-		<link rel="stylesheet" href="css/login/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="/css/login/supersized.css" type="text/css">
+		<link rel="stylesheet" href="/css/login/login.css" type="text/css">
+		<link rel="stylesheet" href="/css/login/bootstrap.min.css" type="text/css">
  	 </head>
  	 <body>
 		<div class="page-container">
@@ -56,7 +57,7 @@
 			</div>
 		</div>
   	 </body>
-  	 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  	 <%-- HTML5 shim, for IE6-8 support of HTML5 elements --%>
 	 <!--[if lt IE 9]>
 	 <script type="text/javascript" src="js/login/html5.js"></script>
 	 <![endif]-->
@@ -67,9 +68,8 @@
 	 <script type="text/javascript" src="js/login/scripts.js"></script>
 	 <script type="text/javascript">
 		 	$(function (){
-
+				//将cookie中的密码填入（未加密）
 				initUserInfoByCookie();
-
 				$("#submit_btn").click(function (){
 					/**
 					 *    原生js提交: document.login_form.action = "/login!login.action";

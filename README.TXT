@@ -32,6 +32,8 @@ aa
 
 
 ***************目录*********************
+sql （sql脚本）
+target (编译文件)
 src
     main
         java(源文件)
@@ -42,9 +44,9 @@ src
             font
             html
             img
-            js
+            js (自定义js)
             jsp
-            plug_in
+            plug_in (引入的插件)
             tmp
             WEB-INF
             ...
