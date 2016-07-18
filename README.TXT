@@ -18,7 +18,7 @@ aa
 二、公共使用：
   jsp页面：
      在页面中引入
-        <%@ include file="/jsp/common/common.jsp" %> 标签库
+        <%@ include file="/jsp/common/taglib.jsp" %> 标签库
         <%@ include file="/jsp/common/plugIn.jsp" %> js插件
         <!DOCTYPE HTML>
         <html lang="zh-CN">

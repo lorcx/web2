@@ -218,9 +218,10 @@
         -->
 
     </dependencies>
+
+    <!--将源目录下的xml放到classes中-->
     <build>
         <finalName>web2</finalName>
-        <!--将源目录下的xml放到classes中-->
         <resources>
             <resource>
                 <directory>src/main/java</directory>

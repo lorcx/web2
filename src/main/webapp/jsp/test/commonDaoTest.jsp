@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/jsp/common/common.jsp" %>
+<%@ include file="/jsp/common/taglib.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
 <html>
 <head>
