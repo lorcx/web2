@@ -16,12 +16,12 @@ public class PageBean {
 
     public PageBean() {
         showCount = Constant.DEFAULT_PAGE_NUM;//默认5
-        currentNum = 1;
+        currentNum = Constant.CURRENT_NUM;
     }
 
     public PageBean(int totalPageNum, int currentNum, int showCount, int totalNum) {
         this.totalPageNum = totalPageNum;
-        this.currentNum = currentNum;
+        this.currentNum = (currentNum == 0 ? 1 : currentNum);
         this.showCount = showCount;
         this.totalNum = totalNum;
     }
@@ -52,14 +52,6 @@ public class PageBean {
 
     public void setCurrentNum(int currentNum) {
         this.currentNum = currentNum;
-    }
-
-    public int getPageNum() {
-        return showCount;
-    }
-
-    public void setPageNum(int showCount) {
-        this.showCount = showCount;
     }
 
     public int getTotalNum() {

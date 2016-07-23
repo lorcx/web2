@@ -119,8 +119,13 @@ public class HbiGeneraldaoImpl<T, PK extends Serializable> extends HibernateDaoS
     public List<T> findListByPage(PageBean page, String hql, Object... values) {
         Assert.notNull(page);
         Query query = createQuery(hql,"h",values);
-        int firstPage = ((page.getCurrentNum() - 1) * page.getShowCount());//起始页
-        int lastPage = page.getCurrentNum() * page.getShowCount();//结束页
+//        String currentNum = page.getCurrentNum();
+        int cNum = page.getCurrentNum();
+//        if(StringUtils.isNotEmpty(currentNum)){
+//            cNum = Integer.parseInt(currentNum);
+//        }
+        int firstPage = (cNum -1) * page.getShowCount();//起始页
+        int lastPage = cNum * page.getShowCount();//结束页
         query.setFirstResult(firstPage);
         query.setMaxResults(lastPage);
         List<T> list = query.list();

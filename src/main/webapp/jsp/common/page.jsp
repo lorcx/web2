@@ -4,7 +4,7 @@
 <head>
 </head>
 <body>
-    <div id="pageDiv" style="text-align: center;">
+    <div id="pageDiv" style="text-align: center;background: #fff">
         <ul id="paginator"></ul>
         <s:hidden name="page.currentNum" id="currentPage"/>
     </div>

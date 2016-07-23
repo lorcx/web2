@@ -1,6 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/taglib.jsp" %>
-<%@ include file="/jsp/common/plugIn.jsp" %>
 <!DOCTYPE HTML>
 <html lang="zh-CN" class="no-js">
 	 <title>web2 - ssh练习项目</title>
@@ -17,6 +16,10 @@
 		<link rel="stylesheet" href="/css/login/supersized.css" type="text/css">
 		<link rel="stylesheet" href="/css/login/login.css" type="text/css">
 		<link rel="stylesheet" href="/css/login/bootstrap.min.css" type="text/css">
+		<%--web2项目自定义样式--%>
+		 <link href="/css/web2.css" rel="stylesheet" type="text/css">
+		 <%--alert弹出插件--%>
+		 <link href="/plug_in/toastr/toastr.css" rel="stylesheet">
  	 </head>
  	 <body>
 		<div class="page-container">
@@ -62,10 +65,14 @@
 	 <script type="text/javascript" src="js/login/html5.js"></script>
 	 <![endif]-->
 	 <%--<script type="text/javascript" src="js/login/tooltips.js"></script>--%>
-	 <script type="text/javascript" src="js/login/login.js"></script>
-  	 <script type="text/javascript" src="js/login/supersized.3.2.7.min.js"></script>
-	 <script type="text/javascript" src="js/login/supersized-init.js"></script>
-	 <script type="text/javascript" src="js/login/scripts.js"></script>
+	 <script type="text/javascript" src="/plug_in/jquery/jquery-1.12.1.min.js"></script>
+	 <script type="text/javascript" src="/plug_in/form/jquery.form.js"></script>
+  	 <script type="text/javascript" src="/plug_in/supersized/supersized.3.2.7.min.js"></script>
+	 <script type="text/javascript" src="/plug_in/supersized/supersized-init.js"></script>
+	 <script type="text/javascript" src="/plug_in/toastr/toastr.js"></script>
+	 <script type="text/javascript" src="/js/login/login.js"></script>
+	 <script type="text/javascript" src="/js/login/tooltips.js"></script>
+	 <script type="text/javascript" src="/js/common.js"></script>
 	 <script type="text/javascript">
 		 	$(function (){
 				//将cookie中的密码填入（未加密）

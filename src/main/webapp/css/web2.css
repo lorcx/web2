@@ -1,11 +1,11 @@
 .w2_text_center{text-align: center;}
 
-/*字体颜色渐变*/
+/* 首页字体颜色渐变*/
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
     .masked{
         background-image: -webkit-linear-gradient(left, #96331e, #74e64b 25%, #341a96 50%, #1ce607 75%, #967515);
         -webkit-text-fill-color: transparent;
-        -webkit-background-clip: text;
+        /*-webkit-background-clip: text;*/
         -webkit-background-size: 200% 100%;
         -webkit-animation: masked-animation 4s infinite linear;
     }
@@ -13,4 +13,9 @@
 @-webkit-keyframes masked-animation {
     0%  { background-position: 0 0;}
     100% { background-position: -100% 0;}
+}
+
+/*table*/
+.td-left {
+    font-size: 18px;
 }
