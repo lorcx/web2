@@ -37,6 +37,11 @@ target (编译文件)
 src
     main
         java(源文件)
+            common (action基类 dao基类等)
+            context(数据缓存、用户信息)
+            module(模块)
+            test(测试文件)
+            util(系统工具)
         resources(配置文件)
         webapp(web目录)
             css
