@@ -3,37 +3,26 @@ package test;
 /**
  * Created by dell on 2016/1/28.
  */
-public class Test{
+public class Test {
     public static void main(String[] args) {
-//        List list = new ArrayList();
-//        Map map = new HashMap();
-//        for(int i = 0;i < 2;i++){
-//            TestEntity te = new TestEntity();
-//            te.haedMan = (String) map.get("");
-//            te.applyUser = (String) map.get("");
-//            te.techoglyUser = (String) map.get("");
-//            te.businessUser = (String) map.get("");
-//            list.set(i,te);
-//        }
-//        System.out.println(File.separator);
-//        for(int i=0;i<5;i++){
-//            System.out.println(i);
-//            if(i==3){
-//                return;
-//            }
-//
-//        }
-//
-//        System.out.println("111");
+        Integer[] i = {1,2,3};
+        System.out.println(new Test().join(i , "="));
+    }
 
-        String.valueOf(null);
-        System.out.println(1);
+    /**
+     * 数组拼接
+     * @param objArr
+     * @param flag
+     * @return
+     */
+    public String join(Object[] objArr, String flag) {
+        StringBuilder result = new StringBuilder();
+        for(int i = 0,len = objArr.length;i < len;i++){
+            result.append(objArr[i]);
+            if(i < len - 1){
+                result.append(flag);
+            }
+        }
+        return result.toString();
     }
 }
-
-//class TestEntity{
-//    public String haedMan;
-//    public String applyUser;
-//    public String techoglyUser;
-//    public String businessUser;
-//}
