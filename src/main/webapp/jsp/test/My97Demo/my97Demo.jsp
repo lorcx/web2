@@ -28,7 +28,7 @@
 	  	
 	  	<!-- 1常规调用 -->
 	  	常规调用 :
-	   	<input id="d11" type="text" onClick="WdatePicker()"/><br/>
+	   	<input id="d11" type="text"  onClick="WdatePicker({onpicked:ch})"/><br/>
 	   	
 	   	
 	   	<!-- 2图标触发 -->
@@ -360,6 +360,9 @@
 		var clearedFunc = function(){ alert('日期框已被清空'); };//清空后
 		WdatePicker({el:element,onclearing:clearingFunc,oncleared:clearedFunc});
 	}
-    
+
+	  function ch(dp){
+		  alert(dp.cal.getDateStr());
+	  }
   </script>
 </html>
