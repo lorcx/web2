@@ -17,13 +17,15 @@ public class BaseDept {
     private String orderNo;
     private String deptAbbr;
     private String deptLevel;
+    private String description;
 
     public BaseDept() {
     }
 
-    public BaseDept(String id, String name, String superId,String deptName, String status, Date creDate, String deptCode, String orderNo, String deptAbbr, String deptLevel) {
+    public BaseDept(String id, String name, String deptName, String superId, String status, Date creDate, String deptCode, String orderNo, String deptAbbr, String deptLevel, String description) {
         this.id = id;
         this.name = name;
+        this.deptName = deptName;
         this.superId = superId;
         this.status = status;
         this.creDate = creDate;
@@ -31,7 +33,15 @@ public class BaseDept {
         this.orderNo = orderNo;
         this.deptAbbr = deptAbbr;
         this.deptLevel = deptLevel;
-        this.deptName = deptName;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDeptName() {
