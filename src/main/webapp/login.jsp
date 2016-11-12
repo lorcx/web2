@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/taglib.jsp" %>
+<%String basePath = request.getContextPath();%>
 <!DOCTYPE HTML>
 <html lang="zh-CN" class="no-js">
 	 <title>web2 - ssh练习项目</title>
@@ -13,14 +14,14 @@
 		<meta name="description" content="简介">
 		<meta name="author" content="lx">
 		<%-- CSS --%>
-		<link rel="stylesheet" href="/css/login/supersized.css" type="text/css">
-		<link rel="stylesheet" href="/css/login/login.css" type="text/css">
+		<link rel="stylesheet" href="<%=basePath%>/css/login/supersized.css" type="text/css">
+		<link rel="stylesheet" href="<%=basePath%>/css/login/login.css" type="text/css">
 
-		<link rel="stylesheet" href="/css/login/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="<%=basePath%>/css/login/bootstrap.min.css" type="text/css">
 		<%--web2项目自定义样式--%>
-		 <link href="/css/web2.css" rel="stylesheet" type="text/css">
+		 <link href="<%=basePath%>/css/web2.css" rel="stylesheet" type="text/css">
 		 <%--alert弹出插件--%>
-		 <link href="/plug_in/toastr/toastr.css" rel="stylesheet">
+		 <link href="<%=basePath%>/plug_in/toastr/toastr.css" rel="stylesheet">
  	 </head>
  	 <body>
 		<div class="page-container">
@@ -63,17 +64,17 @@
   	 </body>
   	 <%-- HTML5 shim, for IE6-8 support of HTML5 elements --%>
 	 <!--[if lt IE 9]>
-	 <script type="text/javascript" src="js/login/html5.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/js/login/html5.js"></script>
 	 <![endif]-->
 	 <%--<script type="text/javascript" src="js/login/tooltips.js"></script>--%>
-	 <script type="text/javascript" src="/plug_in/jquery/jquery-1.12.1.min.js"></script>
-	 <script type="text/javascript" src="/plug_in/form/jquery.form.js"></script>
-  	 <script type="text/javascript" src="/plug_in/supersized/supersized.3.2.7.min.js"></script>
-	 <script type="text/javascript" src="/plug_in/supersized/supersized-init.js"></script>
-	 <script type="text/javascript" src="/plug_in/toastr/toastr.js"></script>
-	 <script type="text/javascript" src="/js/login/login.js"></script>
-	 <script type="text/javascript" src="/js/login/tooltips.js"></script>
-	 <script type="text/javascript" src="/js/common.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/plug_in/jquery/jquery-1.12.1.min.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/plug_in/form/jquery.form.js"></script>
+  	 <script type="text/javascript" src="<%=basePath%>/plug_in/supersized/supersized.3.2.7.min.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/plug_in/supersized/supersized-init.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/plug_in/toastr/toastr.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/js/login/login.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/js/login/tooltips.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/js/common.js"></script>
 	 <script type="text/javascript">
 		 	$(function (){
 				//将cookie中的密码填入（未加密）

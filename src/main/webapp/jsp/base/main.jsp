@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/jsp/common/taglib.jsp" %>
 <%@ include file="/jsp/common/plugIn.jsp" %>
+<%basePath = request.getContextPath();%>
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
@@ -18,11 +19,11 @@
         }
     </script>
     <%-- Graph CSS --%>
-    <link href="/css/lines.css" rel='stylesheet' type='text/css'>
-    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="<%=basePath%>/css/lines.css" rel='stylesheet' type='text/css'>
+    <link href="<%=basePath%>/css/font-awesome.css" rel="stylesheet">
     <%-- Graph JavaScript --%>
-    <script src="/plug_in/Graph/d3.v3.js"></script>
-    <script src="/plug_in/Graph/rickshaw.js"></script>
+    <script src="<%=basePath%>/plug_in/Graph/d3.v3.js"></script>
+    <script src="<%=basePath%>/plug_in/Graph/rickshaw.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -308,11 +309,11 @@
                         <div id="vmap" style="width: 100%; height: 400px;"></div>
                     </div>
                     <!----Calender -------->
-                    <link rel="stylesheet" href="/css/clndr.css" type="text/css"/>
-                    <script src="/plug_in/Calender/underscore-min.js" type="text/javascript"></script>
-                    <script src="/plug_in/Calender/moment-2.2.1.js" type="text/javascript"></script>
-                    <script src="/plug_in/Calender/clndr.js" type="text/javascript"></script>
-                    <script src="/plug_in/Calender/site.js" type="text/javascript"></script>
+                    <link rel="stylesheet" href="<%=basePath%>/css/clndr.css" type="text/css"/>
+                    <script src="<%=basePath%>/plug_in/Calender/underscore-min.js" type="text/javascript"></script>
+                    <script src="<%=basePath%>/plug_in/Calender/moment-2.2.1.js" type="text/javascript"></script>
+                    <script src="<%=basePath%>/plug_in/Calender/clndr.js" type="text/javascript"></script>
+                    <script src="<%=basePath%>/plug_in/Calender/site.js" type="text/javascript"></script>
                     <!----End Calender -------->
                 </div>
                 <div class="col-md-6 col_5">
@@ -376,10 +377,10 @@
                         </script>
                     </div>
                     <%-- map --%>
-                    <link href="/css/jqvmap.css" rel='stylesheet' type='text/css'/>
-                    <script src="/plug_in/map/jquery.vmap.js"></script>
-                    <script src="/plug_in/map/jquery.vmap.sampledata.js" type="text/javascript"></script>
-                    <script src="/plug_in/map/jquery.vmap.world.js" type="text/javascript"></script>
+                    <link href="<%=basePath%>/css/jqvmap.css" rel='stylesheet' type='text/css'/>
+                    <script src="<%=basePath%>/plug_in/map/jquery.vmap.js"></script>
+                    <script src="<%=basePath%>/plug_in/map/jquery.vmap.sampledata.js" type="text/javascript"></script>
+                    <script src="<%=basePath%>/plug_in/map/jquery.vmap.world.js" type="text/javascript"></script>
                     <script type="text/javascript">
                         jQuery(document).ready(function () {
                             jQuery('#vmap').vectorMap({

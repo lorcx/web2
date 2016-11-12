@@ -10,6 +10,11 @@
         <welcome-file>/jumpLogin.jsp</welcome-file>
     </welcome-file-list>
 
+    <!--
+        web.xml 的启动顺序
+        context-param -> listener -> filter -> servlet
+    -->
+
     <!--druid连接池配置 start-->
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>
@@ -175,4 +180,14 @@
         <error-code>500</error-code>
         <location>/jsp/common/500.jsp</location>
     </error-page>
+
+    <!--was 配置-->
+   <!-- <resource-ref>
+        &lt;!&ndash; Resource所属的java类&ndash;&gt;
+        <res-ref-name>jdbc/testds</res-ref-name>
+        &lt;!&ndash; Resource所属的java类&ndash;&gt;
+        <res-type>javax.sql.DataSource</res-type>
+        &lt;!&ndash;Resource由什么创建 container表示由容器创建 application表示web应用创建&ndash;&gt;
+        <res-auth>Container</res-auth>
+    </resource-ref>-->
 </web-app>
