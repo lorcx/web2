@@ -1,6 +1,5 @@
 package module.base.sys.dao;
 
-import common.dao.IHbiGeneraldao;
 import module.base.sys.entity.BaseDept;
 import module.base.sys.entity.BaseOperation;
 import module.base.sys.entity.BaseRole;
@@ -10,7 +9,7 @@ import java.util.List;
 /**
  * Created by lx on 2016/10/7.
  */
-public interface BaseSysOperationDao extends IHbiGeneraldao{
+public interface BaseSysOperationDao {
     /**
      * 获取所有部门
      * @return

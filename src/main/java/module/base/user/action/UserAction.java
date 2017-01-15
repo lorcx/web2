@@ -1,7 +1,5 @@
 package module.base.user.action;
 
-import com.google.gson.Gson;
-import common.action.BaseAction;
 import common.exception.ServiceException;
 import module.base.user.entity.BaseUser;
 import module.base.user.service.BaseUserServiceImpl;
@@ -19,7 +17,7 @@ import java.util.Map;
  * 用户
  * Created by lx on 2016/5/28.
  */
-public class UserAction extends BaseAction{
+public class UserAction {
     public static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(BaseUserServiceImpl.class);
     private IBaseUserService userService;
@@ -33,31 +31,31 @@ public class UserAction extends BaseAction{
      * @return
      */
     public String getUserList() throws IOException {
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter pw = response.getWriter();
-        Map<String ,Object> result = new HashMap<String ,Object>();
-        Gson gson = new Gson();
-        String userName = request.getParameter("userName");
-        String nickName = request.getParameter("nickName");
-        if(null == user){
-            user = new BaseUser();
-        }
-        user.setUserName(userName);
-        user.setNickName(nickName);
-        List<BaseUser> userList = Collections.emptyList();
-        try {
-            userList = userService.getUserList(page,user);
-            result.put("list",userList);
-            result.put("page",page);
-        } catch (Exception e) {
-            LOG.error("查询用户列表失败action",e.getCause());
-            result.put("list",userList);
-        } catch (ServiceException e) {
-            LOG.error("查询用户列表失败action", e.getCause());
-            result.put("list",userList);
-        }
-        pw.print(gson.toJson(result));
-        pw.flush();
+//        response.setCharacterEncoding("UTF-8");
+//        PrintWriter pw = response.getWriter();
+//        Map<String ,Object> result = new HashMap<String ,Object>();
+//        Gson gson = new Gson();
+//        String userName = request.getParameter("userName");
+//        String nickName = request.getParameter("nickName");
+//        if(null == user){
+//            user = new BaseUser();
+//        }
+//        user.setUserName(userName);
+//        user.setNickName(nickName);
+//        List<BaseUser> userList = Collections.emptyList();
+//        try {
+//            userList = userService.getUserList(page,user);
+//            result.put("list",userList);
+//            result.put("page",page);
+//        } catch (Exception e) {
+//            LOG.error("查询用户列表失败action",e.getCause());
+//            result.put("list",userList);
+//        } catch (ServiceException e) {
+//            LOG.error("查询用户列表失败action", e.getCause());
+//            result.put("list",userList);
+//        }
+//        pw.print(gson.toJson(result));
+//        pw.flush();
         return null;
     }
 
@@ -66,12 +64,12 @@ public class UserAction extends BaseAction{
      * @return
      */
     public String userInfoEdit(){
-        try {
-            user = userService.getBaseUserInfoById(session2.get("userId").toString());
-        } catch (ServiceException e) {
-            e.printStackTrace();
-            LOG.error("查询个人信息失败action", e.getCause());
-        }
+//        try {
+//            user = userService.getBaseUserInfoById(session2.get("userId").toString());
+//        } catch (ServiceException e) {
+//            e.printStackTrace();
+//            LOG.error("查询个人信息失败action", e.getCause());
+//        }
         return "userEdit";
     }
 
@@ -80,21 +78,21 @@ public class UserAction extends BaseAction{
      * @return
      */
     public String saveUserInfo() throws IOException {
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter pw = response.getWriter();
-        Gson gson = new Gson();
-        Map<String,Object> result = new HashMap<String, Object>();
-        try {
-            userService.saveBaseUser(user);
-            updateSession();
-            result.put("nickName",user.getNickName());
-            result.put("isOk", true);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-            LOG.error(" 保存用户信息action", e.getCause());
-            result.put("isOk",false);
-        }
-        pw.print(gson.toJson(result));
+//        response.setCharacterEncoding("UTF-8");
+//        PrintWriter pw = response.getWriter();
+//        Gson gson = new Gson();
+//        Map<String,Object> result = new HashMap<String, Object>();
+//        try {
+//            userService.saveBaseUser(user);
+//            updateSession();
+//            result.put("nickName",user.getNickName());
+//            result.put("isOk", true);
+//        } catch (ServiceException e) {
+//            e.printStackTrace();
+//            LOG.error(" 保存用户信息action", e.getCause());
+//            result.put("isOk",false);
+//        }
+//        pw.print(gson.toJson(result));
 //        pw.flush();
         return null;
     }
@@ -103,9 +101,9 @@ public class UserAction extends BaseAction{
      * 更新session信息
      */
     private void updateSession(){
-        session2.put("userName", user.getUserName());//用户登录名
-        session2.put("nickName", user.getNickName());//用户昵称
-        session2.put("userId", user.getId());//用户id
+//        session2.put("userName", user.getUserName());//用户登录名
+//        session2.put("nickName", user.getNickName());//用户昵称
+//        session2.put("userId", user.getId());//用户id
     }
 
 

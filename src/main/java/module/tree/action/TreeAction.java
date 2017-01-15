@@ -1,13 +1,9 @@
 package module.tree.action;
 
-import common.action.BaseAction;
 import common.exception.ServiceException;
 import module.tree.entity.SsfFaLocation;
 import module.tree.service.ITreeService;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -15,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TreeAction extends BaseAction {
+public class TreeAction  {
 
 	private static final long serialVersionUID = 1L;
 	private Logger log = Logger.getLogger(TreeAction.class);
@@ -45,14 +41,14 @@ public class TreeAction extends BaseAction {
 		lstTree.add(s3);
 		lstTree.add(s4);
 		//利用Json插件将Array转换成Json格式
-		try {
-			JSONArray ja = new JSONArray();
-			ja.fromObject(lstTree).toString();
-			response.getWriter().print(JSONArray.fromObject(lstTree).toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.error("初始化ztree出错",e.getCause());
-		}
+//		try {
+//			JSONArray ja = new JSONArray();
+//			ja.fromObject(lstTree).toString();
+//			response.getWriter().print(JSONArray.fromObject(lstTree).toString());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			log.error("初始化ztree出错",e.getCause());
+//		}
 		return null;
 	}
 
@@ -63,26 +59,26 @@ public class TreeAction extends BaseAction {
 	 */
 	@SuppressWarnings("all")
 	public String getBaseDate() throws Exception{
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter pw =  response.getWriter();
-		JSONArray ja = new JSONArray();
-		List<SsfFaLocation> list = null;
-		List treeList = new ArrayList();
-		try {
-			list = treeService.getBaseDate();
-			treeList.add("{id:0, pId:-1, name:\"所有地区\", loc_level : 0}");
-			for (SsfFaLocation sf : list) {
-				treeList.add("{id:" + sf.getId() + ", pId:" + sf.getPid() + ", name:'" + sf.getName() + "',loc_level : "+sf.getLocLevel()+"}");
-			}
-			if(list != null && list.size() > 0){
-				pw.print(ja.fromObject(treeList));
-			}
-
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			pw.print(ja);
-			log.error("获取树失败",e.getCause());
-		}
+//		response.setCharacterEncoding("UTF-8");
+//		PrintWriter pw =  response.getWriter();
+//		JSONArray ja = new JSONArray();
+//		List<SsfFaLocation> list = null;
+//		List treeList = new ArrayList();
+//		try {
+//			list = treeService.getBaseDate();
+//			treeList.add("{id:0, pId:-1, name:\"所有地区\", loc_level : 0}");
+//			for (SsfFaLocation sf : list) {
+//				treeList.add("{id:" + sf.getId() + ", pId:" + sf.getPid() + ", name:'" + sf.getName() + "',loc_level : "+sf.getLocLevel()+"}");
+//			}
+//			if(list != null && list.size() > 0){
+//				pw.print(ja.fromObject(treeList));
+//			}
+//
+//		} catch (ServiceException e) {
+//			e.printStackTrace();
+//			pw.print(ja);
+//			log.error("获取树失败",e.getCause());
+//		}
 		return null;
 	}
 
@@ -91,8 +87,8 @@ public class TreeAction extends BaseAction {
 	 * @return
 	 */
 	public String editBaseData(){
-		String level = request.getParameter("level");
-		String tid = request.getParameter("tid");
+//		String level = request.getParameter("level");
+//		String tid = request.getParameter("tid");
 	//	try {
 			//location = treeService.getEditBase(tid);
 
@@ -100,22 +96,22 @@ public class TreeAction extends BaseAction {
 	//		e.printStackTrace();
 	//		log.error("获取表单失败",e.getCause());
 	//	}
-		request.setAttribute("level", level);
-		request.setAttribute("tid", tid);
+//		request.setAttribute("level", level);
+//		request.setAttribute("tid", tid);
 		//request.setAttribute("locLevel",location.getLocLevel().toString());
 		return "edit";
 	}
 
 	@SuppressWarnings("all")
 	public String addBaseDate() throws Exception{
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter pw =  response.getWriter();
-		location.setId(new BigDecimal(5000));
-		location.setPid(new BigDecimal(156));
-		location.setLocLevel(new BigDecimal(2));
-		location.setLocPath(",156,5000,");
-		JSONObject json = JSONObject.fromObject(location);
-		pw.print(json);
+//		response.setCharacterEncoding("UTF-8");
+//		PrintWriter pw =  response.getWriter();
+//		location.setId(new BigDecimal(5000));
+//		location.setPid(new BigDecimal(156));
+//		location.setLocLevel(new BigDecimal(2));
+//		location.setLocPath(",156,5000,");
+//		JSONObject json = JSONObject.fromObject(location);
+//		pw.print(json);
 		//try {
 		//treeService.addBaseDate(location);
 		//	} catch (ServiceException e) {

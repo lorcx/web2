@@ -7,11 +7,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -33,8 +28,8 @@ import java.util.List;
 public class UploadFileServlet extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(UploadFileServlet.class);
     private IBaseUserService userService;
-    private HibernateTemplate template;
-    private Session session;
+//    private HibernateTemplate template;
+//    private Session session;
 
     /**
      * servelt文件上传
@@ -66,10 +61,10 @@ public class UploadFileServlet extends HttpServlet {
 //                        String fileSuffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
 //                String oldName = fileName.replaceAll("." + fileSuffix,"");
                         InputStream in = item.getInputStream();
-                        Blob file  = Hibernate.createBlob(in);
+//                        Blob file  = Hibernate.createBlob(in);
                         BaseUser user = getBaseUserInfoByName("admin");//获取用户信息
                         if(null != user){
-                            user.setPic(file);
+//                            user.setPic(file);
                             saveOrUpdateBaseUser(user);
                             response.getWriter().print(1);
                         }else{
@@ -94,7 +89,8 @@ public class UploadFileServlet extends HttpServlet {
     public BaseUser getBaseUserInfoByName(String name){
         StringBuilder sql = new StringBuilder();
         sql.append("from BaseUser where userName = '").append(name).append("'");
-        return (BaseUser) template.find(sql.toString()).get(0);
+//        return (BaseUser) template.find(sql.toString()).get(0);
+        return null;
     }
 
     /**
@@ -104,48 +100,48 @@ public class UploadFileServlet extends HttpServlet {
      */
     public void saveOrUpdateBaseUser(BaseUser user){
         try {
-            if(StringUtils.isEmpty(user.getId())) {
-                template.save(user);
-            }else {
-                template.update(user);
-            }
+//            if(StringUtils.isEmpty(user.getId())) {
+//                template.save(user);
+//            }else {
+//                template.update(user);
+//            }
         }catch (Exception e){
             LOG.error("保存用户信息失败");
         }
     }
 
-    public void setSession(HibernateTemplate template){
-        template.execute(new HibernateCallback() {
-            @Override
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                return null;
-            }
-        });
-
-//        session = template.getSessionFactory().getCurrentSession();
-//        if(null == session){
-//            session = template.getSessionFactory().openSession();
-//        }
-    }
+//    public void setSession(HibernateTemplate template){
+//        template.execute(new HibernateCallback() {
+//            @Override
+//            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+//                return null;
+//            }
+//        });
+//
+////        session = template.getSessionFactory().getCurrentSession();
+////        if(null == session){
+////            session = template.getSessionFactory().openSession();
+////        }
+//    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    public void init() throws ServletException{
-        //在servlet中使用spring的bean
-        WebApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-        template = (HibernateTemplate) ac.getBean("hibernateTemplate");
-//        setSession(template);
-    }
+//    public void init() throws ServletException{
+//        //在servlet中使用spring的bean
+//        WebApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+//        template = (HibernateTemplate) ac.getBean("hibernateTemplate");
+////        setSession(template);
+//    }
 
     public void destroy() {
 
     }
 
-    public void setTemplate(HibernateTemplate template) {
-        this.template = template;
-    }
+//    public void setTemplate(HibernateTemplate template) {
+//        this.template = template;
+//    }
 
     public void setUserService(IBaseUserService userService) {
         this.userService = userService;

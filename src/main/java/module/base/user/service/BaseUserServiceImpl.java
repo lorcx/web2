@@ -40,7 +40,7 @@ public class BaseUserServiceImpl implements IBaseUserService {
     @Override
     public void saveBaseUser(BaseUser user) throws ServiceException {
         try {
-            userDao.saveEntity(user);
+//            userDao.saveEntity(user);
         } catch (Exception e) {
             LOG.error("保存用户信息error = " + user, e.getCause());
             throw new ServiceException("保存用户信息error",e.getCause());

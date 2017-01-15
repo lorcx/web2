@@ -1,7 +1,5 @@
 package module.login.action;
 
-import com.google.gson.Gson;
-import common.action.BaseAction;
 import common.exception.ServiceException;
 import module.base.user.entity.BaseUser;
 import module.login.service.ILoginService;
@@ -24,7 +22,7 @@ import java.util.Map;
  * Created by lx on 2015/12/25.
  */
 @SuppressWarnings("all")
-public class LoginAction extends BaseAction{
+public class LoginAction{
     private static final long serialVersionUID = 1L;
     private Logger log = Logger.getLogger(LoginAction.class);
     private util.verification verification;//验证码工具类
@@ -43,7 +41,7 @@ public class LoginAction extends BaseAction{
      * @return
      */
     public String yzm()throws Exception{
-        response.setCharacterEncoding("UTF-8");
+//        response.setCharacterEncoding("UTF-8");
 //        response.reset();
 //        response.setHeader("content-type", "image/jpeg");
         Object[] obj = verification.RandomCount();//验证码 0 结果 1图片
@@ -52,12 +50,12 @@ public class LoginAction extends BaseAction{
         Cookie cookie = new Cookie("captcha", obj[0].toString());
         cookie.setMaxAge(3600);//失效时间
         cookie.setPath("/");
-        response.addCookie(cookie);
+//        response.addCookie(cookie);
 
         //写入到流
-        OutputStream out = response.getOutputStream();
-        ImageIO.write((BufferedImage) obj[1], "JPEG", out);
-        out.flush();
+//        OutputStream out = response.getOutputStream();
+//        ImageIO.write((BufferedImage) obj[1], "JPEG", out);
+//        out.flush();
 //        out.close();//系统自动关闭
         return null;
     }
@@ -67,34 +65,34 @@ public class LoginAction extends BaseAction{
      * @return
      */
     public String login() throws IOException {
-        response.setCharacterEncoding("utf-8");
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
-        String captcha = request.getParameter("captcha");//验证码
-        Map<String,Object> results = new HashMap<String,Object>();
-        Gson gson = new Gson();
+//        response.setCharacterEncoding("utf-8");
+//        String userName = request.getParameter("username");
+//        String password = request.getParameter("password");
+//        String captcha = request.getParameter("captcha");//验证码
+//        Map<String,Object> results = new HashMap<String,Object>();
+//        Gson gson = new Gson();
         //检查验证码
-        validateYZM(captcha,results);
-        String maps;
-        try {
-            if(isOk){//验证码通过
-                results = loginService.login(userName,password);
-                isOk = (Boolean)results.get("isOk");
-                if(isOk){
-                    setSessionInfo(results);//设置登陆session信息
-                }else {
-                    results.put("msg","用户名或密码错误，请重新输入！");
-                }
-            }
-            results.put("isOk",isOk);
-            maps = gson.toJson(results);
-        } catch (ServiceException e) {
-            log.error("登陆失败：" + userName, e.getCause());
-            results.put("isOk",false);
-            results.put("msg","登陆失败");
-            maps = gson.toJson(results);
-        };
-        response.getWriter().print(maps);
+//        validateYZM(captcha,results);
+//        String maps;
+//        try {
+//            if(isOk){//验证码通过
+//                results = loginService.login(userName,password);
+//                isOk = (Boolean)results.get("isOk");
+//                if(isOk){
+//                    setSessionInfo(results);//设置登陆session信息
+//                }else {
+//                    results.put("msg","用户名或密码错误，请重新输入！");
+//                }
+//            }
+//            results.put("isOk",isOk);
+//            maps = gson.toJson(results);
+//        } catch (ServiceException e) {
+//            log.error("登陆失败：" + userName, e.getCause());
+//            results.put("isOk",false);
+//            results.put("msg","登陆失败");
+//            maps = gson.toJson(results);
+//        };
+//        response.getWriter().print(maps);
         return null;
     }
 
@@ -102,31 +100,31 @@ public class LoginAction extends BaseAction{
      * 检查验证码
      */
     private void validateYZM(String captcha,Map<String,Object> results){
-        Cookie[] cookies = request.getCookies();
-        for(Cookie ck : cookies){
-            if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
-                if(StringUtils.isNotEmpty(captcha) || captcha.equals(ck.getValue())){//验证码正确
-                    isOk = true;
-                    return;
-                }
-            }
-        }
-        if(!isOk){
-            results.put("msg","验证码不正确，请重新输入！");
-        }
+//        Cookie[] cookies = request.getCookies();
+//        for(Cookie ck : cookies){
+//            if(StringUtils.isNotEmpty(ck.getName()) && ck.getName().equals("captcha")){ //获取cookie中的验证码信息
+//                if(StringUtils.isNotEmpty(captcha) || captcha.equals(ck.getValue())){//验证码正确
+//                    isOk = true;
+//                    return;
+//                }
+//            }
+//        }
+//        if(!isOk){
+//            results.put("msg","验证码不正确，请重新输入！");
+//        }
     }
 
     /**
      * 设置登陆session信息
      */
     private void setSessionInfo(Map<String,Object> map){
-        BaseUser user = (BaseUser) map.get("BaseUser");
-        if(null != user){
-            session2.put("userName", user.getUserName());//用户登录名
-            session2.put("nickName", user.getNickName());//用户昵称
-            session2.put("userId", user.getId());//用户id
-//            session2.put("userInfo",user);
-        }
+//        BaseUser user = (BaseUser) map.get("BaseUser");
+//        if(null != user){
+//            session2.put("userName", user.getUserName());//用户登录名
+//            session2.put("nickName", user.getNickName());//用户昵称
+//            session2.put("userId", user.getId());//用户id
+////            session2.put("userInfo",user);
+//        }
     }
 
 
@@ -141,12 +139,12 @@ public class LoginAction extends BaseAction{
     public void setVerification(verification verification) {
         this.verification = verification;
     }
-    public void setServletRequest(HttpServletRequest request) {
-        this.request = request;
-    }
-    public void setServletResponse(HttpServletResponse response) {
-        this.response = response;
-    }
+//    public void setServletRequest(HttpServletRequest request) {
+//        this.request = request;
+//    }
+//    public void setServletResponse(HttpServletResponse response) {
+//        this.response = response;
+//    }
     public void setLoginService(ILoginService loginService) {
         this.loginService = loginService;
     }

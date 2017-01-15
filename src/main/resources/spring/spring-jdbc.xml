@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/tx
+     	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+       <!--事务注解-->
+       <tx:annotation-driven/>
+       <!--properites扫描-->
+       <context:property-placeholder location="classpath:db.properties"/>
+       <!--数据源-->
+       <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+              <property name="driverClassName">
+                     <value>${jdbc-driverClassName}</value>
+              </property>
+              <property name="url">
+                     <value>${jdbc-url}</value>
+              </property>
+              <property name="username">
+                    <value>${jdbc-username}</value>
+              </property>
+              <property name="password">
+                     <value>${jdbc-password}</value>
+              </property>
+              <property name="initialSize">
+                     <value>${jdbc-initialSize}</value>
+              </property>
+              <property name="maxActive">
+                     <value>${jdbc-maxActive}</value>
+              </property>
+              <property name="proxyFilters">
+                     <list>
+                            <ref bean="stat-filter" />
+                     </list>
+              </property>
+       </bean>
+
+       <!--用于统计监控信息-->
+       <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+              <property name="slowSqlMillis" value="1000" />
+              <property name="logSlowSql" value="true" />
+              <property name="mergeSql" value="true" />
+       </bean>
+
+       <!--事务管理器指定的 DataSource 必须和用来创建 SqlSessionFactoryBean 的 是同一个数据源,否则事务管理器就无法工作了-->
+       <!--事物管理管理-->
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource">
+                     <ref bean="dataSource" />
+              </property>
+       </bean>
+
+       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <!--<property name="configLocation" value="classpath:mybatis/mybatis.xml" />-->
+              <!--不支持ant风格-->
+              <property name="typeAliasesPackage" value="module.test.entity"/>
+              <!--自动扫描-->
+              <property name="mapperLocations" value="classpath:module/*/dao/*.xml"/>
+              <property name="dataSource" ref="dataSource" />
+       </bean>
+
+       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+              <property name="basePackage" value="module.test.dao"/>
+       </bean>
+</beans>

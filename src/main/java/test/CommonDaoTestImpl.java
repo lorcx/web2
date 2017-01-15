@@ -1,14 +1,12 @@
 package test;
 
-import common.dao.HbiGeneraldaoImpl;
-import module.test.entity.Test1;
 
 /**
  * 公共dao测试类
  * Created by lx on 2016/1/31.
  */
 @SuppressWarnings("all")
-public class CommonDaoTestImpl extends HbiGeneraldaoImpl<Test1,String > implements ICommonDaoTest  {
+public class CommonDaoTestImpl implements ICommonDaoTest  {
 
     public void test(){
 //        Test1 t = new Test1();

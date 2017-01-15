@@ -1,21 +1,27 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="/jsp/common/taglib.jsp" %>
 <!DOCTYPE HTML>
 <html>
   <head>
-
+      <title>测试页面</title>
   </head>
-  
   <body>
-  	<%
-		System.out.print(1/0);
-//  		String user = (String)request.getAttribute("user");
-//  		System.out.println(user);
-  	%>
-  	<s:property value="#attr.user"/>
+    <button onclick="test();">提交</button>
   </body>
+  <script src="/plug_in/jquery/jquery.min.js"></script>
   <script type="text/javascript">
-		var t = new Date();
-	    console.log(t);
+      function test() {
+          $.ajax({
+              type : 'GET',
+              url : '/test/list',
+              data : '{}',
+              dataType : 'json',
+              success : function (data) {
+                alert(data);
+              },
+              error : function () {
+
+              }
+          });
+      }
   </script>
 </html>
