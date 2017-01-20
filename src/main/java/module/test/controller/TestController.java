@@ -12,10 +12,12 @@ import java.util.Map;
  * 测试框架搭建
  * Created by x on 2017/1/5.
  */
+//定义访问的URL
 @RestController
 @RequestMapping("/test")
 public class TestController extends BaseController {
 
+    // 无需set方法
     @Autowired
     private TestService testService;
 

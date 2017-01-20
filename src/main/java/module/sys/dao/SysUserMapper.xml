@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="module.sys.dao.ISysUserMapper" >
+  <resultMap id="BaseResultMap" type="SysUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="PASS_WORD" property="passWord" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CRE_TIME" property="creTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, NICK_NAME, PASS_WORD, EMAIL, PHONE, STATUS, CRE_TIME
+  </sql>
+  <!--查询所有用户列表-->
+  <select id="queryList" parameterType="Map" resultType="SysUser">
+    select <include refid="Base_Column_List"/>
+    from sys_user su
+    where su.status = '1'
+    order by su.cre_time desc,su.id
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="SysUser" >
+    insert into SYS_USER (ID, USER_NAME, NICK_NAME, 
+      PASS_WORD, EMAIL, PHONE, 
+      STATUS, CRE_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{passWord,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{creTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="SysUser" >
+    insert into SYS_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="passWord != null" >
+        PASS_WORD,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creTime != null" >
+        CRE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creTime != null" >
+        #{creTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="SysUser" >
+    update SYS_USER
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        PASS_WORD = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creTime != null" >
+        CRE_TIME = #{creTime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="SysUser" >
+    update SYS_USER
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      PASS_WORD = #{passWord,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CRE_TIME = #{creTime,jdbcType=DATE}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

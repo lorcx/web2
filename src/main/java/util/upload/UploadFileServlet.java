@@ -1,14 +1,10 @@
 package util.upload;
 
-import module.base.user.entity.BaseUser;
-import module.base.user.service.IBaseUserService;
+import module.sys.entity.BaseUser;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -27,7 +21,6 @@ import java.util.List;
  */
 public class UploadFileServlet extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(UploadFileServlet.class);
-    private IBaseUserService userService;
 //    private HibernateTemplate template;
 //    private Session session;
 
@@ -143,7 +136,4 @@ public class UploadFileServlet extends HttpServlet {
 //        this.template = template;
 //    }
 
-    public void setUserService(IBaseUserService userService) {
-        this.userService = userService;
-    }
 }

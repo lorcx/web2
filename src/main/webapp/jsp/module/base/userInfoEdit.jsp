@@ -25,21 +25,18 @@
                             <fieldset>
                                 <%--<legend>我的信息</legend>--%>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="nickName">昵称：</label>
+                                    <label class="col-sm-2 control-label" >昵称：</label>
                                     <div class="col-sm-8">
-                                        <s:textfield id="nickName" cssClass="form-control" name="user.nickName" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="userName">用户名：</label>
+                                    <label class="col-sm-2 control-label" >用户名：</label>
                                     <div class="col-sm-8">
-                                        <s:textfield id="userName" cssClass="form-control" name="user.userName" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" >创建时间：</label>
                                     <div class="col-sm-8">
-                                        <s:date name="user.creDate" format="yyyy-MM-dd HH:mm:ss"/>
                                     </div>
                                 </div>
                             </fieldset>
@@ -63,7 +60,7 @@
 
     $(function(){
         $('#saveInfo').click(function(){
-            var url = '/base/userAction!saveUserInfo.action';
+            var url = '/sys/userAction!saveUserInfo.action';
             $("#dataForm").attr('action',url)
                           .asyncSubmit({},function(data){
                 if(data.isOk){

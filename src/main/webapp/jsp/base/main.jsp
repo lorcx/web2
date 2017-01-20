@@ -542,7 +542,7 @@
 </body>
 <script type="text/javascript">
     $(function (){
-        $('#w2-header').load('/jsp/base/topBar.jsp');
+        $('#w2-header').load('/jsp/sys/topBar.jsp');
     });
 </script>
 </html>

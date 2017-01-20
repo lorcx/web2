@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
@@ -58,13 +59,13 @@
        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
               <!--<property name="configLocation" value="classpath:mybatis/mybatis.xml" />-->
               <!--不支持ant风格-->
-              <property name="typeAliasesPackage" value="module.test.entity"/>
+              <property name="typeAliasesPackage" value="module.test.entity,module.sys.entity"/>
               <!--自动扫描-->
-              <property name="mapperLocations" value="classpath:module/*/dao/*.xml"/>
+              <property name="mapperLocations" value="classpath:module/*/dao/*Mapper.xml"/>
               <property name="dataSource" ref="dataSource" />
        </bean>
 
        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-              <property name="basePackage" value="module.test.dao"/>
+              <property name="basePackage" value="module.test.dao,module.sys.dao"/>
        </bean>
 </beans>

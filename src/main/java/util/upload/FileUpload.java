@@ -1,16 +1,6 @@
 package util.upload;
 
-import common.exception.ServiceException;
-import module.base.user.entity.BaseUser;
-import module.base.user.service.IBaseUserService;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
-import java.io.File;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.util.List;
 
 /**
  * 文件上传处理(暂未使用) 有bug
@@ -20,7 +10,6 @@ import java.util.List;
  */
 @SuppressWarnings("all")
 public class FileUpload {
-    private IBaseUserService userService;
     private static final Logger LOG = Logger.getLogger(FileUpload.class);
     private static final int DEFAULT_SIZE = 1024 * 1024;
     private static final int SIZE_MAX = 100;//默认大小M
@@ -68,7 +57,4 @@ public class FileUpload {
     }
 
 
-    public void setUserService(IBaseUserService userService) {
-        this.userService = userService;
-    }
 }

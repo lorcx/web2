@@ -1,13 +1,6 @@
 package util;
 
-import common.exception.ServiceException;
-import module.base.user.entity.BaseUser;
-import module.base.user.service.IBaseUserService;
 import org.apache.log4j.Logger;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 
 /**
  * 文件下载
@@ -17,7 +10,6 @@ import java.sql.SQLException;
 public class downLoadPic {
     private static final long serialVersionUID = 1L;
     private Logger LOG = Logger.getLogger(downLoadPic.class);
-    private IBaseUserService userService;
 
     /**
      * 下载图片
@@ -45,7 +37,4 @@ public class downLoadPic {
         return null;
     }
 
-    public void setUserService(IBaseUserService userService) {
-        this.userService = userService;
-    }
 }

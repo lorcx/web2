@@ -360,7 +360,7 @@
 
         /**
          *
-         * Creates a page item base on the type and page number given.
+         * Creates a page item sys on the type and page number given.
          *
          * @param page page number
          * @param type type of the page, whether it is the first, prev, page, next, last

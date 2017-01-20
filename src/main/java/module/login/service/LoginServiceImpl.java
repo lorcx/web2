@@ -2,8 +2,8 @@ package module.login.service;
 
 import common.exception.DaoException;
 import common.exception.ServiceException;
-import module.base.user.dao.IBaseUserDao;
-import module.base.user.entity.BaseUser;
+import module.sys.dao.IBaseUserDao;
+import module.sys.entity.BaseUser;
 import org.apache.commons.lang.StringUtils;
 import util.Md5;
 

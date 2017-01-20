@@ -64,7 +64,7 @@
   <script type="text/javascript">
 
 	  $(function (){
-		 $('#top_bar').load("/jsp/base/topBar.jsp");//加载顶部导航条
+		 $('#top_bar').load("/jsp/sys/topBar.jsp");//加载顶部导航条
 	  });
 
 	  /**
