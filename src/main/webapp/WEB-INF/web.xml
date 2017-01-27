@@ -102,6 +102,6 @@
     <!--错误页面-->
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/view/common/404.html</location>
+        <location>/WEB-INF/page/common/404.html</location>
     </error-page>
 </web-app>

@@ -18,8 +18,13 @@ public class SysUserController {
     @Autowired
     private ISysUserService userService;
 
+    /**
+     * 查询所有用户
+     * @return
+     */
     public R getAllUserList(){
         Map<String, Object> params = new HashMap<String, Object>();
+        // 相当于request.setAttribute
         return R.ok().put("list", userService.queryAllList(params));
     }
 }

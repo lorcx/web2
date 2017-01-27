@@ -43,10 +43,9 @@
 
        <!-- JSP视图解析器  -->
        <bean id="viewResolverJsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-              <property name="prefix" value="/html"/>
               <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-              <property name="viewNames" value="*.jsp" />
-              <property name="suffix" value=""/>
+              <property name="prefix" value="/WEB-INF/page/"/>
+              <property name="suffix" value="*.jsp"/>
               <property name="order" value="1"/>
        </bean>
 
