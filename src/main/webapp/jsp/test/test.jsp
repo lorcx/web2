@@ -31,7 +31,7 @@
   <script type="text/javascript">
 /*
   	  function toSubmit(){
-  		  document.forms["form1"].action="<%=request.getContextPath()%>/jsp/test/test.jsp";
+  		  document.forms["form1"].controller="<%=request.getContextPath()%>/jsp/test/test.jsp";
   		  document.forms["form1"].submit();
   	  }
 */

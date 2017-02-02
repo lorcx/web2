@@ -9,7 +9,7 @@ public class SysConfig {
 
     private String remark;
 
-    private String statu;
+    private String status;
 
     public String getId() {
         return id;
@@ -43,11 +43,11 @@ public class SysConfig {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public String getStatu() {
-        return statu;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatu(String statu) {
-        this.statu = statu == null ? null : statu.trim();
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="module.sys.dao.ISysUserMapper" >
+
   <resultMap id="BaseResultMap" type="SysUser" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
@@ -11,9 +12,11 @@
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="CRE_TIME" property="creTime" jdbcType="DATE" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID, USER_NAME, NICK_NAME, PASS_WORD, EMAIL, PHONE, STATUS, CRE_TIME
   </sql>
+
   <!--查询所有用户列表-->
   <select id="queryList" parameterType="Map" resultType="SysUser">
     select <include refid="Base_Column_List"/>
@@ -21,16 +24,54 @@
     where su.status = '1'
     order by su.cre_time desc,su.id
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+
+  <!--查询用户的权限-->
+  <select id="queryAllPerms" parameterType="java.lang.String" resultType="java.lang.String">
+    select sm.perms
+    from sys_user su left join
+         sys_user_role sur on su.id = sur.user_id join
+         sys_role sr on sur.role_id = sr.id join
+         sys_role_menu srm on sr.id = srm.role_id join
+         sys_menu sm on srm.menu_id = srm.id
+    where su.status = '1'
+    and sr.status = '1'
+    and su.id = #{userId,jdbcType=VARCHAR}
+  </select>
+
+  <!--查询用户的所有菜单-->
+  <select id="queryAllPerms" parameterType="java.lang.String" resultType="java.lang.String">
+    select sm.id
+    from sys_user su left join
+    sys_user_role sur on su.id = sur.user_id join
+    sys_role sr on sur.role_id = sr.id join
+    sys_role_menu srm on sr.id = srm.role_id join
+    sys_menu sm on srm.menu_id = srm.id
+    where su.status = '1'
+    and sr.status = '1'
+    and su.id = #{userId,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据模版信息-->
+  <select id="getUserByTemplate" parameterType="java.util.HashMap" resultType="SysUser">
+    select <include refid="Base_Column_List"/>
+    from SYS_USER su
+    where su.USER_NAME = #{userName,jdbcType=VARCHAR}
+    and su.PASS_WORD = #{passWord,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据主键查询-->
+  <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SYS_USER
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{userId,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from SYS_USER
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="SysUser" >
     insert into SYS_USER (ID, USER_NAME, NICK_NAME, 
       PASS_WORD, EMAIL, PHONE, 
@@ -39,6 +80,7 @@
       #{passWord,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{creTime,jdbcType=DATE})
   </insert>
+
   <insert id="insertSelective" parameterType="SysUser" >
     insert into SYS_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -67,6 +109,7 @@
         CRE_TIME,
       </if>
     </trim>
+
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
@@ -93,7 +136,9 @@
         #{creTime,jdbcType=DATE},
       </if>
     </trim>
+
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="SysUser" >
     update SYS_USER
     <set >
@@ -121,6 +166,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="SysUser" >
     update SYS_USER
     set USER_NAME = #{userName,jdbcType=VARCHAR},
@@ -132,4 +178,5 @@
       CRE_TIME = #{creTime,jdbcType=DATE}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
 </mapper>

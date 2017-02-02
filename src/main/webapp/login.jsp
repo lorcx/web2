@@ -81,16 +81,16 @@
 				initUserInfoByCookie();
 				$("#submit_btn").click(function (){
 					/**
-					 *    原生js提交: document.login_form.action = "/login!login.action";
-					 *	      错误 : $("#login_form").action = "/login!login.action";
+					 *    原生js提交: document.login_form.controller = "/login!login.controller";
+					 *	      错误 : $("#login_form").controller = "/login!login.controller";
 					 *
 					 *	      旧的form提交:
 					 *	      show_loading();
-					 *	      $("#login_form").attr('action','/login!login.action');
+					 *	      $("#login_form").attr('controller','/login!login.controller');
 					 *	      $("#login_form").submit();
 					 *	      show_msg('登录成功咯！  正在为您跳转...','/');
 					 *	      ajax form提交:
-					 *	      $("#login_form").attr('action','/login!login.action');
+					 *	      $("#login_form").attr('controller','/login!login.controller');
 					 *		  $("#login_form").asyncSubmit(loginProcess);
 					 */
 					//验证表单
@@ -119,7 +119,7 @@
 				if(data.isOk){
 					savePwdToCookie();
 					delCookie('captcha');//删除验证码信息
-					window.location.href = '/login!toMain.action';
+					window.location.href = '/login!toMain.controller';
 				}else{
 					w2.error(data.msg);
 				}
@@ -164,7 +164,7 @@
 			 *  @param obj
 			 */
 		 	function refresh(obj){
-		 		obj.src = "/login!yzm.action?n=" + Math.random();//防止缓存
+		 		obj.src = "/login!yzm.controller?n=" + Math.random();//防止缓存
 		 	}
 
 			/**

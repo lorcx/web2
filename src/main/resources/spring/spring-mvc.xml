@@ -42,11 +42,33 @@
        </mvc:annotation-driven>
 
        <!-- JSP视图解析器  -->
+       <!--
+              viewNames和suffix
+              如果有相同名字的文件test.jsp test.ftl
+              那么先根据order 优先查找，然后匹配对应的文件
+       -->
        <bean id="viewResolverJsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-              <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
               <property name="prefix" value="/WEB-INF/page/"/>
-              <property name="suffix" value="*.jsp"/>
+              <property name="suffix" value=".jsp"/>
+              <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+              <!--<property name="viewNames" value="*.jsp" />-->
               <property name="order" value="1"/>
+       </bean>
+
+
+       <!-- Kaptcha验证码生成器 -->
+       <bean name="producer" class="com.google.code.kaptcha.impl.DefaultKaptcha" scope="singleton">
+              <property name="config">
+                     <bean class="com.google.code.kaptcha.util.Config">
+                            <constructor-arg>
+                                   <props>
+                                          <prop key="kaptcha.border">no</prop>
+                                          <prop key="kaptcha.textproducer.font.color">black</prop>
+                                          <prop key="kaptcha.textproducer.char.space">5</prop>
+                                   </props>
+                            </constructor-arg>
+                     </bean>
+              </property>
        </bean>
 
 </beans>

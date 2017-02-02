@@ -6,10 +6,10 @@
     <result column="KEY" property="key" jdbcType="VARCHAR" />
     <result column="VALUE" property="value" jdbcType="VARCHAR" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
-    <result column="STATU" property="statu" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, KEY, VALUE, REMARK, STATU
+    ID, KEY, VALUE, REMARK, STATUS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -23,9 +23,9 @@
   </delete>
   <insert id="insert" parameterType="SysConfig" >
     insert into SYS_CONFIG (ID, KEY, VALUE, 
-      REMARK, STATU)
+      REMARK, STATUS)
     values (#{id,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{statu,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="SysConfig" >
     insert into SYS_CONFIG
@@ -42,8 +42,8 @@
       <if test="remark != null" >
         REMARK,
       </if>
-      <if test="statu != null" >
-        STATU,
+      <if test="status != null" >
+        STATUS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -59,8 +59,8 @@
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="statu != null" >
-        #{statu,jdbcType=VARCHAR},
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -76,8 +76,8 @@
       <if test="remark != null" >
         REMARK = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="statu != null" >
-        STATU = #{statu,jdbcType=VARCHAR},
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
@@ -87,7 +87,7 @@
     set KEY = #{key,jdbcType=VARCHAR},
       VALUE = #{value,jdbcType=VARCHAR},
       REMARK = #{remark,jdbcType=VARCHAR},
-      STATU = #{statu,jdbcType=VARCHAR}
+      STATUS = #{status,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -9,7 +9,7 @@
     	$(function (){
 			<%--$.ajax({--%>
 				<%--type:'POST',--%>
-				<%--url:"<%=request.getContextPath()%>/ajax!getAjax.action",--%>
+				<%--url:"<%=request.getContextPath()%>/ajax!getAjax.controller",--%>
 				<%--timeout:5000,--%>
 				<%--cache:false,--%>
 				<%--async:true,--%>

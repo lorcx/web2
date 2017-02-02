@@ -80,7 +80,7 @@
 	   */
 	  function downLoadPic(){
 		  var userName = '${sessionScope.userName}';
-		  window.location.href = "/downPic/downPic!downPic.action?userName=" + userName;
+		  window.location.href = "/downPic/downPic!downPic.controller?userName=" + userName;
 	  }
 
 	  /**

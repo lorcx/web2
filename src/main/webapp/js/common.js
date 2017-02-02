@@ -19,7 +19,7 @@ $(function () {
 
     /**
      * 异步提交 ajaxForm
-     * 使用方法 ：    $("#login_form").attr('action','/login!login.action');
+     * 使用方法 ：    $("#login_form").attr('controller','/login!login.controller');
      *              $("#login_form").asyncSubmit(loginProcess);
      * 如果使用ajaxSubmit则需要return false
      */

@@ -1,5 +1,8 @@
 package module.sys.entity;
 
+
+import java.util.List;
+
 public class SysMenu {
     private String id;
 
@@ -16,6 +19,17 @@ public class SysMenu {
     private String menuType;
 
     private String parentId;
+
+    // 子菜单
+    private List<SysMenu> subMenuList;
+
+    public List<SysMenu> getSubMenuList() {
+        return subMenuList;
+    }
+
+    public void setSubMenuList(List<SysMenu> subMenuList) {
+        this.subMenuList = subMenuList;
+    }
 
     public String getId() {
         return id;

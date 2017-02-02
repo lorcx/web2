@@ -25,7 +25,7 @@ CREATE TABLE SYS_CONFIG
    KEY                  VARCHAR2(50),
    VALUE                VARCHAR2(4000),
    REMARK               VARCHAR2(4000),
-   STATU                VARCHAR2(10),
+   STATUS                VARCHAR2(10),
    CONSTRAINT PK_SYS_CONFIG PRIMARY KEY (ID)
 );
 

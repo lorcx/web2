@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="module.sys.dao.ISysMenuMapper" >
+
   <resultMap id="BaseResultMap" type="SysMenu" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
@@ -11,19 +12,39 @@
     <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR" />
     <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID, MENU_NAME, ICON, URL, PERMS, ORDER_NUM, MENU_TYPE, PARENT_ID
   </sql>
+
+  <!--查询所有菜单-->
+  <select id="queryAllMenu" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from SYS_MENU
+  </select>
+
+  <!--查询父菜单-->
+  <select id="queryListParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_MENU su
+    where su.parent_id = #{menuId}
+  </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SYS_MENU
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from SYS_MENU
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="SysMenu" >
     insert into SYS_MENU (ID, MENU_NAME, ICON, 
       URL, PERMS, ORDER_NUM, 
@@ -32,6 +53,7 @@
       #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
       #{menuType,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="SysMenu" >
     insert into SYS_MENU
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -87,6 +109,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="SysMenu" >
     update SYS_MENU
     <set >
@@ -114,6 +137,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="SysMenu" >
     update SYS_MENU
     set MENU_NAME = #{menuName,jdbcType=VARCHAR},
@@ -125,4 +149,5 @@
       PARENT_ID = #{parentId,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
 </mapper>

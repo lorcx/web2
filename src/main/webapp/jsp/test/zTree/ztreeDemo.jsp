@@ -213,7 +213,7 @@
 				 var level = sNodes[0].level;
 				 var tid = sNodes[0].id;
 				 
-				 window.parent.frames[1].location.href = "${pageContext.request.contextPath}/tree/treeAction!editBaseData.action?tid="+tid+"&level="+level; 
+				 window.parent.frames[1].location.href = "${pageContext.request.contextPath}/tree/treeAction!editBaseData.controller?tid="+tid+"&level="+level;
 			// 	alert(level);
 			//	var isParent = sNodes[0].isParent;
 			//	alert(isParent);

@@ -52,7 +52,7 @@
                             <%--<li id="collections"><a href="javascript:void(0);">js实现集合</a></li>--%>
                         <%--</ul>--%>
                     <%--</li>--%>
-                    <%--<li><a href="javascript:void(0);" onclick="openWindow('/sys/userAction!list.action','用户列表',1000,600)">用户列表</a></li>--%>
+                    <%--<li><a href="javascript:void(0);" onclick="openWindow('/sys/userAction!list.controller','用户列表',1000,600)">用户列表</a></li>--%>
                 <%--</ul>--%>
     <%----%>
                 <%--&lt;%&ndash;导航栏右侧&ndash;%&gt;--%>
@@ -295,7 +295,7 @@
 //        });
 //        //我的资料
 //        $('#userInfo').click(function(){
-//            openWindow('/sys/userAction!userInfoEdit.action','我的资料',500,400);
+//            openWindow('/sys/userAction!userInfoEdit.controller','我的资料',500,400);
 //        });
 //        //druid配置
 //        $('#druid').click(function(){

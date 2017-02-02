@@ -60,7 +60,7 @@
       $('#selected').uploadify({
         'height'        : 30,
         'swf'           : '<%=request.getContextPath()%>/plug_in/uploadify/uploadify.swf',
-        'uploader'      : '<%=request.getContextPath()%>/servlet/uploadFile',  ///util/fileUpload!upload.action     struts2  /servlet/uploadFile servlet
+        'uploader'      : '<%=request.getContextPath()%>/servlet/uploadFile',  ///util/fileUpload!upload.controller     struts2  /servlet/uploadFile servlet
         'width'         : 120,
         'fileTypeExts': '*.jpg;*.jpge;*.gif;*.png;*.txt;*.doc',//允许上传的文件后缀
         'fileSizeLimit':'200MB',//上传文件的大小限制
