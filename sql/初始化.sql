@@ -1,4 +1,4 @@
-INSERT INTO sys_user (id, user_name, pass_word, email, phone, status, cre_time) VALUES ('1', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'root@renren.io', '13612345678', '1', sysdate);
+INSERT INTO sys_user (id, user_name, nick_name, pass_word, email, phone, status, cre_time) VALUES ('1', 'admin', '超级管理员','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'root@renren.io', '13612345678', '1', sysdate);
 INSERT INTO sys_menu (id, parent_id, menu_name, url, perms, MENU_TYPE, icon, ORDER_NUM) VALUES ('1', '0', '系统管理', NULL, NULL, '0', 'fa fa-cog', '0');
 INSERT INTO sys_menu (id, parent_id, menu_name, url, perms, MENU_TYPE, icon, ORDER_NUM) VALUES ('2', '1', '管理员列表', 'sys/user.html', NULL, '1', 'fa fa-user', '1');
 INSERT INTO sys_menu (id, parent_id, menu_name, url, perms, MENU_TYPE, icon, ORDER_NUM) VALUES ('3', '1', '角色管理', 'sys/role.html', NULL, '1', 'fa fa-user-secret', '2');

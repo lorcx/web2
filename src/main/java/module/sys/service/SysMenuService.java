@@ -5,11 +5,9 @@ import module.sys.entity.SysMenu;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import static common.Constant.MenuType;
 
 /**
@@ -66,7 +64,7 @@ public class SysMenuService implements ISysMenuService {
 
         for (SysMenu menu : menuList) {
             // 目录
-            if (menu.getMenuType().equals(MenuType.CATALOG.getValue())) {
+            if (menu.getMenuType() == MenuType.CATALOG.getValue()) {
                 menu.setSubMenuList(getMenuTreeList(queryListParentId(menu.getId(),menuIdList),menuIdList));
             }
             subMenuList.add(menu);

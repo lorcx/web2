@@ -9,7 +9,9 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    ID, USER_ID, ROLE_ID
+    ID,
+    USER_ID as userId,
+    ROLE_ID as roleId
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

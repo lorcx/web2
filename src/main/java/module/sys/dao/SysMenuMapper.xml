@@ -8,13 +8,20 @@
     <result column="ICON" property="icon" jdbcType="VARCHAR" />
     <result column="URL" property="url" jdbcType="VARCHAR" />
     <result column="PERMS" property="perms" jdbcType="VARCHAR" />
-    <result column="ORDER_NUM" property="orderNum" jdbcType="VARCHAR" />
-    <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="INTEGER" />
+    <result column="MENU_TYPE" property="menuType" jdbcType="INTEGER" />
     <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    ID, MENU_NAME, ICON, URL, PERMS, ORDER_NUM, MENU_TYPE, PARENT_ID
+    ID,
+    MENU_NAME as menuName,
+    ICON,
+    URL,
+    PERMS,
+    ORDER_NUM as orderNum,
+    MENU_TYPE as menuType,
+    PARENT_ID as parentId
   </sql>
 
   <!--查询所有菜单-->
@@ -50,8 +57,8 @@
       URL, PERMS, ORDER_NUM, 
       MENU_TYPE, PARENT_ID)
     values (#{id,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
-      #{menuType,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR})
+      #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER},
+      #{menuType,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR})
   </insert>
 
   <insert id="insertSelective" parameterType="SysMenu" >
@@ -99,10 +106,10 @@
         #{perms,jdbcType=VARCHAR},
       </if>
       <if test="orderNum != null" >
-        #{orderNum,jdbcType=VARCHAR},
+        #{orderNum,jdbcType=INTEGER},
       </if>
       <if test="menuType != null" >
-        #{menuType,jdbcType=VARCHAR},
+        #{menuType,jdbcType=INTEGER},
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=VARCHAR},
@@ -126,10 +133,10 @@
         PERMS = #{perms,jdbcType=VARCHAR},
       </if>
       <if test="orderNum != null" >
-        ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+        ORDER_NUM = #{orderNum,jdbcType=INTEGER},
       </if>
       <if test="menuType != null" >
-        MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+        MENU_TYPE = #{menuType,jdbcType=INTEGER},
       </if>
       <if test="parentId != null" >
         PARENT_ID = #{parentId,jdbcType=VARCHAR},
@@ -144,8 +151,8 @@
       ICON = #{icon,jdbcType=VARCHAR},
       URL = #{url,jdbcType=VARCHAR},
       PERMS = #{perms,jdbcType=VARCHAR},
-      ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
-      MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      ORDER_NUM = #{orderNum,jdbcType=INTEGER},
+      MENU_TYPE = #{menuType,jdbcType=INTEGER},
       PARENT_ID = #{parentId,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>

@@ -7,7 +7,9 @@
     <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, MENU_ID, ROLE_ID
+    ID,
+    MENU_ID as menuId,
+    ROLE_ID as roleId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

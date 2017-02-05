@@ -36,7 +36,7 @@
                 <div style="float:left;color:#fff;padding:15px 10px;">欢迎 {{user.userName}}</div>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <li><a href="#" target="_blank"><i class="fa fa-home"></i>&nbsp;xxxx</a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-home"></i>&nbsp;web2</a></li>
                         <li><a href="javascript:;" @click="updatePassword"><i class="fa fa-lock"></i>&nbsp;修改密码</a></li>
                         <li><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;退出系统</a></li>
                     </ul>
@@ -84,7 +84,7 @@
         <div class="control-sidebar-bg"></div>
 
         <!--修改密码-->
-        <div id="passwordLayer">
+        <div id="passwordLayer" style="display: none;">
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="form-group">
@@ -92,13 +92,13 @@
                         <span class="label label-success" style="vertical-align: bottom;">{{user.userName}}</span>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-2 control-label">原密码<</div>
+                        <div class="col-sm-2 control-label">原密码</div>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" v-model="password" placeholder="原密码">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-2 control-label">新密码<</div>
+                        <div class="col-sm-2 control-label">新密码</div>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" v-model="newPassword" placeholder="新密码">
                         </div>

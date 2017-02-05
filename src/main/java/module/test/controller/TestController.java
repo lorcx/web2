@@ -91,7 +91,19 @@ public class TestController extends BaseController {
     public ModelAndView handlerRequset1(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mav = new ModelAndView();
         mav.addObject("msg", "hello");
-        mav.setViewName("test");
+        mav.setViewName("/test.jsp");
+        return mav;
+
+    }
+
+    /**
+     * 测试 velocity
+     * @return
+     */
+    @RequestMapping("/velocity")
+    public ModelAndView testVelocity() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("sys/main.html");
         return mav;
     }
 }

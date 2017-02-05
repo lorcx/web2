@@ -14,9 +14,9 @@ public class SysMenu {
 
     private String perms;
 
-    private String orderNum;
+    private Integer orderNum;
 
-    private String menuType;
+    private Integer menuType;
 
     private String parentId;
 
@@ -71,20 +71,20 @@ public class SysMenu {
         this.perms = perms == null ? null : perms.trim();
     }
 
-    public String getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum == null ? null : orderNum.trim();
-    }
-
-    public String getMenuType() {
+    public Integer getMenuType() {
         return menuType;
     }
 
-    public void setMenuType(String menuType) {
-        this.menuType = menuType == null ? null : menuType.trim();
+    public void setMenuType(Integer menuType) {
+        this.menuType = menuType;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
 
     public String getParentId() {

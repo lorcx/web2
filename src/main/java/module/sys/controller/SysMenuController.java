@@ -24,6 +24,7 @@ public class SysMenuController extends BaseController{
      * 用户菜单列表
      *
      */
+    @RequestMapping("/user")
     public R user() {
         List<SysMenu> menuList = menuService.getUserMenuList(getUserId());
         return R.ok().put("menuList", menuList);

@@ -105,9 +105,8 @@
                     data : data,
                     dataType : 'json',
                     success : function (result) {
-                        console.log(result);
                         if (result.code == 200) {
-                            parent.location.href = 'main.html';
+                            parent.location.href = 'index.html';
                         } else {
                             vm.error = true;
                             vm.errorMsg = result.msg;

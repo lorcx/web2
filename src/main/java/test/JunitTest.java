@@ -1,5 +1,5 @@
+package test;
 
-import module.test.entity.*;
 import module.test.service.TestService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
