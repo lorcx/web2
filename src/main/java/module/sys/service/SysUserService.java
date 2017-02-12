@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * Created by x on 2017/1/20.
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Service("sysUserService")
 public class SysUserService implements ISysUserService {
     @Autowired
@@ -78,6 +79,22 @@ public class SysUserService implements ISysUserService {
     @Override
     public List<String> queryMenuIdByUserId(String userId) {
         return userMapper.queryMenuIdByUserId(userId);
+    }
+
+    /**
+     * 更新用户密码
+     * @param userId
+     * @param password
+     * @param newPassword
+     * @return
+     */
+    @Override
+    public int updatePassword(String userId, String password, String newPassword) {
+        Map<String,Object> param = new HashMap<>();
+        param.put("userId", userId);
+        param.put("passWord", password);
+        param.put("newPassWord", newPassword);
+        return userMapper.updatePassword(param);
     }
 
 

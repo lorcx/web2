@@ -9,10 +9,11 @@ var menuItem = Vue.extend({
     template : [
         '<li>',
         '<a v-if="item.menuType === 0" href="javascript:;">',
+        '<i v-if="item.icon !=null" :class="item.icon"></i>',
         '<span>{{item.menuName}}</span>',
         '<i class="fa fa-angle-left pull-right"></i>',
         '</a>',
-        '<ul>',
+        '<ul v-if="item.menuType === 0" class="treeview-menu">',
         '<menu-item :item="item" v-for="item in item.subMenuList"></menu-item>',
         '</ul>',
         '<a v-if="item.menuType === 1" :href="\'#\'+item.url">',
@@ -45,7 +46,6 @@ var vm = new Vue({
         getMenuList : function () {
             $.getJSON('/sys/menu/user?_' + $.now(), function (re) {
                vm.menuList = re.menuList;
-                console.log(vm.menuList);
             });
         },
         /**
@@ -63,7 +63,7 @@ var vm = new Vue({
         updatePassword : function (r) {
            layer.open({
                type : 1,
-               skin : 'layui-layer-moly',
+               skin : 'layui-layer-molv',
                title : '修改密码',
                area : ['550px','270px'],
                shadeClose : false,
@@ -77,7 +77,7 @@ var vm = new Vue({
                        dataType : 'json',
                        url : '/sys/user/password',
                        success : function (r) {
-                           if (r.code == 0) {
+                           if (r.code == 200) {
                                layer.close(i);
                                layer.alert('修改成功', function (i) {
                                    location.reload();

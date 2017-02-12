@@ -74,6 +74,14 @@
     where ID = #{userId,jdbcType=VARCHAR}
   </select>
 
+  <!--更新用户密码-->
+  <update id="updatePassword" parameterType="java.util.HashMap" >
+    update SYS_USER
+    set PASS_WORD = #{newPassWord}
+    where id = #{userId}
+    and PASS_WORD = #{passWord}
+  </update>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from SYS_USER
     where ID = #{id,jdbcType=VARCHAR}
@@ -146,33 +154,7 @@
 
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="SysUser" >
-    update SYS_USER
-    <set >
-      <if test="userName != null" >
-        USER_NAME = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null" >
-        NICK_NAME = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="passWord != null" >
-        PASS_WORD = #{passWord,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        EMAIL = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        PHONE = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="creTime != null" >
-        CRE_TIME = #{creTime,jdbcType=DATE},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
+
 
   <update id="updateByPrimaryKey" parameterType="SysUser" >
     update SYS_USER

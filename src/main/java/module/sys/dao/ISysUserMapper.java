@@ -16,4 +16,6 @@ public interface ISysUserMapper extends BaseDao<SysUser> {
     SysUser getUserByTemplate(Map<String, Object> param);
 
     List<String> queryMenuIdByUserId(String userId);
+
+    int updatePassword(Map<String, Object> params);
 }
