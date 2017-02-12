@@ -39,8 +39,8 @@ CREATE TABLE SYS_MENU
    ICON                 VARCHAR2(100),
    URL                  VARCHAR2(4000),
    PERMS                VARCHAR2(4000),
-   ORDER_NUM            VARCHAR2(5),
-   MENU_TYPE            VARCHAR2(10),
+   ORDER_NUM            NUMBER(5),
+   MENU_TYPE            NUMBER(4),
    PARENT_ID            VARCHAR2(50),
    CONSTRAINT PK_SYS_MENU PRIMARY KEY (ID)
 );

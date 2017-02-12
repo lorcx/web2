@@ -8,17 +8,17 @@ var menuItem = Vue.extend({
     },
     template : [
         '<li>',
-        '<a v-if="item.type === 0" href="javascript:;">',
-        '<span>{{item.name}}</span>',
+        '<a v-if="item.menuType === 0" href="javascript:;">',
+        '<span>{{item.menuName}}</span>',
         '<i class="fa fa-angle-left pull-right"></i>',
         '</a>',
         '<ul>',
-        '<menu-item :item="item" v-for="item in item.list"></menu-item>',
+        '<menu-item :item="item" v-for="item in item.subMenuList"></menu-item>',
         '</ul>',
-        '<a v-if="item-type === 1" :href="\'#\'+item.url">',
+        '<a v-if="item.menuType === 1" :href="\'#\'+item.url">',
         '<i v-if="item.icon != null" :class="item.icon"></i>',
         '<i v-else class="fa fa-circle-o"></i>',
-        '{{item.name}}',
+        '{{item.menuName}}',
         '</a>',
         '</li>'
     ].join('')
@@ -32,22 +32,34 @@ var vm = new Vue({
     data : {
         user : {},
         menuList : {},
-        main : 'sys/main.html',
+        main : '/sys/main',
         password : '',
         newPassword : '',
         navTitle : '控制台'
     },
     methods : {
-        getMenuList : function (e) {
-            $.getJSON('/sys/menu/user?_' + $.now(), function (r) {
-               vm.menuList = r.menuList;
+        /**
+         * 获取菜单信息
+         * @param e
+         */
+        getMenuList : function () {
+            $.getJSON('/sys/menu/user?_' + $.now(), function (re) {
+               vm.menuList = re.menuList;
+                console.log(vm.menuList);
             });
         },
+        /**
+         * 获取当前用户
+         */
         getUser : function () {
             $.getJSON('/sys/user/info?_' + $.now(), function (r) {
                 vm.user = r.user;
             });
         },
+        /**
+         * 修改密码
+         * @param r
+         */
         updatePassword : function (r) {
            layer.open({
                type : 1,
@@ -67,7 +79,7 @@ var vm = new Vue({
                        success : function (r) {
                            if (r.code == 0) {
                                layer.close(i);
-                               layer.alert('修改成功'，function (i) {
+                               layer.alert('修改成功', function (i) {
                                    location.reload();
                                });
                            } else {
@@ -85,6 +97,30 @@ var vm = new Vue({
     },
     updated : function () {
         //路由
-
+        var router = new Router();
+        routerList(router, vm.menuList);
+        router.start();
     }
 });
+
+
+function routerList(router, menuList) {
+    for (var key in menuList) {
+        var menu = menuList[key];
+        if (menu.menuType == 0) {
+            routerList(router, menu.subMenuList);
+        } else if (menu.menuType == 1) {
+            router.add('#' + menu.url, function () {
+                var url = window.location.hash;
+
+                //替换iframe的url
+                vm.main = url.replace('#', '');
+                //导航菜单展开
+                $('.treeview-menu li').removeClass('active');
+                var aUrl = $('a[href="' + url + '"]');
+                aUrl.parents('li').addClass('active');
+                vm.navTitle = aUrl.text();
+            });
+        }
+    }
+}

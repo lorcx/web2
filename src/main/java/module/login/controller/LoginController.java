@@ -34,6 +34,12 @@ public class LoginController {
     @Autowired
     private Producer producer;
 
+    /**
+     * 获取验证码
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @RequestMapping(value = "captcha.jpg")
     public void captcha(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setHeader("Cache-Control", "no-store, no-cache");
@@ -57,7 +63,7 @@ public class LoginController {
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
     public R login(String username, String password, String captcha) {
-        logger.info(username + '-' + password + '-' + captcha);
+        logger.info("原: " +username + '-' + password + '-' + captcha);
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return R.error("验证码不正确");
@@ -66,6 +72,7 @@ public class LoginController {
         try {
             Subject subject = ShiroUtils.getSubject();
             password = new Sha256Hash(password).toHex();
+            logger.info("加密：" + password);
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             subject.login(token);
         } catch (UnknownAccountException e) {
@@ -88,5 +95,14 @@ public class LoginController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout() {
         return "redirect:login.html";
+    }
+
+    /**
+     * 跳转到主页
+     * @return
+     */
+    @RequestMapping("/sys/main")
+    public String goMain() {
+        return "/sys/main.html";
     }
 }

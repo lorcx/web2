@@ -299,7 +299,7 @@
 //        });
 //        //druid配置
 //        $('#druid').click(function(){
-//            openWindow('/druid/index.html','druid信息',1280,788);
+//            openWindow('/druid/main.html','druid信息',1280,788);
 //        });
 //        //zTree
 //        $('#zTree').click(function(){

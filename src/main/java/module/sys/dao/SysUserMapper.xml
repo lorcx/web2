@@ -14,7 +14,14 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    ID, USER_NAME, NICK_NAME, PASS_WORD, EMAIL, PHONE, STATUS, CRE_TIME
+    ID,
+    USER_NAME as userName,
+    NICK_NAME as nickName,
+    PASS_WORD as passWord,
+    EMAIL,
+    PHONE,
+    STATUS,
+    CRE_TIME as creTime
   </sql>
 
   <!--查询所有用户列表-->
@@ -39,7 +46,7 @@
   </select>
 
   <!--查询用户的所有菜单-->
-  <select id="queryAllPerms" parameterType="java.lang.String" resultType="java.lang.String">
+  <select id="queryMenuIdByUserId" parameterType="java.lang.String" resultType="java.lang.String">
     select sm.id
     from sys_user su left join
     sys_user_role sur on su.id = sur.user_id join

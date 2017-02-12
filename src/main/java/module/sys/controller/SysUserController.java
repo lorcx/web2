@@ -1,5 +1,6 @@
 package module.sys.controller;
 
+import common.controller.BaseController;
 import module.sys.entity.SysUserBean;
 import module.sys.service.ISysRoleService;
 import module.sys.service.ISysUserService;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import util.R;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/sys/user/")
-public class SysUserController {
+public class SysUserController extends BaseController{
     @Autowired
     private ISysUserService userService;
     @Autowired
@@ -40,13 +40,24 @@ public class SysUserController {
      * 用户信息
      * @return
      */
-    @RequestMapping("/info/{userId}")
-    @RequiresPermissions("sys:user:info")
-    public R info (@PathVariable("userId") String userId) {
-        SysUserBean user = userService.getUserById(userId);
-        // 获取用户的所有角色
-        List<String> roleIdList = roleService.queryRoleIdList(userId);
-        user.setRoleIdList(roleIdList);
-        return R.ok().put("user", user);
+//    @RequestMapping("/info/{userId}")
+//    @RequiresPermissions("sys:user:info")
+//    public R info (@PathVariable("userId") String userId) {
+//        SysUserBean user = userService.getUserById(userId);
+//        // 获取用户的所有角色
+//        List<String> roleIdList = roleService.queryRoleIdList(userId);
+//        user.setRoleIdList(roleIdList);
+//        return R.ok().put("user", user);
+//    }
+
+    /**
+     * 用户信息
+     * @return
+     */
+    @RequestMapping("/info")
+    public R info () {
+        return R.ok().put("user", getUser());
     }
+
+
 }

@@ -5,8 +5,11 @@ package test;
  */
 public class Test {
     public static void main(String[] args) {
-        Integer[] i = {1,2,3};
-        System.out.println(new Test().join(i , "="));
+//        Integer[] i = {1,2,3};
+//        System.out.println(new Test().join(i , "="));
+        String str = "0";
+        int i = 0;
+        System.out.println(str.equals(i));
     }
 
     /**

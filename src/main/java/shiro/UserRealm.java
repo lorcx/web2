@@ -29,7 +29,7 @@ public class UserRealm extends AuthorizingRealm{
      * 授权(验证权限时调用)
      * authorization 授权，认可；批准，委任
      * principal主要的；资本的
-     * @param principalCollection
+     * @param principalCollection :d2
      * @return
      */
     @Override
@@ -37,7 +37,7 @@ public class UserRealm extends AuthorizingRealm{
         SysUser user = (SysUser) principalCollection.getPrimaryPrincipal();
         String userId = user.getId();
 
-        List<String> permsList = Collections.emptyList();
+        List<String> permsList;
         // 系统管理员拥有最高权限
         if (userId.equals("1")) {
             List<SysMenu> menuList = menuService.getAllMenu(new HashMap<String, Object>());

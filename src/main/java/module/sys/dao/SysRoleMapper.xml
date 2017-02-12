@@ -9,7 +9,11 @@
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, ROLE_NAME, CRE_TIME, STATUS, REMARK
+    ID,
+    ROLE_NAME as roleName,
+    CRE_TIME as creTime,
+    STATUS,
+    REMARK
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
