@@ -22,4 +22,6 @@ public interface ISysUserService {
     List<String> queryMenuIdByUserId(String userId);
 
     int updatePassword(String userId, String password, String newPassword);
+
+    int queryTotal(Map<String, Object> params);
 }

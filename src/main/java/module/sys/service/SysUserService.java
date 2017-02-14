@@ -97,5 +97,10 @@ public class SysUserService implements ISysUserService {
         return userMapper.updatePassword(param);
     }
 
+    @Override
+    public int queryTotal(Map<String, Object> params) {
+        return 0;
+    }
+
 
 }

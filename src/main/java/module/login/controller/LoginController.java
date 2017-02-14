@@ -96,13 +96,4 @@ public class LoginController {
     public String logout() {
         return "redirect:login.html";
     }
-
-    /**
-     * 跳转到主页
-     * @return
-     */
-    @RequestMapping("/sys/main")
-    public String goMain() {
-        return "/sys/main.html";
-    }
 }
