@@ -30,4 +30,13 @@ public class SysRoleMenu {
     public void setRoleId(String roleId) {
         this.roleId = roleId == null ? null : roleId.trim();
     }
+
+    @Override
+    public String toString() {
+        return "SysRoleMenu{" +
+                "id='" + id + '\'' +
+                ", menuId='" + menuId + '\'' +
+                ", roleId='" + roleId + '\'' +
+                '}';
+    }
 }

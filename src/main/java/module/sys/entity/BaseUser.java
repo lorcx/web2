@@ -87,4 +87,17 @@ public class BaseUser implements Serializable{
     public void setPic(Blob pic) {
         this.pic = pic;
     }
+
+    @Override
+    public String toString() {
+        return "BaseUser{" +
+                "id='" + id + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", creDate=" + creDate +
+                ", status='" + status + '\'' +
+                ", pic=" + pic +
+                '}';
+    }
 }

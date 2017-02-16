@@ -6,6 +6,7 @@ import module.sys.entity.SysUserBean;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import util.PageUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -28,6 +29,17 @@ public class SysUserService implements ISysUserService {
      */
     public List<SysUser> queryAllList(Map<String, Object> params) {
         return userMapper.getList(params);
+    }
+
+    /**
+     * 查询用户信息（分页）
+     * @param params
+     * @param pageUtils
+     * @return
+     */
+    @Override
+    public List<SysUser> queryUserListByPage(Map<String, Object> params, PageUtils pageUtils) {
+        return userMapper.getUserListByPage(params, pageUtils);
     }
 
     /**
@@ -96,11 +108,5 @@ public class SysUserService implements ISysUserService {
         param.put("newPassWord", newPassword);
         return userMapper.updatePassword(param);
     }
-
-    @Override
-    public int queryTotal(Map<String, Object> params) {
-        return 0;
-    }
-
 
 }

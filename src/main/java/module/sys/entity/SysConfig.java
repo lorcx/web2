@@ -50,4 +50,15 @@ public class SysConfig {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "SysConfig{" +
+                "id='" + id + '\'' +
+                ", key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                ", remark='" + remark + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

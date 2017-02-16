@@ -82,4 +82,18 @@ public class SysUser {
     public void setCreTime(Date creTime) {
         this.creTime = creTime;
     }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status='" + status + '\'' +
+                ", creTime=" + creTime +
+                '}';
+    }
 }

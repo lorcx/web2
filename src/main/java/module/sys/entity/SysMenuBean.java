@@ -15,4 +15,11 @@ public class SysMenuBean extends SysMenu {
     public void setSubMenuList(List<SysMenu> subMenuList) {
         this.subMenuList = subMenuList;
     }
+
+    @Override
+    public String toString() {
+        return "SysMenuBean{" +
+                "subMenuList=" + subMenuList +
+                '}';
+    }
 }

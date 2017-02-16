@@ -15,4 +15,11 @@ public class SysUserBean extends SysUser {
     public void setRoleIdList(List<String> roleIdList) {
         this.roleIdList = roleIdList;
     }
+
+    @Override
+    public String toString() {
+        return "SysUserBean{" +
+                "roleIdList=" + roleIdList +
+                '}';
+    }
 }

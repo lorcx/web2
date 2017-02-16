@@ -94,4 +94,19 @@ public class SysMenu {
     public void setParentId(String parentId) {
         this.parentId = parentId == null ? null : parentId.trim();
     }
+
+    @Override
+    public String toString() {
+        return "SysMenu{" +
+                "id='" + id + '\'' +
+                ", menuName='" + menuName + '\'' +
+                ", icon='" + icon + '\'' +
+                ", url='" + url + '\'' +
+                ", perms='" + perms + '\'' +
+                ", orderNum=" + orderNum +
+                ", menuType=" + menuType +
+                ", parentId='" + parentId + '\'' +
+                ", subMenuList=" + subMenuList +
+                '}';
+    }
 }

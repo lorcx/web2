@@ -2,6 +2,7 @@ package module.sys.dao;
 
 import common.dao.BaseDao;
 import module.sys.entity.SysUser;
+import util.PageUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +19,6 @@ public interface ISysUserMapper extends BaseDao<SysUser> {
     List<String> queryMenuIdByUserId(String userId);
 
     int updatePassword(Map<String, Object> params);
+
+    List<SysUser> getUserListByPage(Map<String, Object> params, PageUtils pageUtils);
 }

@@ -33,22 +33,21 @@ public class SysUserController extends BaseController {
 
     /**
      * 查询所有用户
-     *
+     * @param pageSize 每页记录数
+     * @param currPage 当前页
      * @return
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:user:list")
-    public R getUserList(Integer page, Integer limit) {
+    public R getUserList(Integer pageSize, Integer currPage) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("offset", (page - 1) * limit);
-        params.put("limit", limit);
+//        params.put("offset", (page - 1) * limit);
+//        params.put("limit", limit);
 
+        PageUtils pageUtil = new PageUtils(pageSize, currPage);
         // 查询用户记录
-        List<SysUser> userList = userService.queryAllList(params);
-        int total = userService.queryTotal(params);
-
-        PageUtils pageUtil = new PageUtils(userList, total, limit, page);
-
+        List<SysUser> userList = userService.queryUserListByPage(params, pageUtil);
+        pageUtil.setList(userList);
         return R.ok().put("page", pageUtil);
     }
 

@@ -2,6 +2,7 @@ package module.sys.service;
 
 import module.sys.entity.SysUser;
 import module.sys.entity.SysUserBean;
+import util.PageUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ public interface ISysUserService {
 
     List<SysUser> queryAllList(Map<String,Object> params);
 
+    List<SysUser> queryUserListByPage(Map<String,Object> params, PageUtils pageUtils);
+
     List<String> queryAllPerms(String userId) ;
 
     SysUser getUserByUserNameAndPassword(String userName, String passWord);
@@ -22,6 +25,4 @@ public interface ISysUserService {
     List<String> queryMenuIdByUserId(String userId);
 
     int updatePassword(String userId, String password, String newPassword);
-
-    int queryTotal(Map<String, Object> params);
 }
