@@ -1,10 +1,10 @@
 package util;
 
 import common.Constant;
-import module.sys.entity.SysUser;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分页工具类
@@ -13,16 +13,18 @@ import java.util.List;
 public class PageUtils implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    //总记录数
+    // 总记录数
     private int totalCount;
-    //每页记录数
+    // 每页记录数
     private int pageSize = Constant.DEFAULT_PAGE_NUM;
-    //总页数
+    // 总页数
     private int totalPage;
-    //当前页数
+    // 当前页数
     private int currPage;
-    //列表数据
+    // 列表数据
     private List<?> list;
+    // 查询参数
+    private Map<String, Object> params;
 
     /**
      * 分页
@@ -30,7 +32,9 @@ public class PageUtils implements Serializable{
      * @param currPage
      */
     public PageUtils(Integer pageSize, Integer currPage) {
-        this.pageSize = pageSize;
+        if (pageSize != null) {
+            this.pageSize = pageSize;
+        }
         this.currPage = currPage;
     }
 
@@ -98,4 +102,22 @@ public class PageUtils implements Serializable{
         calculateTotalPage();
     }
 
+    public Map<String, Object> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, Object> params) {
+        this.params = params;
+    }
+
+    @Override
+    public String toString() {
+        return "PageUtils{" +
+                "totalCount=" + totalCount +
+                ", pageSize=" + pageSize +
+                ", totalPage=" + totalPage +
+                ", currPage=" + currPage +
+                ", list=" + list +
+                '}';
+    }
 }

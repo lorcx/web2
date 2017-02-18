@@ -2,14 +2,12 @@ package module.sys.controller;
 
 import common.controller.BaseController;
 import module.sys.entity.SysUser;
-import module.sys.entity.SysUserBean;
 import module.sys.service.ISysRoleService;
 import module.sys.service.ISysUserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import util.PageUtils;
@@ -41,12 +39,13 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("sys:user:list")
     public R getUserList(Integer pageSize, Integer currPage) {
         Map<String, Object> params = new HashMap<String, Object>();
-//        params.put("offset", (page - 1) * limit);
-//        params.put("limit", limit);
 
+        currPage = 1;
         PageUtils pageUtil = new PageUtils(pageSize, currPage);
+        pageUtil.setParams(params);
+
         // 查询用户记录
-        List<SysUser> userList = userService.queryUserListByPage(params, pageUtil);
+        List<SysUser> userList = userService.queryUserListByPage(pageUtil);
         pageUtil.setList(userList);
         return R.ok().put("page", pageUtil);
     }

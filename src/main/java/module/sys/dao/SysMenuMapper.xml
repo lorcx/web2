@@ -25,7 +25,7 @@
   </sql>
 
   <!--查询所有菜单-->
-  <select id="queryAllMenu" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  <select id="getList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
     select
       <include refid="Base_Column_List" />
     from SYS_MENU

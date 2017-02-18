@@ -3,7 +3,7 @@
 <mapper namespace="module.sys.dao.ISysUserMapper" >
 
   <resultMap id="BaseResultMap" type="SysUser" >
-    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <id column="ID" property="userId" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
     <result column="PASS_WORD" property="passWord" jdbcType="VARCHAR" />
@@ -81,6 +81,19 @@
     where id = #{userId}
     and PASS_WORD = #{passWord}
   </update>
+
+  <!--分页查询用户信息-->
+  <select id="getUserListByPage" resultType="SysUser" parameterType="java.util.HashMap" >
+      select su.id,
+           su.user_name,
+           su.nick_name,
+           su.email,
+           su.phone,
+           su.cre_time,
+           su.status
+      from sys_user su
+      order by su.id
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from SYS_USER

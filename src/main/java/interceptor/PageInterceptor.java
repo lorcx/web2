@@ -11,6 +11,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ReflectionUtils;
 import util.PageUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -25,7 +26,7 @@ import java.util.Properties;
  * https://my.oschina.net/u/726057/blog/336073
  * Created by Administrator on 2017/2/14 0014.
  */
-@Intercepts({@Signature(type= StatementHandler.class, method = "prepare", args = {Connection.class, Object.class, PageUtils.class})})
+@Intercepts({@Signature(type= StatementHandler.class, method = "prepare", args = {Connection.class})})
 public class PageInterceptor implements Interceptor{
 
     protected Logger logger = LoggerFactory.getLogger(getClass());

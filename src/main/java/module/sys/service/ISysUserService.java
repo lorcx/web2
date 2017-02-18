@@ -14,7 +14,7 @@ public interface ISysUserService {
 
     List<SysUser> queryAllList(Map<String,Object> params);
 
-    List<SysUser> queryUserListByPage(Map<String,Object> params, PageUtils pageUtils);
+    List<SysUser> queryUserListByPage(PageUtils pageUtils);
 
     List<String> queryAllPerms(String userId) ;
 

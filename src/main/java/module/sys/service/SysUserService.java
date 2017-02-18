@@ -33,13 +33,12 @@ public class SysUserService implements ISysUserService {
 
     /**
      * 查询用户信息（分页）
-     * @param params
      * @param pageUtils
      * @return
      */
     @Override
-    public List<SysUser> queryUserListByPage(Map<String, Object> params, PageUtils pageUtils) {
-        return userMapper.getUserListByPage(params, pageUtils);
+    public List<SysUser> queryUserListByPage(PageUtils pageUtils) {
+        return userMapper.getUserListByPage(pageUtils);
     }
 
     /**

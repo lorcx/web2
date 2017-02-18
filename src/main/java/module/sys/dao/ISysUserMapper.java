@@ -20,5 +20,6 @@ public interface ISysUserMapper extends BaseDao<SysUser> {
 
     int updatePassword(Map<String, Object> params);
 
-    List<SysUser> getUserListByPage(Map<String, Object> params, PageUtils pageUtils);
+    List<SysUser> getUserListByPage(PageUtils pageUtils);
+
 }

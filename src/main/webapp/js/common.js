@@ -181,3 +181,29 @@ function setCookie(cName, cVal, expiredays) {
     document.cookie = cName + "=" + encodeURIComponent(cVal) +
     ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());
 }
+
+// 获得一条记录
+function getSelectRow() {
+    var grid = $('#jqGrid');
+    var rowKey = grid.getGridParam('selrow');
+    if (!rowKey) {
+        alert('请选择一条记录');
+        return;
+    }
+    var selectIds = grid.getGridParam('selarrrow');
+    if (selectIds.length > 1) {
+        alert('只能选择一条记录');
+        return;
+    }
+}
+
+// 获取多条记录
+function getSelectRows() {
+    var grid = $('#jqGrid');
+    var rowKey = grid.getGridParam('selrow');
+    if (!rowKey) {
+        alert('请选择一条记录');
+        return;
+    }
+    return grid.getGridParam('selarrrow');
+}
