@@ -84,13 +84,7 @@
 
   <!--分页查询用户信息-->
   <select id="getUserListByPage" resultType="SysUser" parameterType="java.util.HashMap" >
-      select su.id,
-           su.user_name,
-           su.nick_name,
-           su.email,
-           su.phone,
-           su.cre_time,
-           su.status
+      select <include refid="Base_Column_List"/>
       from sys_user su
       order by su.id
   </select>

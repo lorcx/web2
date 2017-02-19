@@ -50,7 +50,7 @@ public class PageUtils implements Serializable{
      * @return
      */
     public int getLimit() {
-        return totalPage * pageSize;
+        return currPage * pageSize;
     }
 
     /**
@@ -58,7 +58,7 @@ public class PageUtils implements Serializable{
      * @return
      */
     public int getOffset() {
-        return (totalPage - 1) * pageSize + 1;
+        return (currPage - 1) * pageSize + 1;
     }
 
     public int getTotalCount() {

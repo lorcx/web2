@@ -16,6 +16,16 @@ public class ReflectUtil {
      */
     public static Object getFieldValue (Object target, String fieldName) {
         Object result = null;
+        Field field = getField(target, fieldName);
+        if (null != field) {
+            // 取消java语言访问检查
+            field.setAccessible(true);
+            try {
+                result = field.get(target);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
         return result;
     }
 
@@ -36,5 +46,23 @@ public class ReflectUtil {
             }
         }
         return field;
+    }
+
+    /**
+     * 利用反射设置指定对象的属性值
+     * @param target 目标对象
+     * @param fieldName 属性名称
+     * @param fieldValue 属性值
+     */
+    public static void setFieldValue(Object target, String fieldName, String fieldValue) {
+        Field field = getField(target, fieldName);
+        if (null != field) {
+            field.setAccessible(true);
+            try {
+                field.set(target, fieldValue);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

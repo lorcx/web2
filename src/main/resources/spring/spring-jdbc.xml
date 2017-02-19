@@ -62,10 +62,17 @@
               <property name="typeAliasesPackage" value="module.test.entity,module.sys.entity"/>
               <!--自动扫描-->
               <property name="mapperLocations" value="classpath:module/*/dao/*Mapper.xml"/>
+              <!--分页拦截器-->
+              <property name="plugins">
+                   <array>
+                          <bean class="interceptor.PageInterceptor"></bean>
+                   </array>
+              </property>
               <property name="dataSource" ref="dataSource" />
        </bean>
 
        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
               <property name="basePackage" value="module.test.dao,module.sys.dao"/>
        </bean>
+
 </beans>
