@@ -37,10 +37,9 @@ public class SysUserController extends BaseController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:user:list")
-    public R getUserList(Integer pageSize, Integer currPage) {
+    public R getUserList(Integer currPage, Integer pageSize) {
         Map<String, Object> params = new HashMap<String, Object>();
-
-        currPage = 1;
+//        currPage = 1;
         PageUtils pageUtil = new PageUtils(pageSize, currPage);
         pageUtil.setParams(params);
 

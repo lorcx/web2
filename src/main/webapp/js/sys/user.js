@@ -3,46 +3,45 @@
  */
 (function () {
     $('#jqGrid').jqGrid({
-        url : '/sys/user/list',
+        url : '../sys/user/list',
         dataType : 'json',
+        //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
         colModel : [
-            {label : '用户名id', name : 'userId', width : 45, key : true},
             {label : '用户名', name : 'userName', width : 75},
             {label : '邮箱', name : 'email', width : 90},
-            {label : '手机号', name : 'mobile', width : 100},
-            {label : '状态', name : 'status', width : 80, formatter : function () {
+            {label : '手机号', name : 'phone', width : 100},
+            {label : '状态', name : 'status', width : 80, formatter : function (value, option, row) {
                 return value == 0 ?
                     '<span class="label label-danger">禁用</span>' :
                     '<span class="label label-danger">正常</span>';
 
             }},
-            {label : '创建时间',  name : 'createTime', width :80}
+            {label : '创建时间',  name : 'creTime', width :80}
         ],
-        viewrecords : true,
+        viewrecords : true, //是否显示行数
         height : 400,
         rowNum : 10,
-        rowList : [10, 30, 50],
+        rowList : [10, 30, 50], //可调整每页显示的记录数
         rownumbers : true,
         rownumWidth : 25,
         autowidth : true,
-        multiselect : true,
+        multiselect : true, //是否支持多选
         pager : '#jqGridPager',
         jsonReader : {
-            root : 'page.list',
-            page : 'page.currPage',
-            total : 'page.totalPage',
-            records : 'page.totalCount'
+            root : 'page.list', //包含实际数据的数组
+            page : 'page.currPage', // 当前页
+            total : 'code', // 总页数
+            records : 'page.totalCount',
+            repeatitems: true
         },
         prmNames : {
-            page : 'page',
-            rows : 'limit',
+            page : 'currPage',
+            rows : 'pageSize',
             order : 'order'
         },
-        gridComplete : function () {
-            //隐藏grid底部滚动条
-            $('#jqGrid').closest('.ui-jqgrid-bdiv').css({'overflow-x' : 'hidden'});
-        }
+        caption : '用户信息'
     });
+
 })();
 
 
