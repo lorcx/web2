@@ -3,11 +3,13 @@
  */
 (function () {
     $('#jqGrid').jqGrid({
-        url : '../sys/user/list',
-        dataType : 'json',
+        url : '/sys/user/list',
+        datatype : 'json',
+        caption : '用户信息',
         //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
         colModel : [
             {label : '用户名', name : 'userName', width : 75},
+            {label : '昵称', name : 'userName', width : 45},
             {label : '邮箱', name : 'email', width : 90},
             {label : '手机号', name : 'phone', width : 100},
             {label : '状态', name : 'status', width : 80, formatter : function (value, option, row) {
@@ -18,6 +20,7 @@
             }},
             {label : '创建时间',  name : 'creTime', width :80}
         ],
+        emptyrecords: "没有查询到相关数据!",
         viewrecords : true, //是否显示行数
         height : 400,
         rowNum : 10,
@@ -30,18 +33,24 @@
         jsonReader : {
             root : 'page.list', //包含实际数据的数组
             page : 'page.currPage', // 当前页
-            total : 'code', // 总页数
+            total : 'page.totalPage', // 总页数
             records : 'page.totalCount',
-            repeatitems: true
+            repeatitems: false
         },
         prmNames : {
             page : 'currPage',
             rows : 'pageSize',
             order : 'order'
         },
-        caption : '用户信息'
+        gridComplete : function () {
+            $('#jqGrid').closest('.ui-jqgrid-bdiv').css({'overflow-x' : 'hidden'});
+        },
+        onPaging : function (pageBtn) {
+            console.log(pageBtn);
+        }
     });
 
+    $('#jqGrid').jqGrid('navGrid', '#jqGridPager', {edit : false, add : false, del : false});
 })();
 
 

@@ -9,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import util.PageUtils;
 import util.R;
@@ -38,7 +39,7 @@ public class SysUserController extends BaseController {
     @RequestMapping("/list")
     @RequiresPermissions("sys:user:list")
     public R getUserList(Integer currPage, Integer pageSize) {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
 //        currPage = 1;
         PageUtils pageUtil = new PageUtils(pageSize, currPage);
         pageUtil.setParams(params);
