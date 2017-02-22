@@ -24,6 +24,8 @@
         viewrecords : true, //是否显示行数
         height : 400,
         rowNum : 10,
+        pgbuttons : true,
+        shrinkToFit : true,
         rowList : [10, 30, 50], //可调整每页显示的记录数
         rownumbers : true,
         rownumWidth : 25,
@@ -43,6 +45,7 @@
             order : 'order'
         },
         gridComplete : function () {
+            console.log(1);
             $('#jqGrid').closest('.ui-jqgrid-bdiv').css({'overflow-x' : 'hidden'});
         },
         onPaging : function (pageBtn) {

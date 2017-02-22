@@ -2,7 +2,7 @@
 <toolbox>
     <!--velocity 自定义标签-->
     <tool>
-        <key>web2</key>
+        <key>shiro</key>
         <scrope>application</scrope>
         <class>shiro.VelocityShiro</class>
     </tool>
