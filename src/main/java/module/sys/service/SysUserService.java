@@ -6,6 +6,7 @@ import module.sys.entity.SysUserBean;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import util.PageUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -106,6 +107,34 @@ public class SysUserService implements ISysUserService {
         param.put("passWord", password);
         param.put("newPassWord", newPassword);
         return userMapper.updatePassword(param);
+    }
+
+    /**
+     * 删除用户
+     * @param userIds
+     */
+    @Override
+    @Transactional
+    public void deleteBatch(String[] userIds) {
+        userMapper.deleteBatch(userIds);
+    }
+
+    /**
+     * 保存用户
+     * @param user
+     */
+    @Override
+    public void save(SysUser user) {
+        userMapper.save(user);
+    }
+
+    /**
+     * 更新
+     * @param user
+     */
+    @Override
+    public void update(SysUser user) {
+        userMapper.update(user);
     }
 
 }

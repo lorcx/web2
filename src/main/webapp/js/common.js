@@ -36,125 +36,141 @@ $.ajaxSetup({
     cache : false
 });
 
+window.alert = function(msg, callback){
+  parent.layer.alert(msg, function (index){
+      parent.layer.close(index);
+      if (typeof (callback) === 'function') {
+          callback('ok');
+      }
+  });
+};
 
-//$(function () {
-//
-//    /**
-//     * 弹出插件初始化
-//     * toast-bottom-right 右边
-//     * toast-top-center 中上
-//     * toast-bottom-center 下中
-//     *
-//     * toastr.success('提交数据成功');
-//     * toastr.error('Error');
-//     * toastr.warning('只能选择一行进行编辑');
-//     * toastr.info('info');
-//     */
-//    toastr.options.positionClass = 'toast-top-center';
-//
-//    /**
-//     * 异步提交 ajaxForm
-//     * 使用方法 ：    $("#login_form").attr('controller','/login!login.controller');
-//     *              $("#login_form").asyncSubmit(loginProcess);
-//     * 如果使用ajaxSubmit则需要return false
-//     */
-//    $.fn.asyncSubmit = function (options, _handle) {
-//        var defaultOptions = {
-//            url: $(this).attr('action'),
-//            type: 'post',
-//            beforeSubmit: function (formData, jqForm, options) {
-//                show_loading();
-//            },
-//            dataType: 'json',
-//            contentId: 'content',
-//            success: function (responseText, statusText, options) {
-//                if (statusText == 'success') {
-//                    close_loading();
-//                    if ($.isFunction(_handle)) {
-//                        if (responseText.page && responseText.list && responseText.list.length > 0) {//没数据就不要显示分页
-//                            loadPaginator(responseText.page);
-//                        }
-//                        _handle(responseText);
-//                    }
-//                } else {
-//                    toastr.error("提交失败！");
-//                }
-//            },
-//            error: function (data) {
-//                close_loading();
-//                toastr.error(data.message);
-//            }
-//        };
-//        $.extend(defaultOptions, options);
-//        $(this).ajaxForm(defaultOptions);
-//        $(this).submit();
-//        //return false;
-//    };
-//
-//
-//    //关闭当前窗口
-//    $('.closeWin').click(function () {
-//        window.close();
-//    });
-//
-//    w2.info = function (content, title, time) {
-//        toastr.info(content, title, {timeOut: parseInt(time) || 2000});
-//    }
-//
-//    w2.success = function (content, title, time) {
-//        toastr.success(content, title, {timeOut: parseInt(time) || 2000});
-//    }
-//
-//    w2.error = function (content, title, time) {
-//        toastr.error(content, title, {timeOut: parseInt(time) || 2000});
-//    }
-//
-//    w2.warning = function (content, title, time) {
-//        toastr.warning(content, title, {timeOut: parseInt(time) || 2000});
-//    }
-//
-//});
-//
-//
-///**
-// * 加载分页
-// */
-//function loadPaginator(page) {
-//    var pageCount = page.totalPageNum;//总页数
-//    var currentPage = page.currentNum;//当前页
-//    var options = {
-//        currentPage: currentPage,
-//        totalPages: pageCount,
-//        size: "normal",
-//        bootstrapMajorVersion: 3,
-//        alignment: "right",
-//        numberOfPages: 5,
-//        itemTexts: function (type, page, current) {
-//            switch (type) {
-//                case 'first':
-//                    return '首页';
-//                case 'prev':
-//                    return '上一页';
-//                case 'next':
-//                    return '下一页';
-//                case 'last':
-//                    return '末页';
-//                case 'page':
-//                    return page;
-//            }
-//        },
-//        //点击事件，用于通过Ajax来刷新整个list列表
-//        onPageClicked: function (event, originalEvent, type, page) {
-//            $("#currentPage").val(page);
-//            queryForm();
-//        }
-//    }
-//    $('#paginator').bootstrapPaginator(options);
-//}
+window.confirm = function (msg, callback) {
+    parent.layer.confirm(msg, {btn : ['确定','取消']}, function(){
+       if (typeof (callback) === 'function') {
+           callback('ok');
+       }
+    });
+};
+
+$(function () {
+
+    /**
+     * 弹出插件初始化
+     * toast-bottom-right 右边
+     * toast-top-center 中上
+     * toast-bottom-center 下中
+     *
+     * toastr.success('提交数据成功');
+     * toastr.error('Error');
+     * toastr.warning('只能选择一行进行编辑');
+     * toastr.info('info');
+     */
+    toastr.options.positionClass = 'toast-top-center';
+
+    /**
+     * 异步提交 ajaxForm
+     * 使用方法 ：    $("#login_form").attr('controller','/login!login.controller');
+     *              $("#login_form").asyncSubmit(loginProcess);
+     * 如果使用ajaxSubmit则需要return false
+     */
+    $.fn.asyncSubmit = function (options, _handle) {
+        var defaultOptions = {
+            url: $(this).attr('action'),
+            type: 'post',
+            beforeSubmit: function (formData, jqForm, options) {
+                show_loading();
+            },
+            dataType: 'json',
+            contentId: 'content',
+            success: function (responseText, statusText, options) {
+                if (statusText == 'success') {
+                    close_loading();
+                    if ($.isFunction(_handle)) {
+                        if (responseText.page && responseText.list && responseText.list.length > 0) {//没数据就不要显示分页
+                            loadPaginator(responseText.page);
+                        }
+                        _handle(responseText);
+                    }
+                } else {
+                    toastr.error("提交失败！");
+                }
+            },
+            error: function (data) {
+                close_loading();
+                toastr.error(data.message);
+            }
+        };
+        $.extend(defaultOptions, options);
+        $(this).ajaxForm(defaultOptions);
+        $(this).submit();
+        //return false;
+    };
+
+
+    //关闭当前窗口
+    $('.closeWin').click(function () {
+        window.close();
+    });
+
+    w2.info = function (content, title, time) {
+        toastr.info(content, title, {timeOut: parseInt(time) || 2000});
+    }
+
+    w2.success = function (content, title, time) {
+        toastr.success(content, title, {timeOut: parseInt(time) || 2000});
+    }
+
+    w2.error = function (content, title, time) {
+        toastr.error(content, title, {timeOut: parseInt(time) || 2000});
+    }
+
+    w2.warning = function (content, title, time) {
+        toastr.warning(content, title, {timeOut: parseInt(time) || 2000});
+    }
+
+});
+
 
 /**
- * 生成分页区域 (暂时没用)
- */
+* 加载分页
+*/
+function loadPaginator(page) {
+    var pageCount = page.totalPageNum;//总页数
+    var currentPage = page.currentNum;//当前页
+    var options = {
+        currentPage: currentPage,
+        totalPages: pageCount,
+        size: "normal",
+        bootstrapMajorVersion: 3,
+        alignment: "right",
+        numberOfPages: 5,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case 'first':
+                    return '首页';
+                case 'prev':
+                    return '上一页';
+                case 'next':
+                    return '下一页';
+                case 'last':
+                    return '末页';
+                case 'page':
+                    return page;
+            }
+        },
+        //点击事件，用于通过Ajax来刷新整个list列表
+        onPageClicked: function (event, originalEvent, type, page) {
+            $("#currentPage").val(page);
+            queryForm();
+        }
+    }
+    $('#paginator').bootstrapPaginator(options);
+}
+
+/**
+* 生成分页区域 (暂时没用)
+*/
 //function buildPaginator(tabId){
 //    var obj = $('#pageDiv');
 //    if(obj){
@@ -218,9 +234,9 @@ function setCookie(cName, cVal, expiredays) {
 }
 
 // 获得一条记录
-function getSelectRow() {
+function getSelectedRow() {
     var grid = $('#jqGrid');
-    var rowKey = grid.getGridParam('selrow');
+    var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
         alert('请选择一条记录');
         return;
@@ -233,7 +249,7 @@ function getSelectRow() {
 }
 
 // 获取多条记录
-function getSelectRows() {
+function getSelectedRows() {
     var grid = $('#jqGrid');
     var rowKey = grid.getGridParam('selrow');
     if (!rowKey) {

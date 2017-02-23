@@ -15,7 +15,7 @@
             {label : '状态', name : 'status', width : 80, formatter : function (value, option, row) {
                 return value == 0 ?
                     '<span class="label label-danger">禁用</span>' :
-                    '<span class="label label-danger">正常</span>';
+                    '<span class="label label-success">正常</span>';
 
             }},
             {label : '创建时间',  name : 'creTime', width :80}
@@ -45,11 +45,7 @@
             order : 'order'
         },
         gridComplete : function () {
-            console.log(1);
             $('#jqGrid').closest('.ui-jqgrid-bdiv').css({'overflow-x' : 'hidden'});
-        },
-        onPaging : function (pageBtn) {
-            console.log(pageBtn);
         }
     });
 
@@ -60,23 +56,23 @@
 var vm = new Vue({
     el : '#web2',
     data : {},
-    method : {
-        update : function (e) {
+    methods : {
+        updateUser : function () {
             var userId = getSelectedRow();
             if (!userId) {
                 return;
             }
             location.href = 'user_add.html?userId=' + userId;
         },
-        del : function (e) {
+        deleteUser : function () {
             var userId = getSelectedRow();
             if (!userId) {
                 return;
             }
-            confirm('确定要删除选中的记录吗？',function() {
+            confirm('确定要删除选中的记录吗？', function() {
                 $.ajax({
                     type : 'POST',
-                    url : '../sys/user/delete',
+                    url : '/sys/user/delete',
                     data : JSON.stringify(userId),
                     success : function (r) {
                         if (r.code == 200) {

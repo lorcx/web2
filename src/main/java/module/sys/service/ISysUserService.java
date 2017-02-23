@@ -25,4 +25,10 @@ public interface ISysUserService {
     List<String> queryMenuIdByUserId(String userId);
 
     int updatePassword(String userId, String password, String newPassword);
+
+    void deleteBatch(String[] userIds);
+
+    void save(SysUser user);
+
+    void update(SysUser user);
 }

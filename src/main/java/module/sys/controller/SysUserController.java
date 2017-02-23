@@ -4,10 +4,12 @@ import common.controller.BaseController;
 import module.sys.entity.SysUser;
 import module.sys.service.ISysRoleService;
 import module.sys.service.ISysUserService;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,7 @@ import util.PageUtils;
 import util.R;
 import util.ShiroUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,4 +105,54 @@ public class SysUserController extends BaseController {
         return R.ok();
     }
 
+    /**
+     * 保存用户
+     * @return
+     */
+    @RequestMapping("/save")
+    @RequiresPermissions("sys:user:save")
+    public R saveUser(@RequestBody SysUser user) {
+        if (StringUtils.isBlank(user.getUserName())) {
+            return R.error("用户名不能为空");
+        }
+        if (StringUtils.isBlank(user.getPassWord())) {
+            return R.error("密码不能为空");
+        }
+        userService.save(user);
+        return R.ok();
+    }
+
+    /**
+     * 更新用户
+     * @return
+     */
+    @RequestMapping("/update")
+    @RequiresPermissions("sys:user:update")
+    public R updateUser(@RequestBody SysUser user) {
+        if (StringUtils.isBlank(user.getUserName())) {
+            return R.error("用户名不能为空");
+        }
+
+        userService.update(user);
+        return R.ok();
+    }
+
+    /**
+     * 删除用户
+     * @return
+     */
+    @RequestMapping("/delete")
+    @RequiresPermissions("sys:user:delete")
+    public R delete(@RequestBody String[] userIds) {
+        if (ArrayUtils.contains(userIds, "1")) {
+            return R.error("系统管理员不能删除");
+        }
+
+        if (ArrayUtils.contains(userIds, getUserId())) {
+            return R.error("当前用户不能删除");
+        }
+
+        userService.deleteBatch(userIds);
+        return R.ok();
+    }
 }

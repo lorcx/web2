@@ -12,11 +12,11 @@
             #end
 
             #if($shiro.hasPermission("sys:user:update"))
-                <button type="button" class="btn btn-default" @click="update">修改</button>
+                <button type="button" class="btn btn-default" @click="updateUser">修改</button>
             #end
 
             #if($shiro.hasPermission("sys:user:delete"))
-                <button type="button" class="btn btn-default" @click="del">删除</button>
+                <button type="button" class="btn btn-default" @click="deleteUser">删除</button>
             #end
         </div>
         <table id="jqGrid"></table>

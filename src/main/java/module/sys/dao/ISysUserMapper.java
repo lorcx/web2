@@ -22,4 +22,5 @@ public interface ISysUserMapper extends BaseDao<SysUser> {
 
     List<SysUser> getUserListByPage(PageUtils pageUtils);
 
+    void deleteBatch(String[] userIds);
 }
