@@ -3,7 +3,7 @@
 <mapper namespace="module.sys.dao.ISysUserMapper" >
 
   <resultMap id="BaseResultMap" type="SysUser" >
-    <id column="ID" property="userId" jdbcType="VARCHAR" />
+    <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
     <result column="PASS_WORD" property="passWord" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
     select 
     <include refid="Base_Column_List" />
     from SYS_USER
-    where ID = #{userId,jdbcType=VARCHAR}
+    where ID = #{userId}
   </select>
 
   <!--更新用户密码-->
@@ -102,16 +102,6 @@
     </foreach>
   </delete>
 
-  <!--保存用户-->
-  <insert id="insert" parameterType="SysUser" >
-    insert into SYS_USER (ID, USER_NAME, NICK_NAME, 
-      PASS_WORD, EMAIL, PHONE, 
-      STATUS, CRE_TIME)
-    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
-      #{passWord,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, sysdate)
-  </insert>
-
   <!--更新用户-->
   <update id="update" parameterType="SysUser" >
     update SYS_USER
@@ -125,13 +115,11 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 
-
-  <insert id="insertSelective" parameterType="SysUser" >
+  <!--保存用户-->
+  <insert id="save" parameterType="SysUser" >
     insert into SYS_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
+       ID,
       <if test="userName != null" >
         USER_NAME,
       </if>
@@ -156,9 +144,8 @@
     </trim>
 
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
+      #{id,jdbcType=VARCHAR},
+
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>

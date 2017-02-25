@@ -1,6 +1,43 @@
 /**
  * Created by Administrator on 2017/2/13 0013.
  */
+
+var vm = new Vue({
+    el : '#web2',
+    data : {},
+    methods : {
+        updateUser : function () {
+            var userId = getSelectedRow();
+            if (!userId) {
+                return;
+            }
+            location.href = 'user_add.html?userId=' + userId;
+        },
+        deleteUser : function () {
+            var userId = getSelectedRow();
+            if (!userId) {
+                return;
+            }
+            confirm('确定要删除选中的记录吗？', function() {
+                $.ajax({
+                    type : 'POST',
+                    url : '/sys/user/delete',
+                    data : JSON.stringify(userId),
+                    success : function (r) {
+                        if (r.code == 200) {
+                            alert('操作成功', function(index) {
+                                $('#jqGrid').trigger('reloadGrid');
+                            });
+                        } else {
+                            alert(r.msg);
+                        }
+                    }
+                });
+            });
+        }
+    }
+});
+
 (function () {
     $('#jqGrid').jqGrid({
         url : '/sys/user/list',
@@ -52,40 +89,3 @@
     $('#jqGrid').jqGrid('navGrid', '#jqGridPager', {edit : false, add : false, del : false});
 })();
 
-
-var vm = new Vue({
-    el : '#web2',
-    data : {},
-    methods : {
-        updateUser : function () {
-            var userId = getSelectedRow();
-            if (!userId) {
-                return;
-            }
-            location.href = 'user_add.html?userId=' + userId;
-        },
-        deleteUser : function () {
-            var userId = getSelectedRow();
-            if (!userId) {
-                return;
-            }
-            confirm('确定要删除选中的记录吗？', function() {
-                $.ajax({
-                    type : 'POST',
-                    url : '/sys/user/delete',
-                    data : JSON.stringify(userId),
-                    success : function (r) {
-                        if (r.code == 200) {
-                            alert('操作成功', function(index) {
-                                $('#jqGrid').trigger('reloadGrid');
-                            });
-                        } else {
-                            alert(r.msg);
-                        }
-                    }
-                });
-            });
-        }
-    }
-
-});

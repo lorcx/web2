@@ -246,6 +246,7 @@ function getSelectedRow() {
         alert('只能选择一条记录');
         return;
     }
+    return rowKey;
 }
 
 // 获取多条记录

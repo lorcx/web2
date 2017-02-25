@@ -2,17 +2,13 @@ package module.sys.service;
 
 import module.sys.dao.ISysUserMapper;
 import module.sys.entity.SysUser;
-import module.sys.entity.SysUserBean;
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import util.PageUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by x on 2017/1/20.
@@ -70,17 +66,17 @@ public class SysUserService implements ISysUserService {
      * 根据主键查询用户信息
      * @return
      */
-    public SysUserBean getUserById(String userId) {
+    public SysUser getUserById(String userId) {
         SysUser user = userMapper.getOne(userId);
-        SysUserBean userBean = new SysUserBean();
-        try {
-            BeanUtils.copyProperties(userBean, user);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return userBean;
+//        SysUserBean userBean = new SysUserBean();
+//        try {
+//            BeanUtils.copyProperties(userBean, user);
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+        return user;
     }
 
     /**
@@ -125,6 +121,9 @@ public class SysUserService implements ISysUserService {
      */
     @Override
     public void save(SysUser user) {
+        user.setId(UUID.randomUUID().toString());
+        user.setCreTime(new Date());
+        user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
         userMapper.save(user);
     }
 
@@ -134,6 +133,7 @@ public class SysUserService implements ISysUserService {
      */
     @Override
     public void update(SysUser user) {
+        user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
         userMapper.update(user);
     }
 

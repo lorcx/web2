@@ -1,15 +1,17 @@
 package module.sys.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class SysUser {
+public class SysUser implements Serializable{
     private String id;
 
     private String userName;
 
     private String nickName;
 
-    private String passWord;
+    private transient String passWord;
 
     private String email;
 
@@ -18,6 +20,16 @@ public class SysUser {
     private String status;
 
     private Date creTime;
+
+    private List<String> roleIdList;
+
+    public List<String> getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<String> roleIdList) {
+        this.roleIdList = roleIdList;
+    }
 
     public String getId() {
         return id;

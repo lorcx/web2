@@ -1,6 +1,8 @@
 package module.sys.entity;
 
-public class SysConfig {
+import java.io.Serializable;
+
+public class SysConfig implements Serializable{
     private String id;
 
     private String key;

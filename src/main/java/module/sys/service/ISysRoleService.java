@@ -1,5 +1,7 @@
 package module.sys.service;
 
+import module.sys.entity.SysRole;
+
 import java.util.List;
 
 /**
@@ -7,4 +9,6 @@ import java.util.List;
  */
 public interface ISysRoleService {
     List<String> queryRoleIdList(String userId);
+
+    List<SysRole> queryRoleList();
 }

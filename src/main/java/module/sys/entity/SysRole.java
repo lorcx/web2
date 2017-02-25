@@ -1,8 +1,9 @@
 package module.sys.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysRole {
+public class SysRole implements Serializable{
     private String id;
 
     private String roleName;

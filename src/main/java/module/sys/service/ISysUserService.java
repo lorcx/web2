@@ -1,7 +1,6 @@
 package module.sys.service;
 
 import module.sys.entity.SysUser;
-import module.sys.entity.SysUserBean;
 import util.PageUtils;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public interface ISysUserService {
 
     SysUser getUserByUserNameAndPassword(String userName, String passWord);
 
-    SysUserBean getUserById(String userId);
+    SysUser getUserById(String userId);
 
     List<String> queryMenuIdByUserId(String userId);
 

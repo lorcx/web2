@@ -23,24 +23,25 @@ var vm = new Vue({
     methods : {
         getUser : function(userId) {
             $.get('/sys/user/info/' + userId, function(r) {
-                this.user = r.user;
+                console.log(r.user);
+                vm.user = r.user;
             });
         },
         getRoleList : function () {
             $.get('/sys/role/select', function(r) {
-                this.roleList = r.list;
+                vm.roleList = r.list;
             });
         },
         saveOrUpdate : function(e) {
-            var url = this.user.userId == null ? '/sys/user/save' : '/sys/user/update';
+            var url =  vm.user.id ? '/sys/user/update' : '/sys/user/save';
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : JSON.stringify(this.user),
+                data : JSON.stringify(vm.user),
                 success : function (r) {
                     if (r.code == 200) {
                         alert('操作成功', function (index) {
-                            this.back();
+                            vm.back();
                         });
                     } else {
                         alert(r.msg);

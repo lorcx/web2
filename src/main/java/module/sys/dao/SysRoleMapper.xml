@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="module.sys.dao.ISysRoleMapper" >
+
   <resultMap id="BaseResultMap" type="SysRole" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
@@ -8,6 +9,7 @@
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID,
     ROLE_NAME as roleName,
@@ -15,22 +17,44 @@
     STATUS,
     REMARK
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SYS_ROLE
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <!--查询角色列表-->
+  <select id="getList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select
+    <include refid="Base_Column_List" />
+    from SYS_ROLE
+    order by CRE_TIME DESC
+  </select>
+
+  <!--查询用户下的角色列表-->
+  <select id="queryRoleIdList" resultType="java.lang.String"  parameterType="java.lang.String" >
+    select
+    sr.ID
+    from SYS_USER_ROLE sur,sys_role sr
+    WHERE sur.role_id = sr.id and user_id = #{userId}
+    order by sr.CRE_TIME DESC
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from SYS_ROLE
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="SysRole" >
     insert into SYS_ROLE (ID, ROLE_NAME, CRE_TIME, 
       STATUS, REMARK)
     values (#{id,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{creTime,jdbcType=DATE}, 
       #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="SysRole" >
     insert into SYS_ROLE
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -50,6 +74,7 @@
         REMARK,
       </if>
     </trim>
+
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
@@ -67,7 +92,9 @@
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
+
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="SysRole" >
     update SYS_ROLE
     <set >
@@ -86,6 +113,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="SysRole" >
     update SYS_ROLE
     set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
@@ -94,4 +122,5 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
 </mapper>

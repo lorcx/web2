@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Mapper 基础
  * Created by x on 2017/1/8.
  */
 public interface BaseDao<T> {

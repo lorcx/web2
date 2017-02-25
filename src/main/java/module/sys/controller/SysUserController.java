@@ -9,15 +9,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import util.PageUtils;
 import util.R;
 import util.ShiroUtils;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +75,24 @@ public class SysUserController extends BaseController {
         return R.ok().put("user", getUser());
     }
 
+    /**
+     * 用户信息
+     *
+     * @return
+     */
+    @RequestMapping("/info/{userId}")
+    @RequiresPermissions("sys:user:info")
+    public R info(@PathVariable("userId") String userId) {
+        if (StringUtils.isBlank(userId)) {
+            return R.error("用户id不能为空");
+        }
+        SysUser user = userService.getUserById(userId);
+        //获取用户的所属角色
+        List<String> roleList = roleService.queryRoleIdList(userId);
+        user.setRoleIdList(roleList);
+        return R.ok().put("user", user);
+    }
+
 
     /**
      * 修改密码
@@ -132,7 +149,9 @@ public class SysUserController extends BaseController {
         if (StringUtils.isBlank(user.getUserName())) {
             return R.error("用户名不能为空");
         }
-
+        if (StringUtils.isBlank(user.getId())) {
+            return R.error("用户id不能为空");
+        }
         userService.update(user);
         return R.ok();
     }

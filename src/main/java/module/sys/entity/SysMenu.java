@@ -1,9 +1,10 @@
 package module.sys.entity;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SysMenu {
+public class SysMenu implements Serializable{
     private String id;
 
     private String menuName;

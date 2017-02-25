@@ -1,6 +1,8 @@
 package module.sys.entity;
 
-public class SysRoleMenu {
+import java.io.Serializable;
+
+public class SysRoleMenu implements Serializable {
     private String id;
 
     private String menuId;

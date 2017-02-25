@@ -1,6 +1,8 @@
 package module.sys.entity;
 
-public class SysUserRole {
+import java.io.Serializable;
+
+public class SysUserRole implements Serializable{
     private String id;
 
     private String userId;
