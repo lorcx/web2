@@ -18,12 +18,15 @@
     REMARK
   </sql>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!--根据id 查询-->
+  <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SYS_ROLE
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{roleId,jdbcType=VARCHAR}
   </select>
+
+
 
   <!--查询角色列表-->
   <select id="getList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
@@ -42,20 +45,31 @@
     order by sr.CRE_TIME DESC
   </select>
 
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <!--删除角色-->
+  <delete id="deleteBatch">
     delete from SYS_ROLE
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID in
+    <foreach collection="array" item="roleIds" open="(" close=")" separator=",">
+      #{roleIds}
+    </foreach>
+    ;
+
+    delete from SYS_ROLE_menu
+    where ROLE_ID in
+    <foreach collection="array" item="roleIds" open="(" close=")" separator=",">
+      #{roleIds}
+    </foreach>
+    ;
+
+    delete from SYS_USER_ROLE
+    where ROLE_ID in
+    <foreach collection="array" item="roleIds" open="(" close=")" separator=",">
+      #{roleIds}
+    </foreach>
   </delete>
 
-  <insert id="insert" parameterType="SysRole" >
-    insert into SYS_ROLE (ID, ROLE_NAME, CRE_TIME, 
-      STATUS, REMARK)
-    values (#{id,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{creTime,jdbcType=DATE}, 
-      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
-  </insert>
-
-  <insert id="insertSelective" parameterType="SysRole" >
+  <!--保存角色-->
+  <insert id="save" parameterType="SysRole" >
     insert into SYS_ROLE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -95,7 +109,8 @@
 
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="SysRole" >
+  <!--更新角色-->
+  <update id="update" parameterType="SysRole" >
     update SYS_ROLE
     <set >
       <if test="roleName != null" >
@@ -114,13 +129,5 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 
-  <update id="updateByPrimaryKey" parameterType="SysRole" >
-    update SYS_ROLE
-    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
-      CRE_TIME = #{creTime,jdbcType=DATE},
-      STATUS = #{status,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
 
 </mapper>

@@ -1,6 +1,7 @@
 package module.sys.service;
 
 import module.sys.entity.SysMenu;
+import util.PageUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,16 @@ public interface ISysMenuService {
     public List<SysMenu> queryListParentId(String menuId, List<String> menuIdList);
 
     public List<SysMenu> getAllMenuList(List<String> menuIdList);
+
+    List<SysMenu> queryMenuListByPage(PageUtils page);
+
+    void deleteBatchMenu(String[] menuIds);
+
+    public List<SysMenu> queryMenuList(Map<String, Object> params);
+
+    List<SysMenu> queryNotButtonList();
+
+    SysMenu getMenuById(String menuId);
+
+    void saveMenu(SysMenu menu);
 }

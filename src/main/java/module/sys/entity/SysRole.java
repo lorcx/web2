@@ -2,6 +2,7 @@ package module.sys.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class SysRole implements Serializable{
     private String id;
@@ -13,6 +14,16 @@ public class SysRole implements Serializable{
     private String status;
 
     private String remark;
+
+    private List<String> menuIdList;
+
+    public List<String> getMenuIdList() {
+        return menuIdList;
+    }
+
+    public void setMenuIdList(List<String> menuIdList) {
+        this.menuIdList = menuIdList;
+    }
 
     public String getId() {
         return id;

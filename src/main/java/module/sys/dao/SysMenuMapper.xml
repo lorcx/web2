@@ -24,11 +24,21 @@
     PARENT_ID as parentId
   </sql>
 
-  <!--查询所有菜单-->
-  <select id="getList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  <!--根据菜单id查询菜单信息-->
+  <select id="getOne" parameterType="java.lang.String" resultType="SysMenu">
     select
-      <include refid="Base_Column_List" />
-    from SYS_MENU
+    <include refid="Base_Column_List" />,
+    (select sm2.menu_name sys_menu sm2 where sm2.id = sm.id) as parentName
+    from SYS_MENU sm
+    where sm.id = #{menuId}
+  </select>
+
+  <!--查询所有菜单-->
+  <select id="getList" parameterType="java.util.HashMap" resultType="SysMenu">
+    select
+      <include refid="Base_Column_List" />,
+      (select sm2.menu_name sys_menu sm2 where sm2.id = sm.id) as parentName
+    from SYS_MENU sm
   </select>
 
   <!--查询父菜单-->
@@ -39,29 +49,34 @@
     where su.parent_id = #{menuId}
   </select>
 
-
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from SYS_MENU
-    where ID = #{id,jdbcType=VARCHAR}
-  </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <!--删除菜单-->
+  <delete id="deleteBatch">
     delete from SYS_MENU
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID in
+    <foreach collection="array" item="menuIds" separator="," open="(" close=")">
+      #{menuIds}
+    </foreach>
+    ;
+
+    delete from SYS_ROLE_MENU
+    where MENU_ID in
+    <foreach collection="array" item="menuIds" separator="," open="(" close=")">
+      #{menuIds}
+    </foreach>
+
   </delete>
 
-  <insert id="insert" parameterType="SysMenu" >
-    insert into SYS_MENU (ID, MENU_NAME, ICON, 
-      URL, PERMS, ORDER_NUM, 
-      MENU_TYPE, PARENT_ID)
-    values (#{id,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER},
-      #{menuType,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR})
-  </insert>
+  <!--查询菜单 目录 没有按钮-->
+  <select id="queryNotButtonList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_MENU sm
+    where sm.menu_type != '2'
+    order by order_num
+  </select>
 
-  <insert id="insertSelective" parameterType="SysMenu" >
+  <!--保存菜单信息-->
+  <insert id="save" parameterType="SysMenu" >
     insert into SYS_MENU
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -117,7 +132,8 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="SysMenu" >
+  <!--更新菜单信息-->
+  <update id="update" parameterType="SysMenu" >
     update SYS_MENU
     <set >
       <if test="menuName != null" >
@@ -142,18 +158,6 @@
         PARENT_ID = #{parentId,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
-
-  <update id="updateByPrimaryKey" parameterType="SysMenu" >
-    update SYS_MENU
-    set MENU_NAME = #{menuName,jdbcType=VARCHAR},
-      ICON = #{icon,jdbcType=VARCHAR},
-      URL = #{url,jdbcType=VARCHAR},
-      PERMS = #{perms,jdbcType=VARCHAR},
-      ORDER_NUM = #{orderNum,jdbcType=INTEGER},
-      MENU_TYPE = #{menuType,jdbcType=INTEGER},
-      PARENT_ID = #{parentId,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 

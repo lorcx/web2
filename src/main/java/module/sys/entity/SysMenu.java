@@ -21,8 +21,30 @@ public class SysMenu implements Serializable{
 
     private String parentId;
 
+    // ztree 属性
+    private Boolean open;
+
     // 子菜单
     private List<SysMenu> subMenuList;
+
+    // 上级菜单名称
+    private String parentName;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
 
     public List<SysMenu> getSubMenuList() {
         return subMenuList;

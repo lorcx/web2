@@ -14,7 +14,7 @@ public interface BaseDao<T> {
 
     void saveBatch(List<T> list);
 
-    int delete(T t);
+    int delete(Object t);
 
     int delete(Map<String, Object> params);
 
@@ -33,4 +33,6 @@ public interface BaseDao<T> {
     int queryTotal();
 
     int queryTotal(Map<String, Object> params);
+
+    int deleteBatch(Object[] id);
 }

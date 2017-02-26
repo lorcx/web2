@@ -25,7 +25,12 @@ public class Constant {
             return value;
         }
 
-        MenuType(int value) {
+        public int getValue1() {
+            return value;
+        }
+
+
+        private MenuType(int value) {
             this.value = value;
         }
     }

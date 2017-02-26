@@ -5,9 +5,13 @@ import module.sys.entity.SysMenu;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import util.PageUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import static common.Constant.MenuType;
 
 /**
@@ -56,6 +60,68 @@ public class SysMenuService implements ISysMenuService {
         getMenuTreeList(menuList, menuIdList);
         return menuList;
     }
+
+    /**
+     * 查询菜单列表
+     * @return
+     */
+    @Override
+    public List<SysMenu> queryMenuList(Map<String, Object> params) {
+        return menuMapper.getList(params);
+    }
+
+    /**
+     * 查询 菜单 目录
+     * @return
+     */
+    @Override
+    public List<SysMenu> queryNotButtonList() {
+        return menuMapper.queryNotButtonList();
+    }
+
+    /**
+     * 根据菜单id查询菜单信息
+     * @param menuId
+     * @return
+     */
+    @Override
+    public SysMenu getMenuById(String menuId) {
+        return menuMapper.getOne(menuId);
+    }
+
+    /**
+     * 保存菜单
+     * @param menu
+     */
+    @Override
+    public void saveMenu(SysMenu menu) {
+        if (StringUtils.isBlank(menu.getId())) {
+            menu.setId(UUID.randomUUID().toString());
+            menuMapper.save(menu);
+        } else {
+            menuMapper.update(menu);
+        }
+    }
+
+    /**
+     * 查询菜单列表（分页）
+     * @param page
+     * @return
+     */
+    @Override
+    public List<SysMenu> queryMenuListByPage(PageUtils page) {
+        return menuMapper.getList(page.getParams());
+    }
+
+    /**
+     * 批量删除菜单
+     * @param menuIds
+     */
+    @Override
+    public void deleteBatchMenu(String[] menuIds) {
+        menuMapper.deleteBatch(menuIds);
+    }
+
     /**
      *递归
      */

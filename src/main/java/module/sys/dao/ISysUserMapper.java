@@ -21,6 +21,4 @@ public interface ISysUserMapper extends BaseDao<SysUser> {
     int updatePassword(Map<String, Object> params);
 
     List<SysUser> getUserListByPage(PageUtils pageUtils);
-
-    void deleteBatch(String[] userIds);
 }

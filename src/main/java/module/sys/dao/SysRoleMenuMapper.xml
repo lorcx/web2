@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="module.sys.dao.ISysRoleMenuMapper" >
+
   <resultMap id="BaseResultMap" type="SysRoleMenu" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
     <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID,
     MENU_ID as menuId,
     ROLE_ID as roleId
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from SYS_ROLE_MENU
-    where ID = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from SYS_ROLE_MENU
-    where ID = #{id,jdbcType=VARCHAR}
+
+  <!--删除角色菜单关联信息-->
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from SYS_ROLE_MENU where ID = #{id}
   </delete>
-  <insert id="insert" parameterType="SysRoleMenu" >
-    insert into SYS_ROLE_MENU (ID, MENU_ID, ROLE_ID
-      )
-    values (#{id,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="SysRoleMenu" >
+
+  <!--新增关联信息-->
+  <insert id="save" parameterType="java.util.HashMap" >
     insert into SYS_ROLE_MENU
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -40,34 +33,26 @@
         ROLE_ID,
       </if>
     </trim>
+
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="menuId != null" >
-        #{menuId,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null" >
-        #{roleId,jdbcType=VARCHAR},
-      </if>
+      <foreach collection="menuIdList" item="item" open="(" close=")" separator=",">
+        sys_guid(),
+        <if test="item != null" >
+          #{item,jdbcType=VARCHAR},
+        </if>
+        <if test="roleId != null" >
+          #{roleId,jdbcType=VARCHAR},
+        </if>
+      </foreach>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="SysRoleMenu" >
-    update SYS_ROLE_MENU
-    <set >
-      <if test="menuId != null" >
-        MENU_ID = #{menuId,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null" >
-        ROLE_ID = #{roleId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="SysRoleMenu" >
-    update SYS_ROLE_MENU
-    set MENU_ID = #{menuId,jdbcType=VARCHAR},
-      ROLE_ID = #{roleId,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
+
+  <!--查询角下下授权的菜单id-->
+  <select id="queryMenuIdList" resultType="java.lang.String" parameterType="java.lang.String" >
+    select
+    srm.menu_id
+    from sys_role_menu srm
+    where sr.id = srm.role_id
+  </select>
+
 </mapper>

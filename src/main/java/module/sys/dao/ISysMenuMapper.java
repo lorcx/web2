@@ -16,4 +16,6 @@ public interface ISysMenuMapper extends BaseDao<SysMenu>{
     List<SysMenu> getUserMenuList(String userId);
 
     List<SysMenu> queryListParentId(String menuId);
+
+    List<SysMenu> queryNotButtonList();
 }

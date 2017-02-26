@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>菜单管理</title>
+    #parse("sys/header.html")
+</head>
+<body>
+    <div id="web2">
+        <div class="grid-btn">
+            #if($shiro.hasPermission("sys:role:save"))
+                <a class="btn btn-default" href="menu_add.html">新增</a>
+            #end
+
+            #if($shiro.hasPermission("sys:role:update"))
+                <a class="btn btn-default" @click="updateMenu">修改</a>
+            #end
+
+            #if($shiro.hasPermission("sys:role:delete"))
+                <a class="btn btn-default" @click="deleteMenu">删除</a>
+            #end
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</body>
+<script src="${rc.contextPath}/js/menu.js?_${date.systemTime}"></script>
+</html>

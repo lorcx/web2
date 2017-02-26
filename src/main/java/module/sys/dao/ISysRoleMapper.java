@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ISysRoleMapper extends BaseDao<SysRole>{
     List<String> queryRoleIdList(String userId);
+
+
 }
