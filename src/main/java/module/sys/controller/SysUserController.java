@@ -151,6 +151,9 @@ public class SysUserController extends BaseController {
         if (StringUtils.isBlank(user.getId())) {
             return R.error("用户id不能为空");
         }
+        if (StringUtils.isBlank(user.getPassWord())) {
+            return R.error("密码不能为空");
+        }
         userService.update(user);
         return R.ok();
     }

@@ -97,6 +97,7 @@ public class SysUserService implements ISysUserService {
      * @return
      */
     @Override
+    @Transactional
     public int updatePassword(String userId, String password, String newPassword) {
         Map<String,Object> param = new HashMap<>();
         param.put("userId", userId);
@@ -120,6 +121,7 @@ public class SysUserService implements ISysUserService {
      * @param user
      */
     @Override
+    @Transactional
     public void save(SysUser user) {
         user.setId(UUID.randomUUID().toString());
         user.setCreTime(new Date());
@@ -132,6 +134,7 @@ public class SysUserService implements ISysUserService {
      * @param user
      */
     @Override
+    @Transactional
     public void update(SysUser user) {
         user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
         userMapper.update(user);

@@ -1,42 +1,32 @@
 /**
  * Created by lx on 2017/2/23 0023.
  */
-var userId = T.p("userId");
+var configId = T.p("configId");
 
 var vm = new Vue({
     el : '#web2',
     data : {
-        title : '新增管理员',
-        roleList : {},
-        user : {
-            status : 1,
-            roleIdList : []
-        }
+        title : '新增参数',
+        config : {}
     },
     created : function () {
-        if (null != userId) {
-            this.title = "修改管理员",
-            this.getUser(userId);
+        if (null != configId) {
+            this.title = "修改参数",
+                this.getInfo(configId);
         }
-        this.getRoleList();
     },
     methods : {
-        getUser : function(userId) {
-            $.get('/sys/user/info/' + userId, function(r) {
-                vm.user = r.user;
-            });
-        },
-        getRoleList : function () {
-            $.get('/sys/role/select', function(r) {
-                vm.roleList = r.list;
+        getInfo : function(configId) {
+            $.get('/sys/config/info/' + configId, function(r) {
+                vm.config = r.config;
             });
         },
         saveOrUpdate : function(e) {
-            var url =  vm.user.id ? '/sys/user/update' : '/sys/user/save';
+            var url =  vm.config.id ? '/sys/config/update' : '/sys/config/save';
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : JSON.stringify(vm.user),
+                data : JSON.stringify(vm.config),
                 success : function (r) {
                     if (r.code == 200) {
                         alert('操作成功', function (index) {

@@ -92,13 +92,13 @@
   <!--删除用户-->
   <delete id="deleteBatch">
     delete from SYS_USER where ID in
-    <foreach collection="array" item="userId" open="(" separator="," close=")">
-      #{userId}
+    <foreach collection="array" item="item" open="(" separator="," close=")" index="index">
+      #{item}
     </foreach>
     ;
     delete from sys_user_role where user_id in
-    <foreach collection="array" item="userId" open="(" close=")" separator=",">
-      #{userId}
+    <foreach collection="array" item="item" open="(" close=")" separator="," index="index">
+      #{item}
     </foreach>
   </delete>
 

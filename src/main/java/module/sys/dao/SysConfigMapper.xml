@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="module.sys.dao.ISysConfigMapper" >
+
   <resultMap id="BaseResultMap" type="SysConfig" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="KEY" property="key" jdbcType="VARCHAR" />
@@ -8,27 +9,40 @@
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID, KEY, VALUE, REMARK, STATUS
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+
+  <!--根据id查询-->
+  <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SYS_CONFIG
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+
+  <!--分页查询-->
+  <select id="queryConfigList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select
+    <include refid="Base_Column_List" />
+    from SYS_CONFIG
+    order by id
+  </select>
+
+  <!--删除配置-->
+  <delete id="deleteBatch">
     delete from SYS_CONFIG
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID in
+    <foreach collection="array" item="configId" open="(" close=")" separator=",">
+      #{configId}
+    </foreach>
   </delete>
-  <insert id="insert" parameterType="SysConfig" >
-    insert into SYS_CONFIG (ID, KEY, VALUE, 
-      REMARK, STATUS)
-    values (#{id,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="SysConfig" >
+
+  <!--新增-->
+  <insert id="save" parameterType="SysConfig" >
     insert into SYS_CONFIG
+
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -46,6 +60,7 @@
         STATUS,
       </if>
     </trim>
+
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
@@ -64,7 +79,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="SysConfig" >
+
+  <!--更新配置-->
+  <update id="update" parameterType="SysConfig" >
     update SYS_CONFIG
     <set >
       <if test="key != null" >
@@ -80,14 +97,6 @@
         STATUS = #{status,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="SysConfig" >
-    update SYS_CONFIG
-    set KEY = #{key,jdbcType=VARCHAR},
-      VALUE = #{value,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

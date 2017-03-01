@@ -28,7 +28,7 @@
   <select id="getOne" parameterType="java.lang.String" resultType="SysMenu">
     select
     <include refid="Base_Column_List" />,
-    (select sm2.menu_name sys_menu sm2 where sm2.id = sm.id) as parentName
+    (select sm2.menu_name from sys_menu sm2 where sm2.id = sm.id) as parentName
     from SYS_MENU sm
     where sm.id = #{menuId}
   </select>
@@ -37,7 +37,7 @@
   <select id="getList" parameterType="java.util.HashMap" resultType="SysMenu">
     select
       <include refid="Base_Column_List" />,
-      (select sm2.menu_name sys_menu sm2 where sm2.id = sm.id) as parentName
+      (select sm2.menu_name from sys_menu sm2 where sm2.id = sm.id) as parentName
     from SYS_MENU sm
   </select>
 
@@ -53,15 +53,15 @@
   <delete id="deleteBatch">
     delete from SYS_MENU
     where ID in
-    <foreach collection="array" item="menuIds" separator="," open="(" close=")">
-      #{menuIds}
+    <foreach collection="array" item="menuId" separator="," open="(" close=")">
+      #{menuId}
     </foreach>
     ;
 
     delete from SYS_ROLE_MENU
     where MENU_ID in
-    <foreach collection="array" item="menuIds" separator="," open="(" close=")">
-      #{menuIds}
+    <foreach collection="array" item="menuId" separator="," open="(" close=")">
+      #{menuId}
     </foreach>
 
   </delete>

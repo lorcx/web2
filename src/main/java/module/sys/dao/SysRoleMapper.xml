@@ -49,22 +49,22 @@
   <delete id="deleteBatch">
     delete from SYS_ROLE
     where ID in
-    <foreach collection="array" item="roleIds" open="(" close=")" separator=",">
-      #{roleIds}
+    <foreach collection="array" item="roleId" open="(" close=")" separator=",">
+      #{roleId}
     </foreach>
     ;
 
     delete from SYS_ROLE_menu
     where ROLE_ID in
-    <foreach collection="array" item="roleIds" open="(" close=")" separator=",">
-      #{roleIds}
+    <foreach collection="array" item="roleId" open="(" close=")" separator=",">
+      #{roleId}
     </foreach>
     ;
 
     delete from SYS_USER_ROLE
     where ROLE_ID in
-    <foreach collection="array" item="roleIds" open="(" close=")" separator=",">
-      #{roleIds}
+    <foreach collection="array" item="roleId" open="(" close=")" separator=",">
+      #{roleId}
     </foreach>
   </delete>
 

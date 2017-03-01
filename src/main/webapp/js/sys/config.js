@@ -7,22 +7,21 @@ var vm = new Vue({
     data : {},
     methods : {
         updateUser : function () {
-            var userId = getSelectedRow();
-            if (!userId) {
+            var configId = getSelectedRow();
+            if (!configId) {
                 return;
             }
-            location.href = 'user_add.html?userId=' + userId;
+            location.href = 'config_add.html?configId=' + configId;
         },
         deleteUser : function () {
-            var userId = getSelectedRows();
-            if (!userId) {
+            var configId = getSelectedRow();
+            if (!configId) {
                 return;
             }
-            console.log(JSON.stringify(userId));
             confirm('确定要删除选中的记录吗？', function() {
                 $.ajax({
                     type : 'POST',
-                    url : '/sys/user/delete',
+                    url : '/sys/config/delete',
                     data : JSON.stringify(userId),
                     success : function (r) {
                         if (r.code == 200) {
@@ -46,17 +45,9 @@ var vm = new Vue({
         caption : '用户信息',
         //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
         colModel : [
-            {label : '用户名', name : 'userName', width : 75},
-            {label : '昵称', name : 'userName', width : 45},
-            {label : '邮箱', name : 'email', width : 90},
-            {label : '手机号', name : 'phone', width : 100},
-            {label : '状态', name : 'status', width : 80, formatter : function (value, option, row) {
-                return value == 0 ?
-                    '<span class="label label-danger">禁用</span>' :
-                    '<span class="label label-success">正常</span>';
-
-            }},
-            {label : '创建时间',  name : 'creTime', width :80}
+            {label : '参数名', name : 'key', width : 60},
+            {label : '参数值', name : 'value', width : 100},
+            {label : '备注', name : 'remark', width : 80}
         ],
         emptyrecords: "没有查询到相关数据!",
         viewrecords : true, //是否显示行数
