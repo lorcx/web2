@@ -1,6 +1,7 @@
 package module.sys.service;
 
 import module.sys.dao.ISysUserMapper;
+import module.sys.dao.ISysUserRoleMapper;
 import module.sys.entity.SysUser;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ import java.util.*;
 public class SysUserService implements ISysUserService {
     @Autowired
     private ISysUserMapper userMapper;
+    @Autowired
+    private ISysUserRoleMapper userRoleMapper;
+
+
+
 
     /**
      * 查询所有用户信息
@@ -114,6 +120,7 @@ public class SysUserService implements ISysUserService {
     @Transactional
     public void deleteBatch(String[] userIds) {
         userMapper.deleteBatch(userIds);
+        userRoleMapper.deleteBatchByUserId(userIds);
     }
 
     /**

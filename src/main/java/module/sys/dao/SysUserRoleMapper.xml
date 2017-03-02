@@ -34,11 +34,14 @@
     and su.id = #{userId,jdbcType=VARCHAR}
   </select>
 
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from SYS_USER_ROLE
-    where ID = #{id,jdbcType=VARCHAR}
+  <!--根据userid删除关联信息-->
+  <delete id="deleteBatchByUserId">
+    delete from SYS_USER_ROLE where ID in
+    <foreach collection="array" item="ids" open="(" separator="," close=")">
+      #{ids,jdbcType=VARCHAR}
+    </foreach>
   </delete>
+
 
   <insert id="insert" parameterType="SysUserRole" >
     insert into SYS_USER_ROLE (ID, USER_ID, ROLE_ID
