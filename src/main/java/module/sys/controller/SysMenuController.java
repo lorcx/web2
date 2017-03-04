@@ -33,6 +33,8 @@ public class SysMenuController extends BaseController{
      * 获取菜单列表（分页）
      * @return
      */
+    @RequestMapping("/list")
+    @RequiresPermissions("sys:menu:list")
     public R menuList(Integer currPage, Integer pageSize) {
         PageUtils page = new PageUtils(pageSize, currPage);
         page.setParams(new HashMap<String, Object>());
@@ -46,6 +48,8 @@ public class SysMenuController extends BaseController{
      * 批量删除菜单
      * @return
      */
+    @RequestMapping("/delete")
+    @RequiresPermissions("sys:menu:delete")
     public R deleteBatchMenu(@RequestBody String[] menuIds) {
         menuService.deleteBatchMenu(menuIds);
         return R.ok();
@@ -55,6 +59,8 @@ public class SysMenuController extends BaseController{
      * 保存菜单
      * @return
      */
+    @RequestMapping("/save")
+    @RequiresPermissions("sys:menu:save")
     public R saveMenu(@RequestBody SysMenu menu) {
         verifyForm(menu);
         menuService.saveMenu(menu);
@@ -65,6 +71,8 @@ public class SysMenuController extends BaseController{
      * 更新菜单
      * @return
      */
+    @RequestMapping("/update")
+    @RequiresPermissions("sys:menu:update")
     public R updateMenu(@RequestBody SysMenu menu) {
         verifyForm(menu);
         menuService.saveMenu(menu);

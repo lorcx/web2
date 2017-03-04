@@ -42,6 +42,7 @@ $(function () {
     $('#jqGrid').jqGrid({
         url : '/sys/menu/list',
         datatype : 'json',
+        caption : '角色信息',
         colModel : [
             {label : '菜单名称', name : 'menuName', width : 60},
             {label : '上级菜单', name : 'parentName', width : 60},
@@ -68,7 +69,7 @@ $(function () {
         rowList : [10, 30, 50],
         rownumbers : true,
         rownumWidth : 25,
-        autoWidth : true,
+        autowidth : true,
         multiselect : true,
         pager : '#jqGridPager',
         jsonReader : {

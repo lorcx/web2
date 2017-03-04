@@ -61,6 +61,7 @@ public class SysRoleService implements ISysRoleService {
     @Override
     public void deleteBatchRole(String[] roleIds) {
         roleMapper.deleteBatch(roleIds);
+        roleMenuMapper.deleteRoelMenuByRoleId(roleIds);
     }
 
     /**

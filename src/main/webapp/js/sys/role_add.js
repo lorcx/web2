@@ -10,7 +10,8 @@ var setting = {
           rootPId : -1
       },
       key : {
-          url : 'nourl'
+          url : 'nourl',
+          name : 'menuName'
       }
   },
   check : {
@@ -33,15 +34,18 @@ var vm = new Vue({
     created : function () {
         // 加载菜单树
         $.get('/sys/menu/perms', function (r) {
+            console.log(r);
             ztree = $.fn.zTree.init($('#menuTree'), setting, r.menuList);
             // 展开所有节点
             ztree.expandAll(true);
 
-            if (!roleId) {
+            if (roleId) {
                 vm.title = '修改角色';
                 vm.getRole(roleId);
             }
         });
+
+        console.log(111);
     },
     methods : {
         getRole : function(roleId) {

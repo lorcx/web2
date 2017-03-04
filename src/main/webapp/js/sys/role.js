@@ -44,19 +44,23 @@ $(function () {
     $('#jqGrid').jqGrid({
         url : '/sys/role/list',
         datatype : 'json',
+        caption : '角色信息',
         colModel : [
-            {label : '角色名称', name : 'roleName', width : 45},
-            {label : '备注', name : 'remark', width : 100},
+            {label : '角色名称', name : 'roleName', width : 200},
+            {label : '备注', name : 'remark', width : 200},
             {label : '创建时间', name : 'createTime', width : 80}
         ],
         viewrecords : true,
+        emptyrecords: "没有查询到相关数据!",
         height : 400,
         rowNum : 10,
         rowList : [10, 30, 50],
+        pgbuttons : true,
+        shrinkToFit : true,
         rownumbers : true,
         rownumWidth : 25,
-        autoWidth : true,
         multiselect : true,
+        autowidth : true,
         pager : '#jqGridPager',
         jsonReader : {
             root : 'page.list', //包含实际数据的数组
@@ -75,4 +79,6 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
         }
     });
+
+    $('#jqGrid').jqGrid('navGrid', '#jqGridPager', {edit : false, add : false, del : false});
 });

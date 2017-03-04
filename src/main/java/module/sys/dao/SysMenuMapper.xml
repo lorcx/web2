@@ -54,16 +54,8 @@
     delete from SYS_MENU
     where ID in
     <foreach collection="array" item="menuId" separator="," open="(" close=")">
-      #{menuId}
+      #{menuId， jdbcType="varchar"}
     </foreach>
-    ;
-
-    delete from SYS_ROLE_MENU
-    where MENU_ID in
-    <foreach collection="array" item="menuId" separator="," open="(" close=")">
-      #{menuId}
-    </foreach>
-
   </delete>
 
   <!--查询菜单 目录 没有按钮-->

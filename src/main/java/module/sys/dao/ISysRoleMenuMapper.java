@@ -2,7 +2,6 @@ package module.sys.dao;
 
 import common.dao.BaseDao;
 import module.sys.entity.SysRoleMenu;
-
 import java.util.List;
 
 /**
@@ -10,4 +9,6 @@ import java.util.List;
  */
 public interface ISysRoleMenuMapper extends BaseDao<SysRoleMenu> {
     List<String> queryMenuIdList(String roleId);
+
+    int deleteRoelMenuByRoleId(Object[] roleId);
 }

@@ -19,6 +19,15 @@
     delete from SYS_ROLE_MENU where ID = #{id}
   </delete>
 
+  <!--根据角色id删除角色菜单关联信息-->
+  <delete id="deleteRoelMenuByRoleId" parameterType="java.lang.String" >
+    delete from SYS_ROLE_MENU
+    where MENU_ID in
+    <foreach collection="array" item="menuId" separator="," open="(" close=")">
+      #{menuId, jdbcType="varchar"}
+    </foreach>
+  </delete>
+
   <!--新增关联信息-->
   <insert id="save" parameterType="java.util.HashMap" >
     insert into SYS_ROLE_MENU
@@ -52,7 +61,7 @@
     select
     srm.menu_id
     from sys_role_menu srm
-    where sr.id = srm.role_id
+    where srm.role_id = #{roleId}
   </select>
 
 </mapper>

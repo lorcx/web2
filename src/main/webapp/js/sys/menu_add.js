@@ -37,7 +37,7 @@ var vm = new Vue({
             // 展开所有节点
             ztree.expandAll(true);
 
-            if (!menuId) {
+            if (menuId) {
                 vm.title = '修改角色';
                 vm.getRole(menuId);
             }

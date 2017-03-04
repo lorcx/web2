@@ -17,13 +17,11 @@ import java.util.*;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Service("sysUserService")
 public class SysUserService implements ISysUserService {
+
     @Autowired
     private ISysUserMapper userMapper;
     @Autowired
     private ISysUserRoleMapper userRoleMapper;
-
-
-
 
     /**
      * 查询所有用户信息
