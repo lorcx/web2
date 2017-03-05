@@ -27,7 +27,5 @@ public interface ISysUserService {
 
     void deleteBatch(String[] userIds);
 
-    void save(SysUser user);
-
-    void update(SysUser user);
+    void saveOrUpdateUser(SysUser user);
 }

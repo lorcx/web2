@@ -10,66 +10,66 @@ var setting = {
             rootPId : -1
         },
         key : {
-            url : 'nourl'
+            url : 'nourl',
+            name : 'menuName'
         }
-    },
-    check : {
-        enable : true,
-        nocheckInherit : true
     }
 };
 
 var ztree;
 
-
 var menuId = T.p('menuId');
 
 var vm = new Vue({
-    el : 'web2',
+    el : '#web2',
     data : {
-        title : '新增角色',
-        role : {}
+        title : '新增菜单',
+        menu : {
+            parentName : '',
+            parentId : 0,
+            menuType : 1,
+            orderNum : 0
+        }
     },
     created : function () {
-        // 加载菜单树
-        $.get('/sys/menu/perms', function (r) {
-            ztree = $.fn.zTree.init($('#menuTree'), setting, r.menuList);
-            // 展开所有节点
-            ztree.expandAll(true);
+        if (menuId) {
+            this.title = '修改菜单';
+            this.getMenu(menuId);
+        }
 
-            if (menuId) {
-                vm.title = '修改角色';
-                vm.getRole(menuId);
+        // 加载菜单树
+        $.get('/sys/menu/select', function (r) {
+            ztree = $.fn.zTree.init($('#menuTree'), setting, r.menuList);
+
+            var node = ztree.getNodeByParam('id', vm.menu.parentId);
+
+            if (node) {
+                // 展开所有节点
+                ztree.selectNode(node);
+                vm.menu.parentName = node.menuName;
             }
         });
     },
     methods : {
-        getRole : function(menuId) {
-            $.get('/sys/role/info/' + menuId, function(r) {
-                vm.role = r.role;
-
-                // 勾选角色所拥有的菜单
-                var menuIds = vm.role.menuIdList;
-                for (var i = 0; i < menuIds.length; i++) {
-                    var node = ztree.getNodeByParam('id', menuIds[i]);
-                    ztree.checkNode(node, true, false);
-                }
+        getMenu : function(menuId) {
+            $.get('/sys/menu/info/' + menuId, function(r) {
+                vm.menu = r.menu;
             });
         },
-        saveRole : function (e) {
+        saveMenu : function (e) {
             // 获取选中的菜单
             var nodes = ztree.getCheckedNodes(true);
             var menuIdList = [];
             for (var i = 0; i < nodes.length; i++) {
                 menuIdList.push(nodes[i].id);
             }
-            vm.role.menuIdList = menuIdList;
+            vm.menu.menuIdList = menuIdList;
 
-            var url = vm.role.menuId ? '/sys/role/save' : '/sys/role/update';
+            var url = vm.menu.id ? '/sys/menu/update' : '/sys/menu/save';
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : JSON.stringify(vm.role),
+                data : JSON.stringify(vm.menu),
                 success : function (r) {
                     if (r.code == 200) {
                         alert('操作成功', function (index) {
@@ -80,6 +80,32 @@ var vm = new Vue({
                     }
                 }
             });
+        },
+        menuTree : function () {
+          layer.open({
+              type : 1,
+              offset : '50px',
+              skin : 'layui-layer-molv',
+              title : '选择菜单',
+              area : ['300px', '450px'],
+              shade : 0,
+              shadeClose : false,
+              content : $('#menuLayer'),
+              btn : ['确定', '取消'],
+              btn1 : function (index) {
+                  var node = ztree.getSelectedNodes();
+                  // 选择上级菜单
+                  vm.menu.parentId = node[0].id;
+                  console.log(node[0].id);
+                  console.log(node[0].menuName);
+                  vm.menu.parentName = node[0].menuName;
+
+                  layer.close(index);
+              }
+          });
+        },
+        back : function (e) {
+            history.go(-1);
         }
     }
 });

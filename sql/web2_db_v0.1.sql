@@ -16,6 +16,10 @@ DROP TABLE SYS_USER CASCADE CONSTRAINTS;
 
 DROP TABLE SYS_USER_ROLE CASCADE CONSTRAINTS;
 
+DROP TABLE SYS_SEDCHULE CASCADE CONSTRAINTS;
+
+DROP TABLE SYS_SEDCHULE_LOG CASCADE CONSTRAINTS;
+
 /*==============================================================*/
 /* Table: SYS_CONFIG                                            */
 /*==============================================================*/
@@ -96,3 +100,35 @@ CREATE TABLE SYS_USER_ROLE
    CONSTRAINT PK_SYS_USER_ROLE PRIMARY KEY (ID)
 );
 
+/*==============================================================*/
+/* Table: SYS_SEDCHULE                                         */
+/*==============================================================*/
+create table SYS_SEDCHULE
+(
+   id              VARCHAR2(50) not null,
+   bean_name       VARCHAR2(2500),
+   method_name     VARCHAR2(4000),
+   params          VARCHAR2(2500),
+   cron_expression VARCHAR2(1000),
+   status          VARCHAR2(5),
+   remark          VARCHAR2(2000),
+   cre_time        DATE,
+   CONSTRAINT PK_SYS_SEDCHULE_ID PRIMARY KEY (ID)
+);
+
+/*==============================================================*/
+/* Table: SYS_SEDCHULE_LOG                                         */
+/*==============================================================*/
+create table SYS_SEDCHULE_LOG
+(
+   id          VARCHAR2(50) not null,
+   job_id      VARCHAR2(50),
+   bean_name   VARCHAR2(1000),
+   method_name VARCHAR2(1000),
+   params      VARCHAR2(500),
+   status      VARCHAR2(5),
+   error       VARCHAR2(4000),
+   times       NUMBER(10),
+   cre_time    DATE,
+   CONSTRAINT PK_SYS_SEDCHULE_LOG_ID PRIMARY KEY (ID)
+)

@@ -26,10 +26,8 @@
     where ID = #{roleId,jdbcType=VARCHAR}
   </select>
 
-
-
   <!--查询角色列表-->
-  <select id="getList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+  <select id="getList" resultMap="BaseResultMap" parameterType="util.PageUtils" >
     select
     <include refid="Base_Column_List" />
     from SYS_ROLE
@@ -49,20 +47,6 @@
   <delete id="deleteBatch">
     delete from SYS_ROLE
     where ID in
-    <foreach collection="array" item="roleId" open="(" close=")" separator=",">
-      #{roleId}
-    </foreach>
-    ;
-
-    delete from SYS_ROLE_menu
-    where ROLE_ID in
-    <foreach collection="array" item="roleId" open="(" close=")" separator=",">
-      #{roleId}
-    </foreach>
-    ;
-
-    delete from SYS_USER_ROLE
-    where ROLE_ID in
     <foreach collection="array" item="roleId" open="(" close=")" separator=",">
       #{roleId}
     </foreach>

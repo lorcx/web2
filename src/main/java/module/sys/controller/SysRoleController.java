@@ -1,7 +1,7 @@
 package module.sys.controller;
 
 import module.sys.entity.SysRole;
-import module.sys.service.SysRoleService;
+import module.sys.service.ISysRoleService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 public class SysRoleController {
 
     @Autowired
-    private SysRoleService roleService;
+    private ISysRoleService roleService;
 
     /**
      * 角色管理列表

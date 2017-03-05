@@ -52,7 +52,8 @@
     sys_user_role sur on su.id = sur.user_id join
     sys_role sr on sur.role_id = sr.id join
     sys_role_menu srm on sr.id = srm.role_id join
-    sys_menu sm on srm.menu_id = srm.id
+    sys_menu sm on srm.menu_id = sm
+    .id
     where su.status = '1'
     and sr.status = '1'
     and su.id = #{userId,jdbcType=VARCHAR}
@@ -83,7 +84,7 @@
   </update>
 
   <!--分页查询用户信息-->
-  <select id="getUserListByPage" resultType="SysUser" parameterType="java.util.HashMap" >
+  <select id="getUserListByPage" resultType="SysUser" parameterType="util.PageUtils" >
       select <include refid="Base_Column_List"/>
       from sys_user su
       order by su.id

@@ -8,11 +8,11 @@ import java.util.Map;
  * Created by x on 2017/1/8.
  */
 public interface BaseDao<T> {
-    void save(T t);
+    int save(T t);
 
-    void save(Map<String, Object> params);
+    int save(Map<String, Object> params);
 
-    void saveBatch(List<T> list);
+    int saveBatch(List<T> list);
 
     int delete(Object t);
 

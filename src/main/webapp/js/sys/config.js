@@ -6,15 +6,15 @@ var vm = new Vue({
     el : '#web2',
     data : {},
     methods : {
-        updateUser : function () {
+        updateConfig : function () {
             var configId = getSelectedRow();
             if (!configId) {
                 return;
             }
             location.href = 'config_add.html?configId=' + configId;
         },
-        deleteUser : function () {
-            var configId = getSelectedRow();
+        deleteConfig : function () {
+            var configId = getSelectedRows();
             if (!configId) {
                 return;
             }
@@ -22,7 +22,7 @@ var vm = new Vue({
                 $.ajax({
                     type : 'POST',
                     url : '/sys/config/delete',
-                    data : JSON.stringify(userId),
+                    data : JSON.stringify(configId),
                     success : function (r) {
                         if (r.code == 200) {
                             alert('操作成功', function(index) {
@@ -40,14 +40,14 @@ var vm = new Vue({
 
 (function () {
     $('#jqGrid').jqGrid({
-        url : '/sys/user/list',
+        url : '/sys/config/list',
         datatype : 'json',
         caption : '用户信息',
         //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
         colModel : [
-            {label : '参数名', name : 'key', width : 60},
+            {label : '参数名', name : 'key', width : 100},
             {label : '参数值', name : 'value', width : 100},
-            {label : '备注', name : 'remark', width : 80}
+            {label : '备注', name : 'remark', width : 240}
         ],
         emptyrecords: "没有查询到相关数据!",
         viewrecords : true, //是否显示行数

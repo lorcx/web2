@@ -34,11 +34,12 @@
   </select>
 
   <!--查询所有菜单-->
-  <select id="getList" parameterType="java.util.HashMap" resultType="SysMenu">
+  <select id="getList" parameterType="util.PageUtils" resultType="SysMenu">
     select
       <include refid="Base_Column_List" />,
       (select sm2.menu_name from sys_menu sm2 where sm2.id = sm.id) as parentName
     from SYS_MENU sm
+    order by sm.menu_type,sm.order_num,sm.id
   </select>
 
   <!--查询父菜单-->
@@ -54,7 +55,7 @@
     delete from SYS_MENU
     where ID in
     <foreach collection="array" item="menuId" separator="," open="(" close=")">
-      #{menuId， jdbcType="varchar"}
+      #{menuId,jdbcType=VARCHAR}
     </foreach>
   </delete>
 

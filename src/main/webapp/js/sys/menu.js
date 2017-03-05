@@ -3,15 +3,15 @@
  */
 
 var vm = new Vue({
-    el : 'web2',
+    el : '#web2',
     data : {},
     methods : {
         updateMenu : function() {
-            var roleId = getSelectedRow();
-            if (!roleId) {
+            var menuId = getSelectedRow();
+            if (!menuId) {
                 return;
             }
-            location.href = 'menu_add.html?menuId=' + roleId;
+            location.href = 'menu_add.html?menuId=' + menuId;
         },
         deleteMenu : function() {
             var menuIds = getSelectedRows();
@@ -25,8 +25,8 @@ var vm = new Vue({
                     data : JSON.stringify(menuIds),
                     success : function(r) {
                         if (r.code == 200) {
-                            alert('操作成功', function(index){
-                                $('#jqGrid').trigger('reloadGrdid');
+                            alert('操作成功', function(index) {
+                                $('#jqGrid').trigger('reloadGrid');
                             });
                         } else {
                             alert(r.msg);
@@ -47,18 +47,18 @@ $(function () {
             {label : '菜单名称', name : 'menuName', width : 60},
             {label : '上级菜单', name : 'parentName', width : 60},
             {label : '菜单图标', name : 'icon', width : 50, formatter : function(value, options, row) {
-                return value ? '' : '<i class="'+value+' fa-lg"></i>';
+                return !value ? '' : '<i class="'+value+' fa-lg"></i>';
             }},
             {label : '菜单url', name : 'url', width : 100},
             {label : '授权标识', name : 'perms', width : 100},
-            {label : '类型', name : 'type', width : 50, formatter : function(value, options, row)  {
+            {label : '类型', name : 'menuType', width : 50, formatter : function(value, options, row)  {
                 switch (value) {
-                    case '0' :
+                    case 0 :
                         return '<span class="label label-primary">目录</span>';
-                    case '1' :
-                        return '<span class="label label-primary">菜单</span>';
-                    case '2' :
-                        return '<span class="label label-primary">按钮</span>';
+                    case 1 :
+                        return '<span class="label label-success">菜单</span>';
+                    case 2 :
+                        return '<span class="label label-warning">按钮</span>';
                 }
             }},
             {label : '排序号', name : 'orderNum', width : 50}
@@ -89,4 +89,6 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
         }
     });
+
+    $('#jqGrid').jqGrid('navGrid', '#jqGridPager', {edit : false, add : false, del : false});
 });

@@ -3,6 +3,7 @@ package module.sys.service;
 import module.sys.dao.ISysUserMapper;
 import module.sys.dao.ISysUserRoleMapper;
 import module.sys.entity.SysUser;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,22 +128,19 @@ public class SysUserService implements ISysUserService {
      */
     @Override
     @Transactional
-    public void save(SysUser user) {
-        user.setId(UUID.randomUUID().toString());
-        user.setCreTime(new Date());
-        user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
-        userMapper.save(user);
+    public void saveOrUpdateUser(SysUser user) {
+        if (StringUtils.isBlank(user.getId())) {
+            user.setId(UUID.randomUUID().toString());
+            user.setCreTime(new Date());
+            user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
+            userMapper.save(user);
+        } else {
+            user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
+            userMapper.update(user);
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", user.getId());
+        params.put("roleIdList", user.getRoleIdList());
+        userRoleMapper.saveUserRole(params);
     }
-
-    /**
-     * 更新
-     * @param user
-     */
-    @Override
-    @Transactional
-    public void update(SysUser user) {
-        user.setPassWord(new Sha256Hash(user.getPassWord()).toHex());
-        userMapper.update(user);
-    }
-
 }

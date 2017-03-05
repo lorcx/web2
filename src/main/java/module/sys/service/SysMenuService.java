@@ -1,10 +1,12 @@
 package module.sys.service;
 
 import module.sys.dao.ISysMenuMapper;
+import module.sys.dao.ISysRoleMenuMapper;
 import module.sys.entity.SysMenu;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import util.PageUtils;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class SysMenuService implements ISysMenuService {
     private ISysUserService userService;
     @Autowired
     private ISysMenuMapper menuMapper;
+    @Autowired
+    private ISysRoleMenuMapper roleMenuMapper;
 
     /**
      * 查询所有菜单
@@ -94,6 +98,7 @@ public class SysMenuService implements ISysMenuService {
      * @param menu
      */
     @Override
+    @Transactional
     public void saveMenu(SysMenu menu) {
         if (StringUtils.isBlank(menu.getId())) {
             menu.setId(UUID.randomUUID().toString());
@@ -110,7 +115,7 @@ public class SysMenuService implements ISysMenuService {
      */
     @Override
     public List<SysMenu> queryMenuListByPage(PageUtils page) {
-        return menuMapper.getList(page.getParams());
+        return menuMapper.getList(page);
     }
 
     /**
@@ -118,8 +123,10 @@ public class SysMenuService implements ISysMenuService {
      * @param menuIds
      */
     @Override
+    @Transactional
     public void deleteBatchMenu(String[] menuIds) {
         menuMapper.deleteBatch(menuIds);
+        roleMenuMapper.deleteRoleMenuByMenuId(menuIds);
     }
 
     /**

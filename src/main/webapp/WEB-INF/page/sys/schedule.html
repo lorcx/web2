@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>定时任务列表</title>
+    #parse("/common/header.html")
+</head>
+<body>
+<div id="web2">
+    <div class="grid-btn">
+        #if($shiro.hasPermission("sys:schedule:save"))
+        <a class="btn btn-default" href="schedule_add.html">新增</a>
+        #end
+
+        #if($shiro.hasPermission("sys:schedule:update"))
+        <button type="button" class="btn btn-default" @click="updateSchedule">修改</button>
+        #end
+
+        #if($shiro.hasPermission("sys:schedule:delete"))
+        <button type="button" class="btn btn-default" @click="deleteSchedule">删除</button>
+        #end
+
+        #if($shiro.hasPermission("sys:schedule:pause"))
+        <button type="button" class="btn btn-default" @click="pause">暂停</button>
+        #end
+
+        #if($shiro.hasPermission("sys:schedule:resume"))
+        <button type="button" class="btn btn-default" @click="resume">恢复</button>
+        #end
+
+        #if($shiro.hasPermission("sys:schedule:run"))
+        <button type="button" class="btn btn-default" @click="runOnce">立即执行</button>
+        #end
+
+        #if($shiro.hasPermission("sys:schedule:log"))
+        <a class="btn btn-default" href="schedule_log.html">日志列表</a>
+        #end
+    </div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+</body>
+<script src="${rc.contextPath}/js/sys/schedule.js?_${date.systemTime}"></script>
+</html>

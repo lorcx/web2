@@ -2,10 +2,12 @@ package module.sys.service;
 
 import module.sys.dao.ISysRoleMapper;
 import module.sys.dao.ISysRoleMenuMapper;
+import module.sys.dao.ISysUserRoleMapper;
 import module.sys.entity.SysRole;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import util.PageUtils;
 
 import java.util.Collections;
@@ -22,10 +24,13 @@ public class SysRoleService implements ISysRoleService {
     private ISysRoleMapper roleMapper;
 
     @Autowired
+    private ISysRoleMenuService roleMenuService;
+
+    @Autowired
     private ISysRoleMenuMapper roleMenuMapper;
 
     @Autowired
-    private ISysRoleMenuService roleMenuService;
+    private ISysUserRoleMapper userRoleMapper;
 
     /**
      * 查询用户所有角色
@@ -43,7 +48,7 @@ public class SysRoleService implements ISysRoleService {
      */
     @Override
     public List<SysRole> queryRoleListByPage(PageUtils pageUtils) {
-        return roleMapper.getList(pageUtils.getParams());
+        return roleMapper.getList(pageUtils);
     }
 
     /**
@@ -59,19 +64,23 @@ public class SysRoleService implements ISysRoleService {
      * @param
      */
     @Override
+    @Transactional
     public void deleteBatchRole(String[] roleIds) {
         roleMapper.deleteBatch(roleIds);
-        roleMenuMapper.deleteRoelMenuByRoleId(roleIds);
+        userRoleMapper.deleteBatchByRoleId(roleIds);
+        roleMenuMapper.deleteRoleMenuByRoleId(roleIds);
     }
 
     /**
      * 保存角色
      * @param
      */
+    @Transactional
     public void saveRole(SysRole role) {
         if (StringUtils.isBlank(role.getId())) {
             role.setId(UUID.randomUUID().toString());
             role.setCreTime(new Date());
+            role.setStatus("1");
             roleMapper.save(role);
         } else {
             roleMapper.update(role);

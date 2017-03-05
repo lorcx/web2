@@ -10,5 +10,7 @@ import java.util.List;
 public interface ISysRoleMenuMapper extends BaseDao<SysRoleMenu> {
     List<String> queryMenuIdList(String roleId);
 
-    int deleteRoelMenuByRoleId(Object[] roleId);
+    int deleteRoleMenuByRoleId(Object[] roleId);
+
+    void deleteRoleMenuByMenuId(String[] menuIds);
 }

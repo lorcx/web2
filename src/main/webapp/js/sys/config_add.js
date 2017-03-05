@@ -10,9 +10,9 @@ var vm = new Vue({
         config : {}
     },
     created : function () {
-        if (null != configId) {
-            this.title = "修改参数",
-                this.getInfo(configId);
+        if (configId) {
+            this.title = "修改参数";
+            this.getInfo(configId);
         }
     },
     methods : {
@@ -21,7 +21,7 @@ var vm = new Vue({
                 vm.config = r.config;
             });
         },
-        saveOrUpdate : function(e) {
+        saveOrUpdateConfig : function(e) {
             var url =  vm.config.id ? '/sys/config/update' : '/sys/config/save';
             $.ajax({
                 type : 'POST',

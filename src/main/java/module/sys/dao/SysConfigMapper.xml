@@ -35,7 +35,7 @@
     delete from SYS_CONFIG
     where ID in
     <foreach collection="array" item="configId" open="(" close=")" separator=",">
-      #{configId}
+      #{configId,jdbcType=VARCHAR}
     </foreach>
   </delete>
 

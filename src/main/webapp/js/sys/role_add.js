@@ -26,7 +26,7 @@ var ztree;
 var roleId = T.p('roleId');
 
 var vm = new Vue({
-    el : 'web2',
+    el : '#web2',
     data : {
         title : '新增角色',
         role : {}
@@ -34,7 +34,6 @@ var vm = new Vue({
     created : function () {
         // 加载菜单树
         $.get('/sys/menu/perms', function (r) {
-            console.log(r);
             ztree = $.fn.zTree.init($('#menuTree'), setting, r.menuList);
             // 展开所有节点
             ztree.expandAll(true);
@@ -69,7 +68,7 @@ var vm = new Vue({
             }
             vm.role.menuIdList = menuIdList;
 
-            var url = vm.role.roleId ? '/sys/role/save' : '/sys/role/update';
+            var url = vm.role.id ? '/sys/role/update' : '/sys/role/save';
             $.ajax({
                 type : 'POST',
                 url : url,
@@ -84,6 +83,9 @@ var vm = new Vue({
                     }
                 }
             });
+        },
+        back : function (e) {
+            history.go(-1);
         }
     }
 });

@@ -134,7 +134,7 @@ public class SysUserController extends BaseController {
         if (StringUtils.isBlank(user.getPassWord())) {
             return R.error("密码不能为空");
         }
-        userService.save(user);
+        userService.saveOrUpdateUser(user);
         return R.ok();
     }
 
@@ -154,7 +154,7 @@ public class SysUserController extends BaseController {
         if (StringUtils.isBlank(user.getPassWord())) {
             return R.error("密码不能为空");
         }
-        userService.update(user);
+        userService.saveOrUpdateUser(user);
         return R.ok();
     }
 

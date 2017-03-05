@@ -5,6 +5,7 @@ import module.sys.entity.SysConfig;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import util.PageUtils;
 import java.util.List;
 import java.util.UUID;
@@ -28,16 +29,22 @@ public class SysConfigService implements ISysConfigService {
         return configMapper.queryConfigList(page);
     }
 
+    /**
+     * 获取配置信息
+     * @param configId
+     * @return
+     */
     @Override
     public SysConfig getConfigById(String configId) {
         return configMapper.getOne(configId);
     }
 
     /**
-     * 保存 跟新
+     * 保存 更新
      * @param config
      */
     @Override
+    @Transactional
     public void saveOrUpdate(SysConfig config) {
         if (StringUtils.isBlank(config.getId())) {
             config.setId(UUID.randomUUID().toString());
@@ -52,6 +59,7 @@ public class SysConfigService implements ISysConfigService {
      * @param configIds
      */
     @Override
+    @Transactional
     public void deleteBatch(String[] configIds) {
         configMapper.deleteBatch(configIds);
     }

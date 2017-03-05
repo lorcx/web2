@@ -16,44 +16,38 @@
 
   <!--删除角色菜单关联信息-->
   <delete id="delete" parameterType="java.lang.String" >
-    delete from SYS_ROLE_MENU where ID = #{id}
+    delete from SYS_ROLE_MENU where ROLE_ID = #{id}
   </delete>
 
   <!--根据角色id删除角色菜单关联信息-->
-  <delete id="deleteRoelMenuByRoleId" parameterType="java.lang.String" >
+  <delete id="deleteRoleMenuByRoleId">
+    delete from SYS_ROLE_MENU
+    where ROLE_ID in
+    <foreach collection="array" item="roleIds" separator="," open="(" close=")">
+      #{roleIds, jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+  <!--根据菜单id删除角色菜单关联信息-->
+  <delete id="deleteRoleMenuByMenuId">
     delete from SYS_ROLE_MENU
     where MENU_ID in
-    <foreach collection="array" item="menuId" separator="," open="(" close=")">
-      #{menuId, jdbcType="varchar"}
+    <foreach collection="array" item="menuIds" separator="," open="(" close=")">
+      #{menuIds, jdbcType=VARCHAR}
     </foreach>
   </delete>
 
   <!--新增关联信息-->
   <insert id="save" parameterType="java.util.HashMap" >
     insert into SYS_ROLE_MENU
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="menuId != null" >
-        MENU_ID,
-      </if>
-      <if test="roleId != null" >
-        ROLE_ID,
-      </if>
-    </trim>
-
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <foreach collection="menuIdList" item="item" open="(" close=")" separator=",">
-        sys_guid(),
-        <if test="item != null" >
-          #{item,jdbcType=VARCHAR},
-        </if>
-        <if test="roleId != null" >
-          #{roleId,jdbcType=VARCHAR},
-        </if>
-      </foreach>
-    </trim>
+    (
+      ID,
+      MENU_ID,
+      ROLE_ID
+    )
+    <foreach collection="menuIdList" item="item" separator="union all">
+      select sys_guid(), #{item,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR} from dual
+    </foreach>
   </insert>
 
   <!--查询角下下授权的菜单id-->

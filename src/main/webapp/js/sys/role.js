@@ -3,7 +3,7 @@
  */
 
 var vm = new Vue({
-    el : 'web2',
+    el : '#web2',
     data : {},
     methods : {
         updateRole : function() {
@@ -25,8 +25,8 @@ var vm = new Vue({
                     data : JSON.stringify(roleIds),
                     success : function(r) {
                         if (r.code == 200) {
-                            alert('操作成功', function(index){
-                                $('#jqGrid').trigger('reloadGrdid');
+                            alert('操作成功', function(index) {
+                                $('#jqGrid').trigger('reloadGrid');
                             });
                         } else {
                             alert(r.msg);

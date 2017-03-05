@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.SysSedchuleLogMapper" >
+
+  <resultMap id="BaseResultMap" type="SysSedchuleLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="JOB_ID" property="jobId" jdbcType="VARCHAR" />
+    <result column="BEAN_NAME" property="beanName" jdbcType="VARCHAR" />
+    <result column="METHOD_NAME" property="methodName" jdbcType="VARCHAR" />
+    <result column="PARAMS" property="params" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ERROR" property="error" jdbcType="VARCHAR" />
+    <result column="TIMES" property="times" jdbcType="INTEGER" />
+    <result column="CRE_TIME" property="creTime" jdbcType="DATE" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID,
+    JOB_ID as jobId,
+    BEAN_NAME as beanName,
+    METHOD_NAME as methodName,
+    PARAMS,
+    STATUS,
+    ERROR,
+    TIMES,
+    CRE_TIME as creTime
+  </sql>
+
+  <!--获取定时记录-->
+  <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_SEDCHULE_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <!--分页查询定时记录-->
+  <select id="getList" resultMap="BaseResultMap" parameterType="util.PageUtils" >
+    select
+    <include refid="Base_Column_List" />
+    from SYS_SEDCHULE_LOG
+    order by cre_time desc, id
+  </select>
+
+  <!--删除定时记录-->
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from SYS_SEDCHULE_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <!--保存定时记录-->
+  <insert id="save" parameterType="SysSedchuleLog" >
+    insert into SYS_SEDCHULE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="jobId != null" >
+        JOB_ID,
+      </if>
+      <if test="beanName != null" >
+        BEAN_NAME,
+      </if>
+      <if test="methodName != null" >
+        METHOD_NAME,
+      </if>
+      <if test="params != null" >
+        PARAMS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="error != null" >
+        ERROR,
+      </if>
+      <if test="times != null" >
+        TIMES,
+      </if>
+      <if test="creTime != null" >
+        CRE_TIME,
+      </if>
+    </trim>
+
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="beanName != null" >
+        #{beanName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null" >
+        #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="creTime != null" >
+        #{creTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="SysSedchuleLog" >
+    update SYS_SEDCHULE_LOG
+    <set >
+      <if test="jobId != null" >
+        JOB_ID = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="beanName != null" >
+        BEAN_NAME = #{beanName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null" >
+        PARAMS = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null" >
+        ERROR = #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        TIMES = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="creTime != null" >
+        CRE_TIME = #{creTime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

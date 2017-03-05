@@ -8,6 +8,7 @@ import module.sys.service.ISysMenuService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,6 @@ import util.R;
 import java.util.HashMap;
 import java.util.List;
 
-;
 
 /**
  * 菜单
@@ -43,6 +43,17 @@ public class SysMenuController extends BaseController{
         return R.ok().put("page", page);
     }
 
+    /**
+     * 通过菜单id获取菜单信息
+     * @return
+     */
+    @RequestMapping("/info/{menuId}")
+    @RequiresPermissions("sys:menu:info")
+    public R info(@PathVariable String menuId) {
+        SysMenu menu = menuService.getMenuById(menuId);
+        return R.ok().put("menu", menu);
+    }
+
 
     /**
      * 批量删除菜单
@@ -62,7 +73,11 @@ public class SysMenuController extends BaseController{
     @RequestMapping("/save")
     @RequiresPermissions("sys:menu:save")
     public R saveMenu(@RequestBody SysMenu menu) {
-        verifyForm(menu);
+        try {
+            verifyForm(menu);
+        } catch (Exception e) {
+            return R.error(e.getMessage());
+        }
         menuService.saveMenu(menu);
         return R.ok();
     }
@@ -74,7 +89,11 @@ public class SysMenuController extends BaseController{
     @RequestMapping("/update")
     @RequiresPermissions("sys:menu:update")
     public R updateMenu(@RequestBody SysMenu menu) {
-        verifyForm(menu);
+        try {
+            verifyForm(menu);
+        } catch (Exception e) {
+            return R.error(e.getMessage());
+        }
         menuService.saveMenu(menu);
         return R.ok();
     }
@@ -122,13 +141,13 @@ public class SysMenuController extends BaseController{
     /**
      * 验证参数是否正确
      */
-    private void verifyForm(SysMenu menu) {
+    private void verifyForm(SysMenu menu) throws Exception{
         if (StringUtils.isBlank(menu.getMenuName())) {
             throw new RRException("菜单名称不能为空");
         }
 
-        if (null != menu.getMenuName()) {
-            throw new RRException("上级菜单名称不能为空");
+        if (StringUtils.isBlank(menu.getParentId())) {
+            throw new RRException("上级菜单id不能为空");
         }
 
         // 菜单
@@ -140,7 +159,7 @@ public class SysMenuController extends BaseController{
 
         // 上级菜单
         int parentType = MenuType.CATALOG.getValue();
-        if (menu.getMenuType() != 0) {
+        if (!"0".equals(menu.getParentId())) {
             SysMenu parentMenu = menuService.getMenuById(menu.getParentId());
             parentType = parentMenu.getMenuType();
         }

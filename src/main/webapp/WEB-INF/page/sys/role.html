@@ -12,11 +12,11 @@
             #end
 
             #if($shiro.hasPermission("sys:role:update"))
-                <a class="btn btn-default" @click="updateRole">修改</a>
+                <button type="button" class="btn btn-default" @click="updateRole">修改</button>
             #end
 
             #if($shiro.hasPermission("sys:role:delete"))
-                <a class="btn btn-default" @click="deleteRole">删除</a>
+                <button type="button" class="btn btn-default" @click="deleteRole">删除</button>
             #end
         </div>
         <table id="jqGrid"></table>
