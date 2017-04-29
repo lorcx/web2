@@ -51,6 +51,7 @@ public class Test {
 //        int myFlags = DEFAULT_SOUND | DEFAULT_LIGHTS;
 
         boolean hasVibrate = (DEFAULT_VIBRATE & myFlags) != 0;
+        System.out.println(hasVibrate);
         System.out.println(DEFAULT_VIBRATE & myFlags);
 
         System.out.println((char) 0x1A);
@@ -58,8 +59,11 @@ public class Test {
         boolean b2 = false;
         boolean b1 = true;
         b2 |= b1;
-        System.out.println(b2);
 
+        boolean b3 = b2 || b1;
+
+        System.out.println( "b2 : "+b2);
+        System.out.println( "b3 : "+b3);
 
         System.out.println("_________________________________________");
         boolean flag = true;
