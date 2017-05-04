@@ -1,5 +1,7 @@
 package common;
 
+import java.util.PriorityQueue;
+
 /**
  * 常量类
  * Created by lx on 2016/2/28.
@@ -32,6 +34,24 @@ public class Constant {
 
         private MenuType(int value) {
             this.value = value;
+        }
+    }
+
+    /**
+     * 定时任务状态
+     */
+    public enum ScheduleStatus {
+        NORMAL(0),
+        PAUSE(1);
+
+        private int value;
+
+        private ScheduleStatus(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
         }
     }
 }

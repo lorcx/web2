@@ -103,7 +103,7 @@ CREATE TABLE SYS_USER_ROLE
 /*==============================================================*/
 /* Table: SYS_SEDCHULE                                         */
 /*==============================================================*/
-create table SYS_SEDCHULE
+create table SYS_SCHEDULE
 (
    id              VARCHAR2(50) not null,
    bean_name       VARCHAR2(2500),
@@ -113,13 +113,13 @@ create table SYS_SEDCHULE
    status          VARCHAR2(5),
    remark          VARCHAR2(2000),
    cre_time        DATE,
-   CONSTRAINT PK_SYS_SEDCHULE_ID PRIMARY KEY (ID)
+   CONSTRAINT PK_SYS_SCHEDULE_ID PRIMARY KEY (ID)
 );
 
 /*==============================================================*/
 /* Table: SYS_SEDCHULE_LOG                                         */
 /*==============================================================*/
-create table SYS_SEDCHULE_LOG
+create table SYS_SCHEDULE_LOG
 (
    id          VARCHAR2(50) not null,
    job_id      VARCHAR2(50),
@@ -130,5 +130,5 @@ create table SYS_SEDCHULE_LOG
    error       VARCHAR2(4000),
    times       NUMBER(10),
    cre_time    DATE,
-   CONSTRAINT PK_SYS_SEDCHULE_LOG_ID PRIMARY KEY (ID)
+   CONSTRAINT PK_SYS_SCHEDULE_LOG_ID PRIMARY KEY (ID)
 )

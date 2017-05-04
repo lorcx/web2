@@ -3,10 +3,13 @@ package module.sys.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SysSedchuleLog implements Serializable {
-    private String id;
+public class SysSchedule implements Serializable{
 
-    private String jobId;
+    private static final long serialVersionUID = 1L;
+
+    public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
+
+    private String id;
 
     private String beanName;
 
@@ -14,11 +17,11 @@ public class SysSedchuleLog implements Serializable {
 
     private String params;
 
+    private String cronExpression;
+
     private String status;
 
-    private String error;
-
-    private Integer times;
+    private String remark;
 
     private Date creTime;
 
@@ -28,14 +31,6 @@ public class SysSedchuleLog implements Serializable {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(String jobId) {
-        this.jobId = jobId == null ? null : jobId.trim();
     }
 
     public String getBeanName() {
@@ -62,6 +57,14 @@ public class SysSedchuleLog implements Serializable {
         this.params = params == null ? null : params.trim();
     }
 
+    public String getCronExpression() {
+        return cronExpression;
+    }
+
+    public void setCronExpression(String cronExpression) {
+        this.cronExpression = cronExpression == null ? null : cronExpression.trim();
+    }
+
     public String getStatus() {
         return status;
     }
@@ -70,20 +73,12 @@ public class SysSedchuleLog implements Serializable {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getError() {
-        return error;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setError(String error) {
-        this.error = error == null ? null : error.trim();
-    }
-
-    public Integer getTimes() {
-        return times;
-    }
-
-    public void setTimes(Integer times) {
-        this.times = times;
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public Date getCreTime() {
@@ -96,15 +91,14 @@ public class SysSedchuleLog implements Serializable {
 
     @Override
     public String toString() {
-        return "SysSedchuleLog{" +
+        return "SysSedchule{" +
                 "id='" + id + '\'' +
-                ", jobId='" + jobId + '\'' +
                 ", beanName='" + beanName + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", params='" + params + '\'' +
+                ", cronExpression='" + cronExpression + '\'' +
                 ", status='" + status + '\'' +
-                ", error='" + error + '\'' +
-                ", times=" + times +
+                ", remark='" + remark + '\'' +
                 ", creTime=" + creTime +
                 '}';
     }

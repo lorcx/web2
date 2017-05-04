@@ -3,8 +3,10 @@ package module.sys.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SysSedchule implements Serializable{
+public class SysScheduleLog implements Serializable {
     private String id;
+
+    private String jobId;
 
     private String beanName;
 
@@ -12,11 +14,11 @@ public class SysSedchule implements Serializable{
 
     private String params;
 
-    private String cronExpression;
-
     private String status;
 
-    private String remark;
+    private String error;
+
+    private Integer times;
 
     private Date creTime;
 
@@ -26,6 +28,14 @@ public class SysSedchule implements Serializable{
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId == null ? null : jobId.trim();
     }
 
     public String getBeanName() {
@@ -52,14 +62,6 @@ public class SysSedchule implements Serializable{
         this.params = params == null ? null : params.trim();
     }
 
-    public String getCronExpression() {
-        return cronExpression;
-    }
-
-    public void setCronExpression(String cronExpression) {
-        this.cronExpression = cronExpression == null ? null : cronExpression.trim();
-    }
-
     public String getStatus() {
         return status;
     }
@@ -68,12 +70,20 @@ public class SysSedchule implements Serializable{
         this.status = status == null ? null : status.trim();
     }
 
-    public String getRemark() {
-        return remark;
+    public String getError() {
+        return error;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setError(String error) {
+        this.error = error == null ? null : error.trim();
+    }
+
+    public Integer getTimes() {
+        return times;
+    }
+
+    public void setTimes(Integer times) {
+        this.times = times;
     }
 
     public Date getCreTime() {
@@ -86,14 +96,15 @@ public class SysSedchule implements Serializable{
 
     @Override
     public String toString() {
-        return "SysSedchule{" +
+        return "SysScheduleLog{" +
                 "id='" + id + '\'' +
+                ", jobId='" + jobId + '\'' +
                 ", beanName='" + beanName + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", params='" + params + '\'' +
-                ", cronExpression='" + cronExpression + '\'' +
                 ", status='" + status + '\'' +
-                ", remark='" + remark + '\'' +
+                ", error='" + error + '\'' +
+                ", times=" + times +
                 ", creTime=" + creTime +
                 '}';
     }

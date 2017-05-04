@@ -24,7 +24,7 @@ public interface BaseDao<T> {
 
     int update(T t);
 
-    int updateBatch(List<T> list);
+    int updateBatch(Map<String, Object> params);
 
     List<T> getList(Map<String, Object> params);
 

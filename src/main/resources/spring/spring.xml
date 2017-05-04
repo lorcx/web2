@@ -8,7 +8,7 @@
 	<import resource="classpath:spring/spring-mvc.xml"/>
 	<import resource="classpath:spring/spring-jdbc.xml"/>
 	<import resource="classpath:spring/spring-shiro.xml"/>
-	<!--<import resource="classpath:spring-scheduler.xml"/>-->
+	<import resource="classpath:spring/spring-schedule.xml"/>
 	
 	<!-- <import resource="classpath:spring-redis.xml"/> -->
 </beans>
