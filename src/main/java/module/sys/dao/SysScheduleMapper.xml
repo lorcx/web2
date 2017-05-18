@@ -24,6 +24,12 @@
     CRE_TIME
   </sql>
 
+  <sql id="list_sql">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_SCHEDULE
+  </sql>
+
   <!--获取定时信息-->
   <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -34,10 +40,14 @@
 
   <!--分页查询定时信息-->
   <select id="getSecheduleListBypage" resultMap="BaseResultMap" parameterType="util.PageUtils" >
-    select
-    <include refid="Base_Column_List" />
-    from SYS_SCHEDULE
-    where CRE_TIME desc, id
+    <include refid="list_sql" />
+    order by CRE_TIME desc, id
+  </select>
+
+  <!--普通查询-->
+  <select id="getList" resultMap="BaseResultMap" parameterType="util.PageUtils" >
+    <include refid="list_sql" />
+    order by CRE_TIME desc, id
   </select>
 
   <!--删除定时信息-->

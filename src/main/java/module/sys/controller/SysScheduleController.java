@@ -126,8 +126,8 @@ public class SysScheduleController {
      * @param scheduleIds
      * @return
      */
-    @RequestMapping("/run")
-    @RequiresPermissions("sys:schedule:run")
+    @RequestMapping("/pause")
+    @RequiresPermissions("sys:schedule:pause")
     public R pauseSchedule(@RequestBody String[] scheduleIds) {
         scheduleService.pause(scheduleIds);
         return R.ok();
@@ -138,8 +138,8 @@ public class SysScheduleController {
      * @param scheduleIds
      * @return
      */
-    @RequestMapping("/run")
-    @RequiresPermissions("sys:schedule:run")
+    @RequestMapping("/resume")
+    @RequiresPermissions("sys:schedule:resume")
     public R resumeSchedule(@RequestBody String[] scheduleIds) {
         scheduleService.resume(scheduleIds);
         return R.ok();
