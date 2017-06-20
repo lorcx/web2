@@ -28,4 +28,4 @@
 <%-- Metis Menu Plugin JavaScript --%>
 <script type="text/javascript" src="<%=basePath%>/plug_in/metisMenu/metisMenu.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/custom.js"></script>
-<script type="text/javascript" src="<%=basePath%>/js/common.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/util.js"></script>

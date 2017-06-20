@@ -1,3 +1,4 @@
+
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/common/taglib.jsp" %>
 <%String basePath = request.getContextPath();%>
@@ -74,7 +75,7 @@
 	 <script type="text/javascript" src="<%=basePath%>/plug_in/toastr/toastr.js"></script>
 	 <script type="text/javascript" src="<%=basePath%>/js/login/login.js"></script>
 	 <script type="text/javascript" src="<%=basePath%>/js/login/tooltips.js"></script>
-	 <script type="text/javascript" src="<%=basePath%>/js/common.js"></script>
+	 <script type="text/javascript" src="<%=basePath%>/js/util.js"></script>
 	 <script type="text/javascript">
 		 	$(function (){
 				//将cookie中的密码填入（未加密）

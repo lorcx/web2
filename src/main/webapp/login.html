@@ -78,6 +78,7 @@
 <script src="statics/plug_in/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="statics/plug_in/fastclick/fastclick.min.js"></script>
 <script src="statics/plug_in/adminLTE/app.js"></script>
+<script src="js/common.js"></script>
 <script type="text/javascript">
     var vm = new Vue({
         el : '#web2app',
@@ -107,7 +108,7 @@
                 var data = 'username=' + vm.username + '&password=' + vm.password + '&captcha=' + vm.captcha;
                 $.ajax({
                     type : 'POST',
-                    url : '/sys/login',
+                    url : getContextPaht() + '/sys/login',
                     data : data,
                     dataType : 'json',
                     success : function (result) {
